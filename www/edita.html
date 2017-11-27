@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.min.css" />
+    <link rel="stylesheet" href="css/spinner.css" />
+    
+    <script src="jquery-1.10.2.min.js"></script>
+
+    <title>Next</title>
+	
+	<style>
+
+		/* Always set the map height explicitly to define the size of the div
+		 * element that contains the map. */
+	#map {
+		position: fixed;
+		z-index: 11;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 25%;
+	}
+	/* Optional: Makes the sample page fill the window. */
+	html, body {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		font-size:12px;
+		-webkit-user-select:none;
+		-webkit-text-size-adjust:none;
+		font-family:helvetica;
+		
+		text-decoration:none;
+	}
+	#floating-panel {
+		position: absolute;
+		top: 10px;
+		left: 25%;
+		z-index: 5;
+		background-color: #fff;
+		padding: 5px;
+		border: 1px solid #999;
+		text-align: center;
+		font-family: 'Roboto','sans-serif';
+		line-height: 30px;
+		padding-left: 10px;
+	}
+	
+	.div1 {
+		z-index: 2;
+		background-color: #0abab5;
+		height: 52px;
+		top:0;
+		border: none;
+		
+		vertical-align: middle;
+	}
+	
+    .scrivo {
+        display: block;
+        width: 90%;
+        margin: 0px;
+        border: solid 0.5px #dcdcdc;
+        font-family: sans-serif;
+        font-size: 20px;
+        appearance: none;
+        box-shadow: none;
+        border-radius: none;
+        
+        -webkit-appearance: none;
+        -webkit-border-radius:0px;
+        @include border-radius(0);
+    }
+	</style>
+    
+    
+</head>
+
+<body>
+
+	<input id="address" type="hidden" value="Roma Italia">
+		
+		<table align="center" width="100%" valign="center" border="0" class="div1">
+			<tr>
+				
+			</tr>
+			<tr>
+				<td width="20%" align="center"><a id="indietro"><img src="img/sinistra.png" height="30"></a></td>
+				<td align="center" valign="center" width="60%"><font color="#fff" size="3"><b>Taglia la Fila</b></font></td>
+				<td width="20%" align="center"></td>
+			</tr>
+		</table>
+         <div class="spinner" id="spinner"></div>
+        <form name="formia" action="entra.asp" method="post">
+            
+        <center><br>
+        <font size=""><b>MODIFICA DATI</b></font>
+        <br><input type="text" data-role="none" name="nome" id="nome" value="" placeholder="Nome" class="scrivo"><br>
+        <br><input type="text" data-role="none" name="cognome" id="cognome" value="" placeholder="Cognome" class="scrivo"><br>
+        <br><input type="text" data-role="none" name="citta" id="citta" value="" placeholder="Citta" class="scrivo"><br>
+        <br><input type="text" data-role="none" name="indirizzo" id="indirizzo" value="" placeholder="Indirizzo" class="scrivo"><br>
+        <br><input type="text" data-role="none" name="civico" id="civico" value="" placeholder="civico" class="scrivo"><br>
+        <br><input type="text" data-role="none" name="cap" id="cap" value="" placeholder="cap" class="scrivo"><br>
+        <br><input type="text" data-role="none" name="telefono" id="telefono" value="" placeholder="Telefono" class="scrivo"><br>
+        <br><input type="hidden" data-role="none" name="emailreg" id="emailreg" value="" placeholder="Email" class="scrivo"><br>
+        
+        <img id="pullaggiorna" src="img/update.png" width="40">
+
+	<!--<table width="100%" align="center">
+		<tr>
+			<td width="100%" align="center"><img src="img/immagine.jpg" width="100%"></td>
+		</tr>
+		<tr>
+			<td width="100%" align="center"><br><img src="img/stellagialla.png"><img src="img/stellagialla.png"><img src="img/stellagialla.png"><img src="img/stellagrigia.png"><img src="img/stellagrigia.png"></td>
+		</tr>
+		<tr>
+			<td width="100%" align="left"><font color='#000' size='2'><b>Citta</b></font></td>
+		</tr>
+		<tr>
+			<td width="100%" align="left"><font color='#000' size='2'><b>Indirizzo</b></font></td>
+		</tr>
+		<tr>
+			<td width="100%" align="left"><a id="indirizzoneg"> Citta</a></td>
+		</tr>
+		
+	</table>-->
+	<br>
+	</fom>
+	</center>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/edita.js"></script>
+    
+    <script type="text/javascript">
+        //app.initialize();
+		
+        function back() {
+            
+            window.plugins.nativepagetransitions.slide({
+                'direction': 'right',
+                'duration': 400,
+                'androiddelay': 50,
+                'href': 'index.html'
+            });
+        }
+
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>My Page</title> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="jw-jqm-cal.css" />
+<script type="text/javascript" src="jw-jqm-cal.js"></script>
+
+
+</head> 
+<body>
+        <div data-role="page" id="index">
+            <div data-theme="b" data-role="header">
+                <h1>Index page</h1>
+            </div>
+            
+            <div data-role="content">
+                <div id="calendar"></div>
+            </div>
+			
+			<table border="1"><tr><td><div id="pippo"></div></td></tr></table>
+            
+            <br><br>
+            <a href="../index.html">HOME</a>
+			
+        </div>    
+		
+<script type="text/javascript">
+$(document).on('pageinit', '#index', function(){ 
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+    
+    $("#calendar").jqmCalendar({
+        events: [{
+            "summary": "Meet PM",
+            "begin": new Date(y,m, 27,10 ),
+            "end": new Date(y, m, 27,12)
+            
+        }, {
+            "summary": "Dinner",
+            "begin": new Date(y, m, 27,12),
+            "end": new Date(y, m, 27,13)
+            
+        }, {
+            "summary": "Lunch with Friends",
+            "begin": new Date(y, m, 29,14),
+            "end": new Date(y, m, 29,16)
+            
+        }, 
+                ],
+                 months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        days: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+        startOfWeek: 0
+        
+    });
+    
+
+    
+    $("#calendar").bind('change', function(event, date) {
+   
+    var events = $("#calendar").data("jqm-calendar").settings.events;
+   
+    for ( var i = 0; i < events.length; i++ ) {
+        if ( events[i].begin.getFullYear() == date.getFullYear() && // same year?
+             events[i].begin.getMonth() == date.getMonth() &&        // same month?
+             events[i].begin.getDate() == date.getDate() ) {        // same date?
+             
+             return false;
+        }
+    }
+	
+    
+     alert(date.getDate() + "/" + date.getMonth());
+	 
+	  $("#pippo").html(date.getDate() + "/" + date.getMonth());
+   });
+});
+</script>
+    </body>
+</html>

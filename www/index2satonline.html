@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Geolocation</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			
+			<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+				
+				<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.min.css" />
+				<link rel="stylesheet" href="themes/MyCollection.css" />
+				<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+				<link rel="stylesheet" href="css/spinner.css" />
+				<link rel="stylesheet" href="font.css">
+					
+					<meta name="apple-mobile-web-app-capable" content="yes">
+						<meta name="apple-mobile-web-app-status-bar-style" content="white">
+							
+							<script src="quo.js"></script>
+                            <script src="jquery-1.10.2.min.js"></script>
+							<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+							<script src="js/jquery.mobile-1.4.2.min.js"></script>
+                            
+                            <script type="text/javascript" src="js/iscroll4.js"></script>
+                            
+							<script type='application/javascript' src='fastclick.js'></script>
+                            
+                            <script type="text/javascript" src="cordova.js"></script>
+                            <script type="text/javascript" src="js/indexsatonline.js"></script>
+							
+							
+
+
+<style type="text/css" media="all">
+    
+    
+    body,ul,li {
+        padding:10px;
+        margin:0;
+    }
+
+
+body {
+    font-size:12px;
+    -webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+    font-family:helvetica;
+}
+
+
+#wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 52px;
+    bottom: 80px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+}
+
+#wrapper2 {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+}
+
+#scroller {
+    position: absolute;
+    z-index: 1;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    width: 100%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+#scroller ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+}
+
+#scroller li {
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+
+.Large {
+    font-size: 20pt;
+}
+
+
+
+.ui-mobile, .ui-mobile .ui-page, .ui-mobile [data-role="page"],
+.ui-mobile [data-role="dialog"], .ui-page, .ui-mobile .ui-page-active {
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.div1 {
+    background-color: #FFFFFF;
+    height: 52px;
+    border: none;
+    
+    vertical-align: middle;
+}
+.div2 {
+    background-color: #FFFFFF;
+}
+.div3 {
+    background-color: #37b658;
+    border: none;
+    margin:0 auto;
+    height: 10px;
+    
+}
+.div4 {
+    height: 52px;
+    
+     background-color: #000;
+}
+.trBorderCell
+{
+    height: 30px;
+    width: 320px;
+    background: rgba(0,0,0,.6);
+    
+}
+
+.margine
+{
+    margin:0 auto;
+}
+
+.arrotondamento
+{
+    border-radius: 8px;
+    -moz-border-radius: 8px; /* firefox */
+    -webkit-border-radius: 8px; /* safari, chrome */
+}
+.custom-btn {
+    text-decoration: none;
+    text-shadow:0 0 0;
+    
+    width: 300px;
+}
+
+.custom-btn2 {
+    width: 280px;
+}
+
+.custom-btn3 {
+    width: 100px;
+    
+}
+
+.big { height: 80px;}
+.big .ui-btn-inner { padding-top:25px; }
+
+table.tablesorter {
+    font-family:arial;
+    background-color: #f0f0f0;
+    margin:10px 0pt 15px;
+    font-size: 8pt;
+    width: 95%;
+    text-align: left;
+    border: 0px solid #FFF;
+    
+    border-radius: 5px;
+    -moz-border-radius: 5px; /* firefox */
+    -webkit-border-radius: 5px; /* safari, chrome */
+    
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+    background-color: #B40431;
+    border: 1px solid #FFF;
+    font-size: 8pt;
+    padding: 4px;
+    width: 55%;
+    
+    border-radius: 5px;
+    -moz-border-radius: 5px; /* firefox */
+    -webkit-border-radius: 5px; /* safari, chrome */
+    
+}
+table.tablesorter thead tr .header {
+    background-image: url(bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+table.tablesorter tbody td {
+    color: #B40431;
+    padding: 4px;
+    background-color: #FFF;
+    vertical-align: top;
+    
+}
+table.tablesorter tbody tr.odd td {
+    background-color:#000000;
+}
+table.tablesorter thead tr .headerSortUp {
+    background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+    background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+    background-color: #B40431;
+    
+}
+
+
+.circolare {
+    width: 30px;
+    height: 30px;
+    border-radius:999em;
+    -moz-border-radius:999em;
+    -webkit-border-radius:999em;
+    -o-border-radius: 999em;
+    
+    -webkit-box-shadow: 0px 0px 0.5px 0.5px #000;
+    -moz-box-shadow: 0px 0px 0.5px 0.5px #000;
+    box-shadow: 0px 0px 0.5px 0.5px #000;
+}
+
+a {text-decoration:none;}
+
+.styled-select select {
+    background: transparent;
+    width: 268px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+}
+
+
+.banner33 {
+	
+   /* left:0px; */
+	
+	text-align: center;
+    bottom:0px;
+	width: 100%;
+	
+	position: absolute;
+	z-index: 10;
+	
+
+}
+
+hr.style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mynav .ui-select, .mynav .ui-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 2px;
+    margin-right: 2px !important;
+}
+.conn {
+    font-size: 9pt;
+    color:#FFF;
+    background-color: #FFF;
+}
+
+.visione {
+    color:#000;
+    font-size: 9pt;
+    text-decoration: none;
+    text-shadow:0 0 0;
+}
+
+
+.scrivo {
+    display: block;
+    width: 90%;
+    margin: 0px;
+    border: solid 0.5px #dcdcdc;
+    font-family: sans-serif;
+    font-size: 20px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    
+    
+    -webkit-appearance: none;
+    -webkit-border-radius:0px;
+    @include border-radius(0);
+    
+    
+}
+
+.scrivo2 {
+    display: block;
+    width: 75%;
+    margin: 0px;
+    border: solid 0.5px #dcdcdc;
+    font-family: sans-serif;
+    font-size: 20px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    
+    -webkit-appearance: none;
+    -webkit-border-radius:0px;
+    @include border-radius(0);
+}
+
+
+    </style>
+
+
+		</head>
+    <body>
+		
+		<div data-role=page id="home" data-add-back-btn=true class="div2">
+
+			<div data-role="header" data-theme="c" data-position="fixed" data-tap-toggle="false" class="div4">
+				<table align="center" width="100%" valign="center" border="0">
+					<tr>
+                        <td width="20%" align="center">
+                            <a id="indietro" ><img src="img/back.png" width="30px"></a>
+                        </td>
+						<td width="60%" align="center"><font size="4" class="#" color="#fff">Sat OnLine</font>
+						</td>
+                        <td width="20%" align="center">
+                            <a id="altro" ><img src="img/menu.png" width="30px"></a>
+                        </td>
+					</tr>
+				</table>
+			</div>
+            <a href="#mypanelH" data-role=button id=btnpanel data-theme="b" style="display:none"></a>
+            
+              <div class="spinner" id="spinner1"></div>
+                            
+            <div id="wrapper">
+                <div id="scroller">
+                        
+                        <img id="bannerhome" src="img/satonline.jpg" width="100%"><br>
+                        
+                        <table id="classifica" align="center" width="95%" valign="center" border="0"></table>
+                        
+                       <!-- <br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd f<br><br><br>jdkfjdk  fkdjfsd f sfjfds fsdj fsd fjs sj fksd -->
+                        
+                 </div>
+               </div>
+			
+                <center>
+                <div id="linkbenner" class="banner33" align="center"><table border="0" width="100%"><tr><td width="100%"><img id="bennergiu2" src="img/piu.jpg" width="320"></td></tr></table></div>
+                
+                <div data-role="panel" id="mypanelH" style="overflow-y: scroll" data-position="right" data-display="overlay" width="100%" data-theme="c">
+                    <center>
+                        <br><img id="imgfoto22" src="premi.jpg" width="170px" class="banner2"><br><br>
+                            <ul data-role="listview" data-inset="true">
+                                <!--<li><a id="mandaemail" href="#">Contattaci</a></li>-->
+                                <li><a id="redraw" href="#">Redraw tavoli</a></li>
+                                <li><a id="programma" href="#">Programma Evento</a></li>
+                                <!--<li><a id="esci" href="#" rel="external">Esci</a></li>-->
+                            </ul>
+                            
+                            </center>
+                    
+                    <br>
+                    
+                    <table border="0" align="left" width="100%">
+                        <tr><td align="left" colspan="2"><b>Seguici su:</b></td></tr>
+                        <tr><td align="left" width="30%"><a id="gofacebook" href='#'><img src="img/social1.png" height="40px"></td><td align="left" width="70%">&nbsp;&nbsp;<a id="goinsta" href='#'><img src="img/cdsevent.png" width="60"></a><br></td></tr>
+                        <tr><td align="left" colspan="2"><br></td></tr>
+                        <!--<tr><td align="left" colspan="2"><br><img id="imgfoto22" src="premi.jpg" width="100px"></td></tr>-->
+                    </table>
+                    
+                </div>
+			
+		</div>
+		
+    </body>
+</html>

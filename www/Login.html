@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+		<meta property="og:locale" content="en_US" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="font.css">
+			
+		<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.min.css" />
+		<link rel="stylesheet" href="themes/negozio.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/spinner.css" />
+		
+		<script src="jquery-1.10.2.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+		
+		<script type="text/javascript" src="js/iscroll.js"></script>
+		
+		
+		<script type="text/javascript">
+			
+			var myScroll;
+			
+			function loaded () {
+				myScroll = new IScroll('#wrapper', { click: true });
+				setTimeout (function(){
+					myScroll.refresh();
+				}, 1500);
+			}
+		
+		document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 300); }, false);
+		
+		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		
+		</script>
+		
+		
+		<title>FoodApp</title>
+		
+		<style type="text/css" media="all">
+
+		
+		body,ul,li {
+			padding:10px;
+			margin:0;
+		}
+		
+		body {
+			font-size:12px;
+			-webkit-user-select:none;
+			-webkit-text-size-adjust:none;
+			font-family:helvetica;
+		}
+		
+		
+		#wrapper {
+			position: absolute;
+			z-index: 1;
+			top: 5px;
+			bottom: 0px;
+			left: 0;
+			width: 100%;
+			background: #fff;
+			overflow: hidden;
+		}
+		
+		#wrapper2 {
+			position: absolute;
+			z-index: 1;
+			top: 5px;
+			bottom: 0px;
+			left: 0;
+			width: 100%;
+			background: #fff;
+			overflow: hidden;
+		}
+		
+		#scroller {
+			position: absolute;
+			z-index: 1;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			width: 100%;
+			-webkit-transform: translateZ(0);
+			-moz-transform: translateZ(0);
+			-ms-transform: translateZ(0);
+			-o-transform: translateZ(0);
+			transform: translateZ(0);
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-text-size-adjust: none;
+			-moz-text-size-adjust: none;
+			-ms-text-size-adjust: none;
+			-o-text-size-adjust: none;
+			text-size-adjust: none;
+		}
+		
+		#scroller ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			text-align: left;
+		}
+		
+		#scroller li {
+			padding: 0 10px;
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid #fff;
+			border-top: 1px solid #fff;
+			background-color: #fff;
+			font-size: 14px;
+		}
+		
+		
+		.Large {
+			font-size: 20pt;
+		}
+		
+		
+	    </style>
+		
+		<style>
+			
+			
+			.ui-mobile, .ui-mobile .ui-page, .ui-mobile [data-role="page"],
+			.ui-mobile [data-role="dialog"], .ui-page, .ui-mobile .ui-page-active {
+				overflow: hidden;
+				-webkit-backface-visibility: hidden;
+			}
+		
+			.div1 {
+				background-color: #000;
+				height: 52px;
+				border: none;
+				
+				vertical-align: middle;
+			}
+			.div2 {
+				background-color: #FFFFFF;
+			}
+		.div3 {
+			background-color: #37b658;
+			border: none;
+			margin:0 auto;
+			height: 10px;
+
+		}
+		.div4 {
+			background: rgb(125,126,125); /* Old browsers */
+			background: -moz-linear-gradient(45deg, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
+			background: linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		}
+		.trBorderCell
+		{
+			height: 30px;
+			width: 320px;
+			background: rgba(0,0,0,.6);
+			
+		}
+		
+		.margine
+		{
+			margin:0 auto;
+		}
+		
+		.arrotondamento
+		{
+			border-radius: 8px;
+			-moz-border-radius: 8px; /* firefox */
+			-webkit-border-radius: 8px; /* safari, chrome */
+		}
+		.custom-btn {
+			text-decoration: none;
+			text-shadow:0 0 0;
+			
+			width: 280px;
+		}
+		
+		.custom-btn2 {
+			width: 300px;
+		}
+		
+		.custom-btn3 {
+			width: 100px;
+			
+		}
+		
+		.big { height: 80px;}
+		.big .ui-btn-inner { padding-top:25px; }
+		
+		table.tablesorter {
+			font-family:arial;
+			background-color: #f0f0f0;
+			margin:10px 0pt 15px;
+			font-size: 8pt;
+			width: 95%;
+			text-align: left;
+			border: 0px solid #FFF;
+			
+			border-radius: 5px;
+			-moz-border-radius: 5px; /* firefox */
+			-webkit-border-radius: 5px; /* safari, chrome */
+			
+		}
+		table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+			background-color: #B40431;
+			border: 1px solid #FFF;
+			font-size: 8pt;
+			padding: 4px;
+			width: 55%;
+			
+			border-radius: 5px;
+			-moz-border-radius: 5px; /* firefox */
+			-webkit-border-radius: 5px; /* safari, chrome */
+			
+		}
+		table.tablesorter thead tr .header {
+			background-image: url(bg.gif);
+			background-repeat: no-repeat;
+			background-position: center right;
+			cursor: pointer;
+		}
+		table.tablesorter tbody td {
+			color: #B40431;
+			padding: 4px;
+			background-color: #FFF;
+			vertical-align: top;
+			
+		}
+		table.tablesorter tbody tr.odd td {
+			background-color:#000000;
+		}
+		table.tablesorter thead tr .headerSortUp {
+			background-image: url(asc.gif);
+		}
+		table.tablesorter thead tr .headerSortDown {
+			background-image: url(desc.gif);
+		}
+		table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+			background-color: #B40431;
+			
+		}
+		
+
+.circolare {
+	width: 30px;
+	height: 30px;
+	border-radius:999em;
+	-moz-border-radius:999em;
+	-webkit-border-radius:999em;
+	-o-border-radius: 999em;
+	
+	-webkit-box-shadow: 0px 0px 0.5px 0.5px #000;
+	-moz-box-shadow: 0px 0px 0.5px 0.5px #000;
+	box-shadow: 0px 0px 0.5px 0.5px #000;
+}
+		
+a {text-decoration:none;}
+
+.styled-select select {
+	background: transparent;
+	width: 268px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;
+}
+		
+		.banner {
+			left:110px;
+			bottom:20px;
+			position: fixed;
+			
+			margin-left: auto ;
+			margin-right: auto ;
+			
+		}
+		
+		hr.style-six {
+			border: 0;
+			height: 0;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		}
+		
+		.mynav .ui-select, .mynav .ui-btn {
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: 2px;
+			margin-right: 2px !important;
+		}
+		.conn {
+			font-size: 9pt;
+			color:#FFF;
+			background-color: #FFF;
+		}
+
+		.visione {
+			color:#000;
+			font-size: 9pt;
+			text-decoration: none;
+			text-shadow:0 0 0;
+		}
+		
+		.scrivo {
+			display: block;
+			width: 90%;
+			margin: 0px;
+			border: solid 0.5px #dcdcdc;
+			font-family: sans-serif;
+			font-size: 20px;
+			appearance: none;
+			box-shadow: none;
+			border-radius: none;
+			
+			-webkit-appearance: none;
+			-webkit-border-radius:0px;
+			@include border-radius(0);
+		}
+		
+		
+
+		</style>
+		
+    </head>
+    <body>
+		
+		
+		<div id="page" data-role="page" class="div2" >
+
+			<div class="spinner" id="spinner"></div>
+			
+			<div id="wrapper">
+				<div id="scroller">
+
+			<center>
+			<br>
+			<font size="4" color="#000">Taglia la Fila</font><br>
+            <br><br>
+
+			<table id="formreg" align="center" width="90%">
+				<tr id="campireg">
+					<td colspan="2" width="320px" align="left">
+						 <form name="formia2" action="entra2.asp" method="post">
+						 <input type="text" data-role="none" name="email" id="email" value="" placeholder="Username" class="scrivo">
+						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="password" data-role="none" name="password" id="password" value="" placeholder="Inserire la password" class="scrivo">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<a href="#" id="accedi" data-role="button" class="custom-btn" data-theme="a"><font size="4">Accedi</font></a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						&nbsp;
+					</td>
+				</tr>
+
+
+				
+                </form>
+				<tr>
+					<td colspan="2" align="center">
+						<br>
+						<div id="stamp"></div>
+					</td>
+				</tr>
+				
+				
+			</table>
+			<br><br><br>
+			
+			
+			<!--<a id="prova" href="#"><font color="#000" size="5"></font></a>-->
+			
+			<table align="center" width="95%">
+			<tr>
+				<td width="60%" align="left">
+					<br>
+				</td>
+				<td width="40%" align="center">
+					<a href="#" id="pagi7" data-role="button" class="custom-btn3" data-theme="a"><font color="#FFF" size="4">Iscriviti</font></a>
+				</td>
+			</tr>
+			
+			</table>
+            
+            <br><br>
+            <img src="img/logo.png" width="50">
+			
+
+		</div>
+			</div>
+			
+		
+		
+		</div><!-- /page4 -->
+		
+		
+		
+		<div id="page7" data-role="page" class="div2" >
+			<!--<div data-role="header" data-theme="c" data-position="fixed" data-tap-toggle="false" class="div1">
+				<table align="center" width="100%" valign="center" border="0"><tr><td></td></tr><tr><td align="center" valign="center"><img src="img/Logo.png" height="80px"></td></tr></table>
+			</div>-->
+            
+            <div id="wrapper2">
+                <div id="scroller">
+            
+			<br>
+			<center>
+			<font size="4" color="#000">Taglia la Fila</font><br>
+			<div class="spinner" id="spinner2"></div>
+			<center>
+				
+				<table id="formreg" align="center" width="320px">
+					<tr>
+						<td width="320px" align="left">
+							<form name="formia" action="entra.asp" method="post">
+
+								<input type="text" data-role="none" name="emailreg" id="emailreg" value="" placeholder="Email" class="scrivo"><br>
+								<input type="text" data-role="none" name="pinreg" id="pinreg" value="" placeholder="Password" class="scrivo"><br>
+								<input type="text" data-role="none" name="nick" id="nick" value="" placeholder="Nome" class="scrivo"><br>
+								
+								<table id="tabellapatente" style="display:none"><tr><td>
+                                Patente N.<br><input type="text" data-role="none" name="patente" id="patente" value="" placeholder="N. Patente" class="scrivo"><br>
+                                Scadenza<br>
+                                <select id="patentemese" data-theme="a">
+                                    <option value="Mese">Mese</option>
+                                    <option value="Gennaio">Gennaio</option>
+                                    <option value="Febbraio">Febbraio</option>
+                                    <option value="Marzo">Marzo</option>
+                                    <option value="Aprile">Aprile</option>
+                                    <option value="Maggio">Maggio</option>
+                                    <option value="Giugno">Giugno</option>
+                                    <option value="Luglio">Luglio</option>
+                                    <option value="Agosto">Agosto</option>
+                                    <option value="Settembre">Settembre</option>
+                                    <option value="Ottobre">Ottobre</option>
+                                    <option value="Novembre">Novembre</option>
+                                    <option value="Dicembre">Dicembre</option>
+                                </select><br>
+                                <select id="patenteanno" data-theme="a">
+                                    <option value="Anno" selected>Anno</option>
+                                    <option value="2016">2016</option>
+									<option value="2017">2017</option>
+									<option value="2018">2018</option>
+									<option value="2019">2019</option>
+									<option value="2020">2020</option>
+									<option value="2021">2021</option>
+									<option value="2022">2022</option>
+									<option value="2023">2023</option>
+									<option value="2024">2024</option>
+									<option value="2025">2025</option>
+                                </select>
+								</td></tr></table>
+								
+								<br><center>
+											
+								<a href="#" id="iscriviti" data-role="button" data-theme="a" class="custom-btn"><font size="4">Iscriviti</font></a></center>
+							</form>
+						</td>
+					</tr>
+				</table>
+				<br>
+                
+				<table align="center" width="320px">
+					<tr>
+						<td width="220px" align="left">
+							&nbsp;&nbsp;Hai un account?
+						</td>
+						<td width="100px" align="right">
+							<!--<a href="#page" ><font color="#000">Accedi</a>&nbsp;&nbsp;-->
+							<a href="#" id="accedi1" data-role="button" class="custom-btn3" data-theme="a"><font color="#FFF" size="4">Accedi</font></a>
+						</td>
+					</tr>
+				</table>
+                <!--<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf<br><br><br><br>fsfssdfsdfsdf-->
+                
+                </div>
+            </div>
+				
+				
+				<div data-role="footer" align="center" data-theme="a" data-position="fixed" data-tap-toggle="false" class="div1">
+					<table id="idfooter4" width="100%" align="center">
+						<tr>
+							<td width="220px" align="center"><font color='#FFF' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)
+								</td>
+						</tr></table>
+				</div><!-- /footer6 -->
+				</div><!-- /page6 -->
+		
+		<div id="page8" data-role="page" class="div2" >
+
+			<div class="spinner" id="spinner3"></div>
+			<center>
+				
+				<table id="formreg" align="center" width="320px">
+					
+					<tr>
+						<td width="320px" align="center">
+							<form name="formia8" action="entra.asp" method="post">
+								
+							</form>
+						</td>
+					</tr>
+				</table>
+				
+				<div data-role="footer" align="center" data-theme="a" data-position="fixed" data-tap-toggle="false" class="div1">
+					<table id="idfooter4" width="100%" align="center">
+						<tr>
+							<td width="220px" align="center"><font color='#FFF' size="1"> <a href="#" id="indietro8" data-role="button" data-theme="a" class="custom-btn"><font color="e260fe" size="4">Conferma</font></a>
+						</td>
+						</tr>
+						
+					</table>
+				</div><!-- /footer6 -->
+				</div><!-- /page6 -->
+
+		
+
+		
+        <script type="text/javascript" src="cordova.js"></script>
+        <script src="openfb.js"></script>
+        <script type="text/javascript" src="js/Login.js"></script>
+
+		
+    </body>
+</html>

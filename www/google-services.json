@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "349503210724",
+    "project_id": "firebase-aermes"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349503210724:android:21c964a2e6820af5",
+        "android_client_info": {
+          "package_name": "it.aermes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3bTy3zMbyvd4U8j1N5r-WMtgHt66geu0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

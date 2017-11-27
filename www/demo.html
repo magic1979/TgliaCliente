@@ -1,0 +1,199 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>My Page</title> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="jw-jqm-cal.css" />
+<script type="text/javascript" src="jw-jqm-cal.js"></script>
+
+
+<style>
+
+.spinnero {
+   height:100%;
+   width:100%;
+   
+   margin:0px auto;
+   position:fixed;
+   top: 0px;
+   left: 0px;
+  
+   background-color:#000;
+
+   z-index: 10;
+}
+
+.pippo {
+   height:150px;
+   width:150px;
+   
+   margin:0px auto;
+   position:fixed;
+   top: 50%;
+   left: 50%;
+   margin-top: -75px;
+   margin-left: -75px;
+
+   
+   z-index: 9999;
+}
+
+.div11 {
+    background-color: #f0f0f0;
+    height: 52px;
+    border: none;
+    
+    vertical-align: middle;
+}
+
+
+</style>
+
+
+</head>
+<body>
+        <div data-role="page" id="index">
+		
+			<!--<div class="spinnero"><img src="tigre.gif" class="pippo"></div>-->
+			
+            <div data-theme="b" data-role="header">
+                <h1>Index page</h1>
+            </div>
+            
+            <div data-role="content">
+                <div id="calendar"></div>
+            </div>
+			
+			<div id="pippo"></div>
+            
+            <div class="container" id="appunta" width="100%">
+            </div>
+            
+            
+            <div data-role="footer" align="center" data-theme="c" data-position="fixed" data-tap-toggle="false" class="div11">
+                <table align="center" width="100%" valign="center" border="0" height"52">
+                    <tr>
+                        <td><br></td>
+                    </tr>
+                    <tr>
+                        <td width="33%" align="center" valign="center"><a id="indietro"><font color="#000" size="2">Indietro</font></a></td><td align="center" valign="center" width="33%" valign="center"><a id="inserisci" href="#"><font color="#000" size="2">+Inserisci</font></a></td><td width="33%" align="center" valign="center"><a id="#"><font color="#000" size="2">#</font></a></td>
+                    </tr>
+                </table>
+                
+            </div><!-- /footer6 -->
+			
+        </div>
+		
+<script type="text/javascript">
+$(document).on('pageinit', '#index', function(){ 
+
+    $("#pippo").html("Calendario<br>");
+
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+    
+    $("#calendar").jqmCalendar({
+        /*events: [{
+            "summary": "Meet PM",
+            "begin": new Date(y,m, 27,10 ),
+            "end": new Date(y, m, 27,12)
+            
+        }, {
+            "summary": "Dinner",
+            "begin": new Date(y, m, 27,12),
+            "end": new Date(y, m, 27,13)
+            
+        }, {
+            "summary": "Lunch with Friends",
+            "begin": new Date(y, m, 29,14),
+            "end": new Date(y, m, 29,16)
+            
+        }, 
+                ],*/
+                 months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        days: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+        startOfWeek: 0
+        
+    });
+    
+    //$("#calendar").bind('change', function(event, date) {
+      //alert(date);
+    //});
+    
+    $("#calendar").bind('change', function(event, date) {
+    // Fetch the events from the jqm-calendar object stored in the jQuery data
+    var events = $("#calendar").data("jqm-calendar").settings.events;
+    // Check if any events on this date exist
+    for ( var i = 0; i < events.length; i++ ) {
+        if ( events[i].begin.getFullYear() == date.getFullYear() && // same year?
+             events[i].begin.getMonth() == date.getMonth() &&        // same month?
+             events[i].begin.getDate() == date.getDate() ) {        // same date?
+              // There is an event!
+             //alert(event);
+             return false;
+        }
+    }
+	
+    // There is no event!
+	
+	 $("#pippo").html("");
+	 $("#pippo").html("Calendario<br>");
+	
+     alert(date.getDate() + "/" + date.getMonth());
+	  $("#pippo").append("<table border='1'><tr><td><div id='pippo'>"+date.getDate() + "/" + date.getMonth()+"</div></td></tr></table><br>");
+	 
+	for (var i=0, l=9; i<l; i++) { 
+	
+	if(i==1){
+	    i="01"
+	   }
+	   if(i==2){
+		i="02"
+		}
+	   if(i==3){
+		i="03"
+	   }
+	   if(i==4){
+		i="04"
+	   }
+	   if(i==5){
+		i="05"
+	   }
+	   if(i==6){
+		i="06"
+	   }
+	   if(i==7){
+		i="07"
+	   }
+	   if(i==8){
+		i="08"
+	   }
+	   if(i==9){
+		i="09"
+	   }
+	
+	  paperino = "variabile"+i
+	
+	  $("#pippo").append("<table border='1'><tr><td><a id='"+paperino+"'>"+paperino+"</a></td></tr></table><br>");
+      //alert(i);
+	  
+	  $(document).on("click", "#"+paperino+"", function(e){
+
+	     alert(this.id)
+					   
+	   });
+		
+    }
+	
+	
+	
+});
+});
+</script>
+    </body>
+</html>
