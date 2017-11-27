@@ -672,11 +672,12 @@ function LoginVera(email,pin){
              else{
            
               window.plugins.nativepagetransitions.fade({
-                "duration"       :  500, // in milliseconds (ms), default 400
-				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  400,
-                "href" : "index.html"
-            });
+					"duration"       :  500, // in milliseconds (ms), default 400
+					"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+					"androiddelay"   :  400,
+					"href" : "index.html"
+				});
+			
              }
            
            },
