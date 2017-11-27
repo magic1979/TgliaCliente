@@ -145,7 +145,13 @@ function onDeviceReady() {
 	
     
     $(document).on("tap", "#pagi7", function(e){
-                   window.location.href = "#page7";
+		
+            window.plugins.nativepagetransitions.fade({
+                "duration"       :  1000, // in milliseconds (ms), default 400
+				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+				"androiddelay"   :  600,
+                "href" : "#page7"
+            });
                    
                    var myScroll2;
                    
@@ -238,7 +244,12 @@ function onDeviceReady() {
 	
 	$(document).on("tap", "#accedi1", function(e){
 				   
-		window.location.href = "#page";
+		window.plugins.nativepagetransitions.fade({
+                "duration"       :  1000, // in milliseconds (ms), default 400
+				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+				"androiddelay"   :  600,
+                "href" : "#page"
+            });
 				   
 		e.stopImmediatePropagation();
 				   

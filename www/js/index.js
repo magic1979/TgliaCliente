@@ -133,7 +133,7 @@ var app = {
 				$.ajax({
 					   type:"GET",
 					   url:"http://www.msop.it/tagliafila/Check_RegToken_Cli.asp",
-					   data: {device:testo,platform:"android"},
+					   data: {device:testo,platform:"android",email:localStorage.getItem("email")},
 					   contentType: "application/json",
 					   json: 'callback',
 					   timeout: 7000,
@@ -178,7 +178,23 @@ var app = {
 	var myScroll;
         
         
-        myScroll = new IScroll('#wrapper', { click: true });
+         myScroll = new iScroll('wrapper', {
+                           click: true,
+                           useTransform: false,
+                           //bounce: false,
+                           onBeforeScrollStart: function (e)
+                           {
+                           var target = e.target;
+                           while (target.nodeType != 1) {
+                           target = target.parentNode;
+                           }
+                           
+                           if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+                           e.preventDefault();
+                           }
+                           }
+                           
+                           });
             
          setTimeout (function(){
                 myScroll.refresh();
@@ -628,7 +644,25 @@ var app = {
                        
                        var myScroll2;
                        var paperino;
-                       myScroll2 = new IScroll('#wrapper2', { click: true });
+					   
+                        myScroll2 = new iScroll('wrapper2', {
+                           click: true,
+                           useTransform: false,
+                           //bounce: false,
+                           onBeforeScrollStart: function (e)
+                           {
+                           var target = e.target;
+                           while (target.nodeType != 1) {
+                           target = target.parentNode;
+                           }
+                           
+                           if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+                           e.preventDefault();
+                           }
+                           }
+                           
+                           });
+					   
                        setTimeout (function(){
                                    myScroll2.refresh();
                                    }, 300);
