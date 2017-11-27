@@ -204,10 +204,24 @@ var app = {
         if (localStorage.getItem("email") === null || localStorage.getItem("email")=="null" || typeof(localStorage.getItem("email")) == 'undefined' || localStorage.getItem("email")==0 || localStorage.getItem("email")=="") {
             
             if(localStorage.getItem("nome")=="nome"){
-               window.location.href = "edita.html";
+				
+                window.plugins.nativepagetransitions.fade({
+						"duration"       :  500, // in milliseconds (ms), default 400
+						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+						"androiddelay"   :  400,
+						"href" : "edita.html"
+					});
+			   
             }
             else{
-                window.location.href = "Login.html";
+				
+                 window.plugins.nativepagetransitions.fade({
+						"duration"       :  500, // in milliseconds (ms), default 400
+						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+						"androiddelay"   :  400,
+						"href" : "Login.html"
+					});
+				
             }
 
         }
@@ -766,7 +780,7 @@ var app = {
                                                   
                                                   $.each(result, function(i,item){
                                                          
-                                                         alert(item.Token)
+                                                         //alert(item.Token)
                                                          
                                                          if(item.Token=="1"){
                                                          
@@ -958,7 +972,7 @@ var app = {
                                                         });
                                                   
                                                   
-                                                    $("#calendario33").append("<br><br><br><br><br><br><br><br><br><br><br><br>")
+                                                    $("#calendario33").append("<br><br><br><br>")
                                                   
                                                   
                                                     //$("#appunta").append("<br><br><br>");
@@ -1177,14 +1191,24 @@ var app = {
     
     $(document).on("touchstart", "#indietro", function(e){
         
-        window.location.href = "index.html";
+        window.plugins.nativepagetransitions.fade({
+                "duration"       :  500, // in milliseconds (ms), default 400
+				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+				"androiddelay"   :  400,
+                "href" : "index.html"
+            });
                        
     });
         
         
     $(document).on("touchstart", "#edita", function(e){
                        
-        window.location.href = "edita.html";
+        window.plugins.nativepagetransitions.fade({
+                "duration"       :  500, // in milliseconds (ms), default 400
+				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+				"androiddelay"   :  400,
+                "href" : "edita.html"
+            });
                        
     });
         
@@ -1332,25 +1356,25 @@ var app = {
                           
                           
                           if(item.IDPrestazione=="15"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> </a><font size='4'> <b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="12"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/permanente.png' width='40'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/permanente.png' width='40'> </a><font size='4'> <b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="16"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="14"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/shampoo.png' width='40'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/shampoo.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="11"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="10"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
                           }
                           else{
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/aggiungi.png' width='30'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/aggiungi.png' width='30'> </a> <b>"+item.NomePrestazione+"<b></td></tr>"
                           }
                           
                           

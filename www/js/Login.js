@@ -147,9 +147,9 @@ function onDeviceReady() {
     $(document).on("tap", "#pagi7", function(e){
 		
             window.plugins.nativepagetransitions.fade({
-                "duration"       :  1000, // in milliseconds (ms), default 400
+                "duration"       :  500, // in milliseconds (ms), default 400
 				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  600,
+				"androiddelay"   :  400,
                 "href" : "#page7"
             });
                    
@@ -245,9 +245,9 @@ function onDeviceReady() {
 	$(document).on("tap", "#accedi1", function(e){
 				   
 		window.plugins.nativepagetransitions.fade({
-                "duration"       :  1000, // in milliseconds (ms), default 400
+                "duration"       :  600, // in milliseconds (ms), default 400
 				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  600,
+				"androiddelay"   :  400,
                 "href" : "#page"
             });
 				   
@@ -671,7 +671,12 @@ function LoginVera(email,pin){
              }
              else{
            
-              window.location.href = "index.html";
+              window.plugins.nativepagetransitions.fade({
+                "duration"       :  500, // in milliseconds (ms), default 400
+				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+				"androiddelay"   :  400,
+                "href" : "index.html"
+            });
              }
            
            },
@@ -980,7 +985,6 @@ function iscriviti(){
 
 function registradame(IDCliente,Nome,Cognome,Email,Citta,Civico,Telefono,CAP,Sesso,Indirizzo,email,pin){
     
-    alert(IDCliente+" "+Email+" "+Nome+" "+Citta+" "+Civico+" "+Telefono+" "+CAP+" "+Cognome+" "+Indirizzo)
     
     $.ajax({
            type:"GET",
@@ -997,7 +1001,13 @@ function registradame(IDCliente,Nome,Cognome,Email,Citta,Civico,Telefono,CAP,Ses
                   
                   if (item.Token == 1){
                     localStorage.setItem("registrato","0")
-                    window.location.href = "index.html";
+					
+                    window.plugins.nativepagetransitions.fade({
+						"duration"       :  500, // in milliseconds (ms), default 400
+						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+						"androiddelay"   :  400,
+						"href" : "index.html"
+					});
                   
                   }
                   else{
