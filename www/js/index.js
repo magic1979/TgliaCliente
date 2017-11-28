@@ -602,6 +602,9 @@ var app = {
                    success:function(result){
                    
                      alert("Appuntamento Registrato")
+					 
+					 calendariomio()
+					 
                    
                    },
                    error: function(){
@@ -659,10 +662,49 @@ var app = {
                             
          });
 		 
-		  function controllaappuntamenti(){
-			
-			
-			$("#calendario33").html("<br><ul data-role='listview'  data-theme='c' data-inset='true'><li><a id=''><img src='img/clock.png' class='ui-li-icon ui-corner-none'>2017-11-25 - Sasa - Ore 22.00</a></li><li><a id=''><img src='img/clock.png' class='ui-li-icon ui-corner-none'>2017-11-25 - Sasa - Ore 23.00</a></li><li><a id=''><img src='img/clock.png' class='ui-li-icon ui-corner-none'>2017-11-25 - Sasa - Ore 23.00</a></li></ul>")
+		 
+		 function controllaappuntamenti(){
+			 
+			 $("#spinner2").show();
+			 
+			  var calendario33 = "<br><ul data-role='listview'  data-theme='c' data-inset='true'>"
+			 
+			  $.ajax({
+                   type: "GET",
+                   url: "http://msop.it/tagliafila/check_controllo_cli.php?idcliente="+localStorage.getItem("idcliente")+"",
+                   cache: false,
+                   crossDomain: true,
+                   contentType: "application/json",
+                   timeout: 7000,
+                   jsonp: 'callback',
+                   crossDomain: true,
+                   success: function (result) {
+
+                   	$("#spinner2").hide();
+					
+					 $.each(result, function(i,item){
+						 
+						var orainiziale = item.dataorainizio.substr(11,2)
+					  	var mininiziale = item.dataorainizio.substr(14,2)
+					  	var anno = item.dataorainizio.substr(0,4)
+					  	var mese = item.dataorainizio.substr(5,2)
+					  	var giorno = item.dataorainizio.substr(8,2)
+					
+                   		calendario33 = calendario33 + "<li><a id=''><img src='img/clock.png' class='ui-li-icon ui-corner-none'>"+mese+","+giorno+" -"+item.nome+","+item.cognome+"  - Ore "+orainiziale+"."+mininiziale+"</a></li>"
+						
+					 });
+					 
+					  $("#calendario33").html(calendario33 + "</ul>")
+
+                   },
+                   error: function( jqXhr, textStatus, errorThrown ){
+                   
+                   alert(errorThrown)
+                   $("#spinner").hide();
+                   
+                   },
+                   dataType:"jsonp"});
+	
 			
 		  }
 					   
@@ -1024,7 +1066,7 @@ var app = {
             $.ajax({
                    type: "GET",
                    //url: "http://servizi.marcopolowit.it/tagliafilarest/api/Appuntamento/GetByIDAppuntamento?id="+eccola+"",
-                   url: "http://msop.it/tagliafila/check_appuntamentoByid.php?idappuntamento="+eccola+"",
+                   url: "http://msop.it/tagliafila/check_appuntamentoByid_cli.php?idappuntamento="+eccola+"",
                    cache: false,
                    crossDomain: true,
                    contentType: "application/json",
@@ -1050,7 +1092,7 @@ var app = {
                           var mese = item.dataorainizio.substr(5,2)
                           var giorno = item.dataorainizio.substr(8,2)
                           
-                         tabella1 = tabella1 + "<tr><td align='center' width='100%'><b>NOME: "+item.nome+", "+item.cognome+"</b></td></tr>"
+                         tabella1 = tabella1 + "<tr><td align='center' width='100%'><b>DOVE: "+item.nome+"</b></td></tr>"
                           
                           tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='hidden' value='"+item.idprestazione+"' name='idprestazione' id='idprestazione'><input type='hidden' value='"+eccola+"' name='eccolaapp' id='eccolaapp'></td></tr>"
                           
