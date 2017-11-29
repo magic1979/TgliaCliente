@@ -995,9 +995,13 @@ var app = {
                                                   
                                                   },
                                                   dataType:"jsonp"});
+												  
+												  setTimeout (function(){
+                                                       myScroll2.refresh();
+                                                     }, 100);
                                            
                                            
-                                           });           
+                   });           
                             
          });
 		 
@@ -1032,13 +1036,7 @@ var app = {
                           
                           $("#calendario33").append(calendario33)
 						  
-						  	setTimeout (function(){
-							   myScroll2.refresh();
-									
-                            }, 300);
 							
-							
-                          
                           $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
                                          
                                 var appuntamentioid = this.id
@@ -1056,6 +1054,11 @@ var app = {
                             });
 						
 					 });
+					 
+					 
+					 setTimeout (function(){
+						    myScroll2.refresh();
+						  }, 500);
 					 
 
                    },
@@ -1250,7 +1253,7 @@ var app = {
                               
                                 $("#spinner").hide();
                                 alert("ok, appuntamento cancellato")
-								controllaappuntamenti()
+								//controllaappuntamenti()
                               
                                // calendariomio()
                               
@@ -1282,7 +1285,7 @@ var app = {
 
                    $("#spinner").hide();
                    alert("ok, appuntamento modificato")
-				   controllaappuntamenti()
+				   //controllaappuntamenti()
 
                    },
                    error: function( jqXhr, textStatus, errorThrown ){
