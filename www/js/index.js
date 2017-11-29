@@ -658,33 +658,40 @@ var app = {
         
         
         $(document).on("touchstart", "#calendario", function(e){
-            var myScroll2;
-            var paperino;
+					var myScroll2;
+					var paperino;
 			
-						   myScroll2 = new iScroll('wrapper2', {
-                           click: true,
-                           useTransform: false,
-                           //bounce: false,
-                           onBeforeScrollStart: function (e)
-                           {
-                           var target = e.target;
-                           while (target.nodeType != 1) {
-                           target = target.parentNode;
-                           }
-                           
-                           if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
-                           e.preventDefault();
-                           }
-                           }
-                           
-                           });
+				   myScroll2 = new iScroll('wrapper2', {
+				   click: true,
+				   useTransform: false,
+				   //bounce: false,
+				   onBeforeScrollStart: function (e)
+				   {
+				   var target = e.target;
+				   while (target.nodeType != 1) {
+				   target = target.parentNode;
+				   }
+				   
+				   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+				   e.preventDefault();
+				   }
+				   }
+				   
+				   });
+				   
 					   
-						   setTimeout (function(){
-							  myScroll2.refresh();
-							}, 300);
+				   setTimeout (function(){
+					  myScroll2.refresh();
+					}, 300);
 							
                        
-                       window.location.href = "#page2";
+                        //window.location.href = "#page2";
+					    window.plugins.nativepagetransitions.fade({
+							"duration"       :  1000, // in milliseconds (ms), default 400
+							"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+							"androiddelay"   :  800,
+							"href" : "#page2"
+						});
                        
                        
                        $("#spinner2").hide();
@@ -707,6 +714,10 @@ var app = {
                        
                        
                        $("#calendar").bind('change', function(event, date) {
+						   
+						   
+							 			   myScroll2.refresh();
+							
                                            
                                            var events = $("#calendar").data("jqm-calendar").settings.events;
                                            
@@ -969,7 +980,7 @@ var app = {
 																
 																setTimeout (function(){
                                                                     myScroll2.scrollToElement("#calendar", "1s");
-                                                                }, 300);
+                                                                }, 1100);
                                                                         
                                                             });
                                                          
@@ -986,7 +997,7 @@ var app = {
                                                   
                                                     setTimeout (function(){
                                                        myScroll2.refresh();
-                                                     }, 500);
+                                                     }, 700);
                                                   
                                                     },
                                                   error: function( jqXhr, textStatus, errorThrown ){
@@ -996,11 +1007,7 @@ var app = {
                                                   
                                                   },
                                                   dataType:"jsonp"});
-												  
-												  setTimeout (function(){
-                                                       myScroll2.refresh();
-                                                     }, 100);
-                                           
+	                                       
                                            
                    });           
                             
@@ -1034,7 +1041,7 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table>"
                           
                           $("#calendario33").append(calendario33)
 						  
@@ -1047,15 +1054,33 @@ var app = {
                                 adesso(appuntamentoid)
 								
 								  setTimeout (function(){
-                                    myScroll2.refresh();
-								   
+
 								    myScroll2.scrollToElement("#calendar", "1s");
 									
-                                   }, 300);
+                                   }, 1000);
    
                             });
 						
 					 });
+					 
+					 
+				   myScroll2 = new iScroll('wrapper2', {
+				   click: true,
+				   useTransform: false,
+				   //bounce: false,
+				   onBeforeScrollStart: function (e)
+				   {
+				   var target = e.target;
+				   while (target.nodeType != 1) {
+				   target = target.parentNode;
+				   }
+				   
+				   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+				   e.preventDefault();
+				   }
+				   }
+				   
+				   });
 					 
 					 
 				   setTimeout (function(){
@@ -1315,9 +1340,9 @@ var app = {
     $(document).on("touchstart", "#indietro", function(e){
         
         window.plugins.nativepagetransitions.fade({
-                "duration"       :  500, // in milliseconds (ms), default 400
+                "duration"       :  1000, // in milliseconds (ms), default 400
 				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  400,
+				"androiddelay"   :  800,
                 "href" : "index.html"
             });
                        
@@ -1327,9 +1352,9 @@ var app = {
     $(document).on("touchstart", "#edita", function(e){
                        
         window.plugins.nativepagetransitions.fade({
-                "duration"       :  500, // in milliseconds (ms), default 400
+                "duration"       :  1000, // in milliseconds (ms), default 400
 				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  400,
+				"androiddelay"   :  800,
                 "href" : "edita.html"
             });
                        
