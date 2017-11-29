@@ -658,60 +658,7 @@ var app = {
         
         
         $(document).on("touchstart", "#calendario", function(e){
-            calendariomio()           
-                            
-         });
-		 
-		 
-		 function controllaappuntamenti(){
-			 
-			 $("#spinner2").show();
-			 
-			  var calendario33 = "<br><ul data-role='listview'  data-theme='c' data-inset='true'>"
-			 
-			  $.ajax({
-                   type: "GET",
-                   url: "http://msop.it/tagliafila/check_controllo_cli.php?idcliente="+localStorage.getItem("idcliente")+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
-
-                   	$("#spinner2").hide();
-					
-					 $.each(result, function(i,item){
-						 
-						var orainiziale = item.dataorainizio.substr(11,2)
-					  	var mininiziale = item.dataorainizio.substr(14,2)
-					  	var anno = item.dataorainizio.substr(0,4)
-					  	var mese = item.dataorainizio.substr(5,2)
-					  	var giorno = item.dataorainizio.substr(8,2)
-					
-                   		calendario33 = calendario33 + "<li><a id=''><img src='img/clock.png' class='ui-li-icon ui-corner-none'>"+mese+","+giorno+" -"+item.nome+","+item.cognome+"  - Ore "+orainiziale+"."+mininiziale+"</a></li>"
-						
-					 });
-					 
-					  $("#calendario33").html(calendario33 + "</ul>")
-
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   },
-                   dataType:"jsonp"});
-	
-			
-		  }
-					   
-				
-				
-		function calendariomio(){
-			var myScroll2;
+            var myScroll2;
             var paperino;
 					   
                         myScroll2 = new iScroll('wrapper2', {
@@ -1050,7 +997,73 @@ var app = {
                                                   dataType:"jsonp"});
                                            
                                            
-                                           });
+                                           });           
+                            
+         });
+		 
+		 
+		 function controllaappuntamenti(){
+			 
+			 $("#spinner2").show();
+			 
+			 
+			  $.ajax({
+                   type: "GET",
+                   url: "http://msop.it/tagliafila/check_controllo_cli.php?idcliente="+localStorage.getItem("idcliente")+"",
+                   cache: false,
+                   crossDomain: true,
+                   contentType: "application/json",
+                   timeout: 7000,
+                   jsonp: 'callback',
+                   crossDomain: true,
+                   success: function (result) {
+
+                   	$("#spinner2").hide();
+					
+					 $.each(result, function(i,item){
+						 
+						var orainiziale = item.dataorainizio.substr(11,2)
+					  	var mininiziale = item.dataorainizio.substr(14,2)
+					  	var anno = item.dataorainizio.substr(0,4)
+					  	var mese = item.dataorainizio.substr(5,2)
+					  	var giorno = item.dataorainizio.substr(8,2)
+					
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='50' class='ui-li-icon ui-corner-none'><font size='4' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
+                          
+                          $("#calendario33").append(calendario33)
+                          
+                          $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
+                                         
+                                var appuntamentioid = this.id
+                                appuntamentoid = appuntamentioid.replace("aa_","")
+                                
+                                adesso(appuntamentoid)
+                                         
+                                     setTimeout (function(){
+										 myScroll2.scrollToElement("#sopra", "1s");
+									}, 300);
+                                         
+                            });
+						
+					 });
+					 
+
+                   },
+                   error: function( jqXhr, textStatus, errorThrown ){
+                   
+                   alert(errorThrown)
+                   $("#spinner").hide();
+                   
+                   },
+                   dataType:"jsonp"});
+	
+			
+		  }
+					   
+				
+				
+		function calendariomio(){
+			
 			
 			
 		}
@@ -1228,7 +1241,7 @@ var app = {
                                 $("#spinner").hide();
                                 alert("ok, appuntamento cancellato")
                               
-                                calendariomio()
+                               // calendariomio()
                               
                               },
                               error: function( jqXhr, textStatus, errorThrown ){
@@ -1257,7 +1270,7 @@ var app = {
 
 
                    $("#spinner").hide();
-                   calendariomio()
+                   alert("ok, appuntamento modificato")
 
                    },
                    error: function( jqXhr, textStatus, errorThrown ){
