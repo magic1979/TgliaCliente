@@ -660,8 +660,16 @@ var app = {
         $(document).on("touchstart", "#calendario", function(e){
             var myScroll2;
             var paperino;
+                       
+                       window.location.href = "#page2";
+                       
+                       
+                       $("#spinner2").hide();
 					   
-                        myScroll2 = new iScroll('wrapper2', {
+					   controllaappuntamenti()
+					   
+					   
+					   myScroll2 = new iScroll('wrapper2', {
                            click: true,
                            useTransform: false,
                            //bounce: false,
@@ -679,16 +687,9 @@ var app = {
                            
                            });
 					   
-                       setTimeout (function(){
-                                   myScroll2.refresh();
-                                   }, 300);
-                       
-                       window.location.href = "#page2";
-                       
-                       
-                       $("#spinner2").hide();
-					   
-					   controllaappuntamenti()
+						   setTimeout (function(){
+							  myScroll2.refresh();
+							}, 300);
                        
                        
                        var date = new Date();
@@ -1007,6 +1008,9 @@ var app = {
 		 
 		 
 		 function controllaappuntamenti(){
+			 var myScroll2;
+
+					  
 			 
 			 $("#spinner2").show();
 			 
@@ -1056,9 +1060,27 @@ var app = {
 					 });
 					 
 					 
-					 setTimeout (function(){
-						    myScroll2.refresh();
-						  }, 500);
+					        myScroll2 = new iScroll('wrapper2', {
+                           click: true,
+                           useTransform: false,
+                           //bounce: false,
+                           onBeforeScrollStart: function (e)
+                           {
+                           var target = e.target;
+                           while (target.nodeType != 1) {
+                           target = target.parentNode;
+                           }
+                           
+                           if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+                           e.preventDefault();
+                           }
+                           }
+                           
+                           });
+					   
+						   setTimeout (function(){
+							  myScroll2.refresh();
+							}, 500);
 					 
 
                    },
