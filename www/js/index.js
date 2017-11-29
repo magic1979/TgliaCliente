@@ -1028,7 +1028,7 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='150' class='ui-li-icon ui-corner-none'><font size='4' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='150' class='ui-li-icon ui-corner-none'><font size='3' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
                           
                           $("#calendario33").append(calendario33)
                           
@@ -1038,11 +1038,12 @@ var app = {
                                 appuntamentoid = appuntamentioid.replace("aa_","")
                                 
                                 adesso(appuntamentoid)
-                                         
-                                     setTimeout (function(){
-										 myScroll2.scrollToElement("#sopra", "1s");
-									}, 300);
-                                         
+								
+								setTimeout (function(){
+                                   myScroll2.refresh();
+								    myScroll2.scrollToElement("#sopra", "1s");
+                                   }, 300);
+   
                             });
 						
 					 });
@@ -1072,14 +1073,14 @@ var app = {
         
         function adesso(eccola){
             
-            //alert(eccola)
+            alert(eccola)
             
             $("#spinner").show();
             
             $.ajax({
                    type: "GET",
                    //url: "http://servizi.marcopolowit.it/tagliafilarest/api/Appuntamento/GetByIDAppuntamento?id="+eccola+"",
-                   url: "http://msop.it/tagliafila/check_appuntamentoByid_cli.php?idappuntamento="+eccola+"",
+                   url: "http://msop.it/tagliafila/check_appuntamentoByid.php?idappuntamento="+eccola+"",
                    cache: false,
                    crossDomain: true,
                    contentType: "application/json",
