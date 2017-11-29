@@ -660,16 +660,8 @@ var app = {
         $(document).on("touchstart", "#calendario", function(e){
             var myScroll2;
             var paperino;
-                       
-                       window.location.href = "#page2";
-                       
-                       
-                       $("#spinner2").hide();
-					   
-					   controllaappuntamenti()
-					   
-					   
-					   myScroll2 = new iScroll('wrapper2', {
+			
+						   myScroll2 = new iScroll('wrapper2', {
                            click: true,
                            useTransform: false,
                            //bounce: false,
@@ -690,7 +682,15 @@ var app = {
 						   setTimeout (function(){
 							  myScroll2.refresh();
 							}, 300);
+							
                        
+                       window.location.href = "#page2";
+                       
+                       
+                       $("#spinner2").hide();
+					   
+					   controllaappuntamenti()
+	
                        
                        var date = new Date();
                        var d = date.getDate();
@@ -1008,9 +1008,7 @@ var app = {
 		 
 		 
 		 function controllaappuntamenti(){
-			 var myScroll2;
-
-					  
+				  
 			 
 			 $("#spinner2").show();
 			 
@@ -1060,27 +1058,9 @@ var app = {
 					 });
 					 
 					 
-					        myScroll2 = new iScroll('wrapper2', {
-                           click: true,
-                           useTransform: false,
-                           //bounce: false,
-                           onBeforeScrollStart: function (e)
-                           {
-                           var target = e.target;
-                           while (target.nodeType != 1) {
-                           target = target.parentNode;
-                           }
-                           
-                           if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
-                           e.preventDefault();
-                           }
-                           }
-                           
-                           });
-					   
-						   setTimeout (function(){
-							  myScroll2.refresh();
-							}, 500);
+				   setTimeout (function(){
+					  myScroll2.refresh();
+					}, 500);
 					 
 
                    },
@@ -1499,22 +1479,22 @@ var app = {
                           
                           
                           if(item.IDPrestazione=="15"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> </a><font size='4'> <b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> <font size='4'> <b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="12"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/permanente.png' width='40'> </a><font size='4'> <b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/permanente.png' width='40'> <font size='4'> <b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="16"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> <font size='4'><b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="14"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/shampoo.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/shampoo.png' width='40'>  <font size='4'><b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="11"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> <font size='4'><b>"+item.NomePrestazione+"<b></font> </a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="10"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> </a> <font size='4'><b>"+item.NomePrestazione+"<b></font></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> <font size='4'><b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
                           }
                           else{
                           tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/aggiungi.png' width='30'> </a> <b>"+item.NomePrestazione+"<b></td></tr>"
