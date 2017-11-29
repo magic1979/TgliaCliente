@@ -1028,9 +1028,16 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='150' class='ui-li-icon ui-corner-none'><font size='3' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
                           
                           $("#calendario33").append(calendario33)
+						  
+						  	setTimeout (function(){
+							   myScroll2.refresh();
+									
+                            }, 300);
+							
+							
                           
                           $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
                                          
@@ -1039,8 +1046,8 @@ var app = {
                                 
                                 adesso(appuntamentoid)
 								
-								setTimeout (function(){
-                                   myScroll2.refresh();
+								  setTimeout (function(){
+                                    myScroll2.refresh();
 								   
 								    myScroll2.scrollToElement("#calendar", "1s");
 									
@@ -1170,7 +1177,8 @@ var app = {
         }
         
         $(document).on("touchstart", "#aggiornaappuntamento", function(e){
-                       
+			
+	
                       var datainizio3 = self.document.formia2.anno2.value+"-"+self.document.formia2.mese2.value+"-"+self.document.formia2.dayinizio2.value+"T"+self.document.formia2.orainizio2.value+":"+self.document.formia2.mininizio2.value+":00"
                        
                        
@@ -1191,11 +1199,9 @@ var app = {
                        var datafine3 = self.document.formia2.anno2.value+"-"+self.document.formia2.mese2.value+"-"+self.document.formia2.dayinizio2.value+"T"+oratot2+":"+mintot2+":00"
                        
                        
-                       /*var modifica = '{"IDAppuntamento": "'+self.document.formia2.eccolaapp.value+'","IDCliente": "'+self.document.formia2.idcliente.value+'","IDPrestazione": "'+self.document.formia2.idprestazione.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DataOraInizio": "'+self.document.formia2.datainizio.value+'","DataOraFine": "'+self.document.formia2.datafine.value+'"}' */
+                       aggiornadame(self.document.formia2.eccolaapp.value,datainizio3,datafine3)
                        
-                       var modifica = '{"IDAppuntamento": "'+self.document.formia2.eccolaapp.value+'","IDCliente": "'+self.document.formia2.idcliente.value+'","IDPrestazione": "'+self.document.formia2.idprestazione.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DataOraInizio": "'+datainizio3+'","DataOraFine": "'+datafine3+'"}'
-                       
-                       //alert(modifica)
+                       /*var modifica = '{"IDAppuntamento": "'+self.document.formia2.eccolaapp.value+'","IDCliente": "'+self.document.formia2.idcliente.value+'","IDPrestazione": "'+self.document.formia2.idprestazione.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DataOraInizio": "'+datainizio3+'","DataOraFine": "'+datafine3+'"}'
                        
                        
                        $("#spinner").show();
@@ -1211,7 +1217,7 @@ var app = {
                               
                             aggiornadame(self.document.formia2.eccolaapp.value,datainizio3,datafine3)
                               
-                              //alert("ok, orario modificato")
+                              
                               $("#spinner").hide();
                               
                               },
@@ -1221,14 +1227,13 @@ var app = {
                               $("#spinner").hide();
                               
                               },
-                              dataType:"json"});
+                              dataType:"json"});*/
                        });
 					   
 					   
 			$(document).on("touchstart", "#cancappuntamento", function(e){
                        
-                       //alert("cancella")
-                       
+                      
                        var idappuntamento = self.document.formia2.eccolaapp.value
                        
                        $("#spinner").show();
