@@ -638,6 +638,8 @@ function LoginVera(email,pin){
            crossDomain: true,
            contentType: "application/x-www-form-urlencoded",
            success: function (result) {
+			   
+			 $("#mostra").html("<font size='3' color='red'>INSERISCI CREDENZIALI...</font>")
            
              $("#spinner").hide();
            

@@ -416,7 +416,7 @@ var app = {
                           
                           var paperino = item.IDPrestazione
                           
-                          tabella1 = tabella1 + "<tr><td align='center' colspan='2' width='100%'><br><a id='prest_"+paperino+"'><img src='img/appuntamento_aggiungi.png' width='100'></a></td></tr>"
+                          tabella1 = tabella1 + "<tr><td align='center' colspan='2' width='100%'><br><a id='prest_"+paperino+"'><img src='img/appuntamento_aggiungi.png' width='150'></a></td></tr>"
                           
                           
                           tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'><br><br><input type='hidden' value='"+eccola2+"' name='idnegozio' id='idnegozio'><input type='hidden' value='"+item.IDPrestazione+"' name='idprestazione' id='idprestazione'><br></td></tr></table>";
@@ -510,7 +510,7 @@ var app = {
             //tabella1 = tabella1 + "<tr><td align='left' width='20%'>Fine: </td><td align='left' width='80%'><input type='text' value='2017-10-22T16:30:00' name='DataOraFine' id='DataOraFine'></td></tr>"
             
             
-            tabella1 = tabella1 + "<tr><td align='center' width='80' colspan='2'><br><input type='hidden' value='"+bisso+"' name='idnegozio2' id='idnegozio2'><br><a id='regappuntamento'><img src='img/appuntamento_aggiungi.png' width='100'></a></td></tr></table>";
+            tabella1 = tabella1 + "<tr><td align='center' width='80' colspan='2'><br><input type='hidden' value='"+bisso+"' name='idnegozio2' id='idnegozio2'><br><a id='regappuntamento'><img src='img/appuntamento_aggiungi.png' width='150'></a></td></tr></table>";
             
             $("#mieiservizi").append(tabella1);
             
@@ -1028,7 +1028,7 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='50' class='ui-li-icon ui-corner-none'><font size='4' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='150' class='ui-li-icon ui-corner-none'><font size='4' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></a></td></tr></table>"
                           
                           $("#calendario33").append(calendario33)
                           
@@ -1116,7 +1116,7 @@ var app = {
                           tabella1 = tabella1 + "<tr><td align='center' width='100%'><select id='dayinizio2' name='dayinizio2'>GIORNO: <option value='"+giorno+"' selected>"+giorno+"</option></select></td></tr>"
                           
                           
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><a id='aggiornaappuntamento'> <img src='img/appuntamento_modifica.png' width='120'></a> &nbsp;&nbsp;<a id='cancappuntamento'> <img src='img/appuntamento_cancella.png' width='120'></a></td></tr>"
+                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><a id='aggiornaappuntamento'> <img src='img/appuntamento_modifica.png' width='150'></a> &nbsp;&nbsp;<a id='cancappuntamento'> <img src='img/appuntamento_cancella.png' width='150'></a></td></tr>"
                           
                           tabella1 = tabella1 + "<tr><td align='center' width='80%'><a id='pippo6'><img src='img/back.jpg' width='40'></a></td></tr></table></form>";
                           
@@ -1569,7 +1569,7 @@ var app = {
                           
                           tabella = tabella + "<tr><td align='left' width='100%' colspan='2'>"+item.Email+", "+item.Telefono+"</td></tr>"
                           
-                          tabella = tabella + "<tr><td align='center' width='100%' colspan='2'><a id='list_"+item.IDNegozio+"'> <img src='img/appuntamento_aggiungi.png' width='100'></a> </td></tr>"
+                          tabella = tabella + "<tr><td align='center' width='100%' colspan='2'><a id='list_"+item.IDNegozio+"'> <img src='img/appuntamento_aggiungi.png' width='150'></a> </td></tr>"
                           
                           tabella = tabella + "</table><br>";
                           
