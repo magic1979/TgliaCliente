@@ -542,7 +542,7 @@ var app = {
             
             var registrami = '{"IDCliente": "'+localStorage.getItem("idcliente")+'","IDPrestazione": "'+self.document.formia.idnegozio2.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","IDLavorante": "","DataOraInizio": "'+datatot+'","DataOraFIne": "'+datatot2+'"}'
             
-            alert(registrami)
+            //alert(registrami)
                        
             var num1 = Math.floor((Math.random() * 20) + 1);
             var num2 = Math.floor((Math.random() * 20) + 1);
@@ -589,7 +589,7 @@ var app = {
         
         function regidappuntamento(IDAppuntamento,idcliente,idprestazione,idnegozio,datastart,dataend){
             
-             alert(IDAppuntamento+" "+idcliente+" "+idprestazione+" "+idnegozio+" "+datastart+" "+dataend)
+             //alert(IDAppuntamento+" "+idcliente+" "+idprestazione+" "+idnegozio+" "+datastart+" "+dataend)
             
              $.ajax({
                    type:"GET",
@@ -625,8 +625,8 @@ var app = {
         
         $(document).on("touchstart", "#aggiornaprestazione", function(e){
                        
-            alert(self.document.formia.idprestazione.value)
-            alert(localStorage.getItem("idnegozio"))
+            //alert(self.document.formia.idprestazione.value)
+            //alert(localStorage.getItem("idnegozio"))
                        
             //var registrami = '{"IDPrestazione": "'+self.document.formia.idprestazione.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DurataMinuti": "'+self.document.formia.durata.value+'","CostoInSede": "'+self.document.formia.costo.value+'","CostoDomicilio": "","DomicilioAbilitato": "false"}'
                        
@@ -967,7 +967,7 @@ var app = {
                                                                 adesso(this.id)
 																
 																setTimeout (function(){
-                                                                    myScroll2.scrollToElement("#sopra", "1s");
+                                                                    myScroll2.scrollToElement("#calendar", "1s");
                                                                 }, 300);
                                                                         
                                                             });
@@ -984,8 +984,8 @@ var app = {
                                                     //$("#appunta").append("<br><br><br>");
                                                   
                                                     setTimeout (function(){
-                                                              myScroll2.refresh();
-                                                              }, 1000);
+                                                       myScroll2.refresh();
+                                                     }, 500);
                                                   
                                                     },
                                                   error: function( jqXhr, textStatus, errorThrown ){
@@ -1041,7 +1041,9 @@ var app = {
 								
 								setTimeout (function(){
                                    myScroll2.refresh();
-								    myScroll2.scrollToElement("#sopra", "1s");
+								   
+								    myScroll2.scrollToElement("#calendar", "1s");
+									
                                    }, 300);
    
                             });
@@ -1066,16 +1068,16 @@ var app = {
 		function calendariomio(){
 			
 			
-			
 		}
 				
         
         
         function adesso(eccola){
             
-            alert(eccola)
+            //alert(eccola)
             
             $("#spinner").show();
+			$("#appunta").show()
             
             $.ajax({
                    type: "GET",
@@ -1091,7 +1093,7 @@ var app = {
                    
                    var gattino = ""
                    var tabella1 = "<form name='formia2' action='entra2.asp' method='post'>"
-                   tabella1 = tabella1 + "<table width='80%' align='center'>";
+                   tabella1 = tabella1 + "<table width='100%' align='center'>";
                    $("#mieiservizi").html("");
                    
                    
@@ -1117,7 +1119,7 @@ var app = {
                           tabella1 = tabella1 + "<tr><td align='center' width='100%'><select id='dayinizio2' name='dayinizio2'>GIORNO: <option value='"+giorno+"' selected>"+giorno+"</option></select></td></tr>"
                           
                           
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><a id='aggiornaappuntamento'> <img src='img/appuntamento_modifica.png' width='150'></a> &nbsp;&nbsp;<a id='cancappuntamento'> <img src='img/appuntamento_cancella.png' width='150'></a></td></tr>"
+                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><a id='aggiornaappuntamento'> <img src='img/appuntamento_modifica.png' width='140'></a> &nbsp;&nbsp;<a id='cancappuntamento'> <img src='img/appuntamento_cancella.png' width='140'></a></td></tr>"
                           
                           tabella1 = tabella1 + "<tr><td align='center' width='80%'><a id='pippo6'><img src='img/back.jpg' width='40'></a></td></tr></table></form>";
                           
@@ -1144,8 +1146,10 @@ var app = {
 	
                    
                    $(document).on("touchstart", "#pippo6", function(e){
+					   
+					    $("#appunta").hide();
                                   
-                         window.location.href = "index.html";
+                        // window.location.href = "index.html";
                                   
                     });
                    
@@ -1223,7 +1227,7 @@ var app = {
 					   
 			$(document).on("touchstart", "#cancappuntamento", function(e){
                        
-                       alert("cancella")
+                       //alert("cancella")
                        
                        var idappuntamento = self.document.formia2.eccolaapp.value
                        
@@ -1241,6 +1245,7 @@ var app = {
                               
                                 $("#spinner").hide();
                                 alert("ok, appuntamento cancellato")
+								controllaappuntamenti()
                               
                                // calendariomio()
                               
@@ -1272,6 +1277,7 @@ var app = {
 
                    $("#spinner").hide();
                    alert("ok, appuntamento modificato")
+				   controllaappuntamenti()
 
                    },
                    error: function( jqXhr, textStatus, errorThrown ){
@@ -1585,7 +1591,7 @@ var app = {
                                          
                              localStorage.setItem("idnegozio",idnego)
                               
-                             alert(idp + localStorage.getItem("idnegozio"))
+                             //alert(idp + localStorage.getItem("idnegozio"))
                                          
                              //passo2bis(idp)
                                          
