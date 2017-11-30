@@ -657,6 +657,10 @@ var app = {
         
         
         $(document).on("tap", "#calendario", function(e){
+			
+					$("#prolock").hide();
+			   		$("#calendario33").html("")
+			   
 					var myScroll2;
 					var paperino;
 			
