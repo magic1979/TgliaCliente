@@ -7,8 +7,6 @@ function onDeviceReady() {
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
     
     localStorage.setItem("registrato","1")
-    
-	
 	
 	localStorage.setItem("pagina","log")
 	
@@ -36,13 +34,8 @@ function onDeviceReady() {
 	
 	
 	var IDPage;
-
-	
 	
     IDPage = getParameterByName('id');
-	
-
-	
 	
 	$(document).on("tap", "#emaildimenticata", function(e){
 				   

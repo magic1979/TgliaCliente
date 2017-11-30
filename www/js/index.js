@@ -660,25 +660,7 @@ var app = {
 					var myScroll2;
 					var paperino;
 			
-				   myScroll2 = new iScroll('wrapper2', {
-				   click: true,
-				   useTransform: false,
-				   //bounce: false,
-				   onBeforeScrollStart: function (e)
-				   {
-				   var target = e.target;
-				   while (target.nodeType != 1) {
-				   target = target.parentNode;
-				   }
 				   
-				   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
-				   e.preventDefault();
-				   }
-				   }
-				   
-				   });
-				   
-					   
 				   setTimeout (function(){
 					  myScroll2.refresh();
 					}, 300);
@@ -1036,7 +1018,7 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br><br><br><br><br><br><br><br>"
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
                           
                           $("#calendario33").append(calendario33)
 						  
@@ -1058,10 +1040,32 @@ var app = {
 						
 					 });
 					 
+					 
+				   myScroll2 = new iScroll('wrapper2', {
+				   click: true,
+				   useTransform: false,
+				   //bounce: false,
+				   onBeforeScrollStart: function (e)
+				   {
+				   var target = e.target;
+				   while (target.nodeType != 1) {
+				   target = target.parentNode;
+				   }
+				   
+				   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+				   e.preventDefault();
+				   }
+				   }
+				   
+				   });
+				   
+				   
+				   $("#calendario33").append("<br><br><br><br><br><br><br><br>")
+					 
 					  
 				   setTimeout (function(){
 					  myScroll2.refresh();
-					}, 1000);
+					}, 500);
 					 
 
                    },
