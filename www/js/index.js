@@ -656,7 +656,7 @@ var app = {
          });
         
         
-        $(document).on("touchstart", "#calendario", function(e){
+        $(document).on("tap", "#calendario", function(e){
 					var myScroll2;
 					var paperino;
 			
@@ -1291,39 +1291,34 @@ var app = {
 			$(document).on("touchstart", "#cancappuntamento", function(e){
                        
                       
-                       var idappuntamento = self.document.formia2.eccolaapp.value
-                       
-                       $("#spinner2").show();
-                       $.ajax({
-                              type: "GET",
-                              url: "http://msop.it/tagliafila/check_cancappuntamentocli.php?idappuntamento="+idappuntamento+"",
-                              cache: false,
-                              crossDomain: true,
-                              contentType: "application/json",
-                              timeout: 7000,
-                              jsonp: 'callback',
-                              crossDomain: true,
-                              success: function (result) {
-                              
-                                $("#spinner2").hide();
-                                alert("ok, appuntamento cancellato")
-								
-								
-                               window.plugins.nativepagetransitions.fade({
-									"duration"       :  800, // in milliseconds (ms), default 400
-									"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-									"androiddelay"   :  600,
-									"href" : "#page"
-								});
-                              
-                              },
-                              error: function( jqXhr, textStatus, errorThrown ){
-                              
-                              alert(errorThrown)
-                              $("#spinner").hide();
-                              
-                              },
-                              dataType:"jsonp"});
+				   var idappuntamento = self.document.formia2.eccolaapp.value
+				   
+				   $("#spinner2").show();
+				   $.ajax({
+						  type: "GET",
+						  url: "http://msop.it/tagliafila/check_cancappuntamentocli.php?idappuntamento="+idappuntamento+"",
+						  cache: false,
+						  crossDomain: true,
+						  contentType: "application/json",
+						  timeout: 7000,
+						  jsonp: 'callback',
+						  crossDomain: true,
+						  success: function (result) {
+						  
+							$("#spinner2").hide();
+							alert("ok, appuntamento cancellato")
+							$("#calendario").tap();
+							
+						   //window.location.href = "index.html";
+						  
+						  },
+						  error: function( jqXhr, textStatus, errorThrown ){
+						  
+						  alert(errorThrown)
+						  $("#spinner").hide();
+						  
+						  },
+					dataType:"jsonp"});
             });
 
         
@@ -1346,13 +1341,9 @@ var app = {
 
                    $("#spinner2").hide();
                    alert("ok, appuntamento modificato")
-				   
-				    window.plugins.nativepagetransitions.fade({
-						"duration"       :  800, // in milliseconds (ms), default 400
-						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  600,
-						"href" : "#page"
-					});
+				   $("#calendario").tap();
+				    
+				   //window.location.href = "index.html";
 				   
 
                    },
@@ -1362,7 +1353,7 @@ var app = {
                    $("#spinner").hide();
                    
                    },
-                   dataType:"jsonp"});
+           dataType:"jsonp"});
             
         }
 
