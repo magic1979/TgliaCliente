@@ -1068,7 +1068,7 @@ var app = {
 		 
 		 function controllaappuntamenti(){
 				  
-			 
+			 $("#calendario33").html("")
 			 $("#spinner2").show();
 			 
 			 
@@ -1095,7 +1095,7 @@ var app = {
 					
                    		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
                           
-                          $("#calendario33").append(calendario33)
+                          $("#calendario33").html(calendario33)
 						  
 							
                           $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
@@ -1105,11 +1105,6 @@ var app = {
                                 
                                 adesso(appuntamentoid)
 								
-								  setTimeout (function(){
-
-								    myScroll2.scrollToElement("#calendar", "1s");
-									
-                                   }, 1000);
    
                             });
 						
@@ -1366,7 +1361,6 @@ var app = {
 
         
 
-        
     $(document).on("touchstart", "#aggiorna", function(e){
                    
        listznegozi()
