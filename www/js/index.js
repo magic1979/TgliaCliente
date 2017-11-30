@@ -703,11 +703,6 @@ var app = {
                                 
                                 adesso(appuntamentoid)
 								
-								  setTimeout (function(){
-
-								    myScroll2.scrollToElement("#calendar", "1s");
-									
-                                   }, 1000);
    
                             });
 						
@@ -750,9 +745,7 @@ var app = {
                    },
                    dataType:"jsonp"});
 					   
-					   
-					   
-					   //controllaappuntamenti()
+	
 	
                        
                        var date = new Date();
@@ -1300,7 +1293,7 @@ var app = {
                       
                        var idappuntamento = self.document.formia2.eccolaapp.value
                        
-                       $("#spinner").show();
+                       $("#spinner2").show();
                        $.ajax({
                               type: "GET",
                               url: "http://msop.it/tagliafila/check_cancappuntamentocli.php?idappuntamento="+idappuntamento+"",
@@ -1312,11 +1305,16 @@ var app = {
                               crossDomain: true,
                               success: function (result) {
                               
-                                $("#spinner").hide();
+                                $("#spinner2").hide();
                                 alert("ok, appuntamento cancellato")
-								controllaappuntamenti()
-                              
-                               // calendariomio()
+								
+								
+                               window.plugins.nativepagetransitions.fade({
+									"duration"       :  800, // in milliseconds (ms), default 400
+									"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+									"androiddelay"   :  600,
+									"href" : "#page"
+								});
                               
                               },
                               error: function( jqXhr, textStatus, errorThrown ){
@@ -1331,7 +1329,9 @@ var app = {
         
         
         function aggiornadame(idappuntamento,datainizio,datafine){
-            
+			
+			
+            $("#spinner2").show();
             $.ajax({
                    type: "GET",
                    url: "http://msop.it/tagliafila/check_updateappuntamentoneg.php?idappuntamento="+idappuntamento+"&dataorainizio="+datainizio+"&dataorafine="+datafine+"",
@@ -1344,9 +1344,16 @@ var app = {
                    success: function (result) {
 
 
-                   $("#spinner").hide();
+                   $("#spinner2").hide();
                    alert("ok, appuntamento modificato")
-				   controllaappuntamenti()
+				   
+				    window.plugins.nativepagetransitions.fade({
+						"duration"       :  800, // in milliseconds (ms), default 400
+						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+						"androiddelay"   :  600,
+						"href" : "#page"
+					});
+				   
 
                    },
                    error: function( jqXhr, textStatus, errorThrown ){
