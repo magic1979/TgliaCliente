@@ -660,24 +660,99 @@ var app = {
 					var myScroll2;
 					var paperino;
 			
-				   
-				   setTimeout (function(){
-					  myScroll2.refresh();
-					}, 300);
-							
+				   						    
+					//window.location.href = "#page2";
+					window.plugins.nativepagetransitions.fade({
+						"duration"       :  800, // in milliseconds (ms), default 400
+						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+						"androiddelay"   :  600,
+						"href" : "#page2"
+					});
                        
-                        //window.location.href = "#page2";
-					    window.plugins.nativepagetransitions.fade({
-							"duration"       :  800, // in milliseconds (ms), default 400
-							"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-							"androiddelay"   :  600,
-							"href" : "#page2"
-						});
-                       
-                       
-                       $("#spinner2").hide();
 					   
-					   controllaappuntamenti()
+				   $.ajax({
+                   type: "GET",
+                   url: "http://msop.it/tagliafila/check_controllo_cli.php?idcliente="+localStorage.getItem("idcliente")+"",
+                   cache: false,
+                   crossDomain: true,
+                   contentType: "application/json",
+                   timeout: 7000,
+                   jsonp: 'callback',
+                   crossDomain: true,
+                   success: function (result) {
+
+                   	$("#spinner2").hide();
+					
+					 $.each(result, function(i,item){
+						 
+						var orainiziale = item.dataorainizio.substr(11,2)
+					  	var mininiziale = item.dataorainizio.substr(14,2)
+					  	var anno = item.dataorainizio.substr(0,4)
+					  	var mese = item.dataorainizio.substr(5,2)
+					  	var giorno = item.dataorainizio.substr(8,2)
+					
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
+                          
+                          $("#calendario33").append(calendario33)
+						  
+							
+                          $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
+                                         
+                                var appuntamentioid = this.id
+                                appuntamentoid = appuntamentioid.replace("aa_","")
+                                
+                                adesso(appuntamentoid)
+								
+								  setTimeout (function(){
+
+								    myScroll2.scrollToElement("#calendar", "1s");
+									
+                                   }, 1000);
+   
+                            });
+						
+						 });
+					 
+					 
+					   myScroll2 = new iScroll('wrapper2', {
+					   click: true,
+					   useTransform: false,
+					   //bounce: false,
+					   onBeforeScrollStart: function (e)
+					   {
+					   var target = e.target;
+					   while (target.nodeType != 1) {
+					   target = target.parentNode;
+					   }
+					   
+					   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+					   e.preventDefault();
+					   }
+					   }
+					   
+					   });
+				   
+				   
+				   		$("#calendario33").append("<br><br><br><br><br><br><br><br>")
+					 
+					  
+					   setTimeout (function(){
+						  myScroll2.refresh();
+						}, 500);
+					 
+
+                   },
+                   error: function( jqXhr, textStatus, errorThrown ){
+                   
+					   alert(errorThrown)
+					   $("#spinner").hide();
+                   
+                   },
+                   dataType:"jsonp"});
+					   
+					   
+					   
+					   //controllaappuntamenti()
 	
                        
                        var date = new Date();
@@ -694,24 +769,24 @@ var app = {
                                                   });
                        
                        
-                       $("#calendar").bind('change', function(event, date) {
-	
-                                           var events = $("#calendar").data("jqm-calendar").settings.events;
+			   $("#calendar").bind('change', function(event, date) {
+
+						   var events = $("#calendar").data("jqm-calendar").settings.events;
+						   
+						   for ( var i = 0; i < events.length; i++ ) {
+						   if ( events[i].begin.getFullYear() == date.getFullYear() &&
+							   events[i].begin.getMonth() == date.getMonth() &&
+							   events[i].begin.getDate() == date.getDate() ) {
+						   
+						   return false;
+						   }
+						   }
                                            
-                                           for ( var i = 0; i < events.length; i++ ) {
-                                           if ( events[i].begin.getFullYear() == date.getFullYear() &&
-                                               events[i].begin.getMonth() == date.getMonth() &&
-                                               events[i].begin.getDate() == date.getDate() ) {
                                            
-                                           return false;
-                                           }
-                                           }
-                                           
-                                           
-                                           var cicci ;
-                                           $("#calendario33").html("")
-                                           
-                                           $("#calendario33").append("<div id='0800'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>08:00</b></font> <a id=''> Libero</td></tr></table></div><div id='0815'><table width='100%' class='nocolor'><tr><td width='100%'>08:15 <a id=''> Libero</td></tr></table></div> <div id='0830'><table width='100%' class='nocolor'><tr><td width='100%'>08:30 <a id=''> Libero</td></tr></table></div><div id='0845'><table width='100%' class='nocolor'><tr><td width='100%'>08:45 <a id=''> Libero</td></tr></table></div><div id='0900'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>09:00 </b></font><a id=''> Libero</td></tr></table></div><div id='0915'><table width='100%' class='nocolor'><tr><td width='100%'>09:15 <a id='05'> Libero</td></tr></table></div><div id='0930'><table width='100%' class='nocolor'><tr><td width='100%'>09:30 <a id='06'> Libero</td></tr></table></div><div id='0945'><table width='100%' class='nocolor'><tr><td width='100%'>09:45 <a id='07'> Libero</td></tr></table></div><div id='1000'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>10:00 </b></font><a id='08'> Libero</td></tr></table></div><div id='1015'><table width='100%' class='nocolor'><tr><td width='100%'>10:15 <a id='09'> Libero</td></tr></table></div><div id='1030'><table width='100%' class='nocolor'><tr><td width='100%'>10:30 <a id='10'> Libero</td></tr></table></div><div id='1045'><table width='100%' class='nocolor'><tr><td width='100%'>10:45 <a id='03'> Libero</td></tr></table></div><div id='1100'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>11:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1115'><table width='100%' class='nocolor'><tr><td width='100%'>11:15 <a id='01'> Libero</td></tr></table></div><div id='1130'><table width='100%' class='nocolor'><tr><td width='100%'>11:30 <a id='02'> Libero</td></tr></table></div><div id='1145'><table width='100%' class='nocolor'><tr><td width='100%'>11:45 <a id='03'> Libero</td></tr></table></div><div id='1200'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>12:00 </b></font><a id='04'> Libero</td></tr></table></div><div id='1215'><table width='100%' class='nocolor'><tr><td width='100%'>12:15 <a id='01'> Libero</td></tr></table></div><div id='1230'><table width='100%' class='nocolor'><tr><td width='100%'>12:30 <a id='02'> Libero</td></tr></table></div><div id='1245'><table width='100%' class='nocolor'><tr><td width='100%'>12:45 <a id='03'> Libero</td></tr></table></div><div id='1300'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>13:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1315'><table width='100%' class='nocolor'><tr><td width='100%'>13:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1400'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>14:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1415'><table width='100%' class='nocolor'><tr><td width='100%'>14:15 <a id='04'> Libero</td></tr></table></div><div id='1430'><table width='100%' class='nocolor'><tr><td width='100%'>14:30 <a id='04'> Libero</td></tr></table></div><div id='1445'><table width='100%' class='nocolor'><tr><td width='100%'>14:45 <a id='04'> Libero</td></tr></table></div><div id='1500'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>15:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1515'><table width='100%' class='nocolor'><tr><td width='100%'>15:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1600'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>16:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1615'><table width='100%' class='nocolor'><tr><td width='100%'>16:15 Libero</td></tr></table></div><div id='1630'><table width='100%' class='nocolor'><tr><td width='100%'>16:30 Libero</td></tr></table></div><div id='1645'><table width='100%' class='nocolor'><tr><td width='100%'>16:45 Libero</td></tr></table></div><div id='1700'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>17:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1715'><table width='100%' class='nocolor'><tr><td width='100%'>17:15 Libero</td></tr></table></div><div id='1730'><table width='100%' class='nocolor'><tr><td width='100%'>17:30 Libero</td></tr></table></div><div id='1745'><table width='100%' class='nocolor'><tr><td width='100%'>17:45 Libero</td></tr></table></div><div id='1800'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>18:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1815'><table width='100%' class='nocolor'><tr><td width='100%'>18:15 Libero</td></tr></table></div><div id='1830'><table width='100%' class='nocolor'><tr><td width='100%'>18:30 Libero</td></tr></table></div><div id='1845'><table width='100%' class='nocolor'><tr><td width='100%'>18:45 Libero</td></tr></table></div><div id='1900'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>19:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1915'><table width='100%' class='nocolor'><tr><td width='100%'>19:15 Libero</td></tr></table></div><div id='1930'><table width='100%' class='nocolor'><tr><td width='100%'>19:30 Libero</td></tr></table></div><div id='1945'><table width='100%' class='nocolor'><tr><td width='100%'>19:45 Libero</td></tr></table></div> <div id='2000'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>20:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='2015'><table width='100%' class='nocolor'><tr><td width='100%'>20:15 Libero</td></tr></table></div><div id='2030'><table width='100%' class='nocolor'><tr><td width='100%'>20:30 Libero</td></tr></table></div><div id='2045'><table width='100%' class='nocolor'><tr><td width='100%'>20:45 Libero</td></tr></table></div><br><br><br><br>")
+						   var cicci ;
+						   $("#calendario33").html("")
+						   
+                           $("#calendario33").append("<div id='0800'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>08:00</b></font> <a id=''> Libero</td></tr></table></div><div id='0815'><table width='100%' class='nocolor'><tr><td width='100%'>08:15 <a id=''> Libero</td></tr></table></div> <div id='0830'><table width='100%' class='nocolor'><tr><td width='100%'>08:30 <a id=''> Libero</td></tr></table></div><div id='0845'><table width='100%' class='nocolor'><tr><td width='100%'>08:45 <a id=''> Libero</td></tr></table></div><div id='0900'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>09:00 </b></font><a id=''> Libero</td></tr></table></div><div id='0915'><table width='100%' class='nocolor'><tr><td width='100%'>09:15 <a id='05'> Libero</td></tr></table></div><div id='0930'><table width='100%' class='nocolor'><tr><td width='100%'>09:30 <a id='06'> Libero</td></tr></table></div><div id='0945'><table width='100%' class='nocolor'><tr><td width='100%'>09:45 <a id='07'> Libero</td></tr></table></div><div id='1000'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>10:00 </b></font><a id='08'> Libero</td></tr></table></div><div id='1015'><table width='100%' class='nocolor'><tr><td width='100%'>10:15 <a id='09'> Libero</td></tr></table></div><div id='1030'><table width='100%' class='nocolor'><tr><td width='100%'>10:30 <a id='10'> Libero</td></tr></table></div><div id='1045'><table width='100%' class='nocolor'><tr><td width='100%'>10:45 <a id='03'> Libero</td></tr></table></div><div id='1100'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>11:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1115'><table width='100%' class='nocolor'><tr><td width='100%'>11:15 <a id='01'> Libero</td></tr></table></div><div id='1130'><table width='100%' class='nocolor'><tr><td width='100%'>11:30 <a id='02'> Libero</td></tr></table></div><div id='1145'><table width='100%' class='nocolor'><tr><td width='100%'>11:45 <a id='03'> Libero</td></tr></table></div><div id='1200'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>12:00 </b></font><a id='04'> Libero</td></tr></table></div><div id='1215'><table width='100%' class='nocolor'><tr><td width='100%'>12:15 <a id='01'> Libero</td></tr></table></div><div id='1230'><table width='100%' class='nocolor'><tr><td width='100%'>12:30 <a id='02'> Libero</td></tr></table></div><div id='1245'><table width='100%' class='nocolor'><tr><td width='100%'>12:45 <a id='03'> Libero</td></tr></table></div><div id='1300'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>13:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1315'><table width='100%' class='nocolor'><tr><td width='100%'>13:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1400'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>14:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1415'><table width='100%' class='nocolor'><tr><td width='100%'>14:15 <a id='04'> Libero</td></tr></table></div><div id='1430'><table width='100%' class='nocolor'><tr><td width='100%'>14:30 <a id='04'> Libero</td></tr></table></div><div id='1445'><table width='100%' class='nocolor'><tr><td width='100%'>14:45 <a id='04'> Libero</td></tr></table></div><div id='1500'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>15:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1515'><table width='100%' class='nocolor'><tr><td width='100%'>15:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1600'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>16:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1615'><table width='100%' class='nocolor'><tr><td width='100%'>16:15 Libero</td></tr></table></div><div id='1630'><table width='100%' class='nocolor'><tr><td width='100%'>16:30 Libero</td></tr></table></div><div id='1645'><table width='100%' class='nocolor'><tr><td width='100%'>16:45 Libero</td></tr></table></div><div id='1700'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>17:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1715'><table width='100%' class='nocolor'><tr><td width='100%'>17:15 Libero</td></tr></table></div><div id='1730'><table width='100%' class='nocolor'><tr><td width='100%'>17:30 Libero</td></tr></table></div><div id='1745'><table width='100%' class='nocolor'><tr><td width='100%'>17:45 Libero</td></tr></table></div><div id='1800'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>18:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1815'><table width='100%' class='nocolor'><tr><td width='100%'>18:15 Libero</td></tr></table></div><div id='1830'><table width='100%' class='nocolor'><tr><td width='100%'>18:30 Libero</td></tr></table></div><div id='1845'><table width='100%' class='nocolor'><tr><td width='100%'>18:45 Libero</td></tr></table></div><div id='1900'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>19:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1915'><table width='100%' class='nocolor'><tr><td width='100%'>19:15 Libero</td></tr></table></div><div id='1930'><table width='100%' class='nocolor'><tr><td width='100%'>19:30 Libero</td></tr></table></div><div id='1945'><table width='100%' class='nocolor'><tr><td width='100%'>19:45 Libero</td></tr></table></div> <div id='2000'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>20:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='2015'><table width='100%' class='nocolor'><tr><td width='100%'>20:15 Libero</td></tr></table></div><div id='2030'><table width='100%' class='nocolor'><tr><td width='100%'>20:30 Libero</td></tr></table></div><div id='2045'><table width='100%' class='nocolor'><tr><td width='100%'>20:45 Libero</td></tr></table></div><br><br><br><br>")
                                            
                                            
                                            
@@ -957,7 +1032,7 @@ var app = {
 																
 																setTimeout (function(){
                                                                     myScroll2.scrollToElement("#calendar", "1s");
-                                                                }, 1100);
+                                                                }, 700);
                                                                         
                                                             });
                                                          
