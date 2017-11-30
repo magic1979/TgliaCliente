@@ -378,6 +378,21 @@
                         font-style: italic;
                     }
 					
+					.prolock {
+		
+						position: absolute;
+						width: 300px;
+						height: 180px;
+						z-index: 30;
+						top: 50%;
+						left: 50%;
+						margin: -100px 0 0 -150px;
+						background: #f0f0f0;
+						
+						text-align: center;
+						
+					  }
+					
                         </style>
     
     
@@ -466,6 +481,13 @@
         
         <div class="spinner" id="spinner2"></div>
         
+        <div id="prolock" class="prolock" style="display:none" >
+			<br>
+			<div id="appunta" width="100%"></div>
+			<br>
+		</div>
+        
+        
         <div id="wrapper2">
             <div id="scroller">
 
@@ -476,8 +498,6 @@
                 <table width="95%" align="center"><tr><td width="95%" align="center">
                  <div id="calendar"></div>
                 </td></tr></table>
-                
-                <div class="container" id="appunta" width="100%"></div>
                 
                 <p id="sopra"></p>
                 
