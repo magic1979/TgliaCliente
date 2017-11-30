@@ -177,7 +177,6 @@ var app = {
 		
 	var myScroll;
         
-        
          myScroll = new iScroll('wrapper', {
                            click: true,
                            useTransform: false,
@@ -206,9 +205,9 @@ var app = {
             if(localStorage.getItem("nome")=="nome"){
 				
                 window.plugins.nativepagetransitions.fade({
-						"duration"       :  500, // in milliseconds (ms), default 400
+						"duration"       :  800, // in milliseconds (ms), default 400
 						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  400,
+						"androiddelay"   :  600,
 						"href" : "edita.html"
 					});
 			   
@@ -216,9 +215,9 @@ var app = {
             else{
 				
                  window.plugins.nativepagetransitions.fade({
-						"duration"       :  500, // in milliseconds (ms), default 400
+						"duration"       :  800, // in milliseconds (ms), default 400
 						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  400,
+						"androiddelay"   :  600,
 						"href" : "Login.html"
 					});
 				
@@ -687,9 +686,9 @@ var app = {
                        
                         //window.location.href = "#page2";
 					    window.plugins.nativepagetransitions.fade({
-							"duration"       :  1000, // in milliseconds (ms), default 400
+							"duration"       :  800, // in milliseconds (ms), default 400
 							"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-							"androiddelay"   :  800,
+							"androiddelay"   :  600,
 							"href" : "#page2"
 						});
                        
@@ -714,11 +713,7 @@ var app = {
                        
                        
                        $("#calendar").bind('change', function(event, date) {
-						   
-						   
-							 			   myScroll2.refresh();
-							
-                                           
+	
                                            var events = $("#calendar").data("jqm-calendar").settings.events;
                                            
                                            for ( var i = 0; i < events.length; i++ ) {
@@ -1041,7 +1036,7 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table>"
+                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br><br><br><br><br><br><br><br>"
                           
                           $("#calendario33").append(calendario33)
 						  
@@ -1063,29 +1058,10 @@ var app = {
 						
 					 });
 					 
-					 
-				   myScroll2 = new iScroll('wrapper2', {
-				   click: true,
-				   useTransform: false,
-				   //bounce: false,
-				   onBeforeScrollStart: function (e)
-				   {
-				   var target = e.target;
-				   while (target.nodeType != 1) {
-				   target = target.parentNode;
-				   }
-				   
-				   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
-				   e.preventDefault();
-				   }
-				   }
-				   
-				   });
-					 
-					 
+					  
 				   setTimeout (function(){
 					  myScroll2.refresh();
-					}, 500);
+					}, 1000);
 					 
 
                    },
@@ -1340,9 +1316,9 @@ var app = {
     $(document).on("touchstart", "#indietro", function(e){
         
         window.plugins.nativepagetransitions.fade({
-                "duration"       :  1000, // in milliseconds (ms), default 400
+                "duration"       :  800, // in milliseconds (ms), default 400
 				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  800,
+				"androiddelay"   :  600,
                 "href" : "index.html"
             });
                        
@@ -1352,9 +1328,9 @@ var app = {
     $(document).on("touchstart", "#edita", function(e){
                        
         window.plugins.nativepagetransitions.fade({
-                "duration"       :  1000, // in milliseconds (ms), default 400
+                "duration"       :  800, // in milliseconds (ms), default 400
 				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  800,
+				"androiddelay"   :  600,
                 "href" : "edita.html"
             });
                        
@@ -1364,7 +1340,15 @@ var app = {
     $(document).on("touchstart", "#esci", function(e){
                    
         localStorage.setItem("email", "");
-        window.location.href = "Login.html";
+		
+		 window.plugins.nativepagetransitions.fade({
+                "duration"       :  800, // in milliseconds (ms), default 400
+				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+				"androiddelay"   :  600,
+                "href" : "Login.html"
+            });
+		
+        //window.location.href = "Login.html";
                    
     });
         

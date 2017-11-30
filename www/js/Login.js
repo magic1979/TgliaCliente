@@ -17,7 +17,7 @@ function onDeviceReady() {
 		if(localStorage.getItem("pagina")=="log"){
 							   
 	        navigator.notification.confirm(
-	       'Vuoi chiudere purple miles?',  // message
+	       'Vuoi chiudere Taglia La Fila?',  // message
 	        onConfirm2,              // callback to invoke with index of button pressed
 	       'Spegni',            // title
 	       'Spegni,Annulla'      // buttonLabels
@@ -155,7 +155,7 @@ function onDeviceReady() {
                    
                    var myScroll2;
                    
-                   myScroll2 = new IScroll('#wrapper2', { click: true });
+                   myScroll2 = new IScroll('wrapper2', { click: true });
                    setTimeout (function(){
                             myScroll2.refresh();
                     }, 1000);
@@ -181,7 +181,7 @@ function onDeviceReady() {
 				   
 				   var myScroll2;
 				   
-				   myScroll2 = new IScroll('#wrapper2', { click: true });
+				   myScroll2 = new IScroll('wrapper2', { click: true });
 				   setTimeout (function(){
 							   myScroll2.refresh();
 							   }, 1000);
@@ -312,7 +312,7 @@ function onDeviceReady() {
 				   
 				   var myScroll2;
 
-				   myScroll2 = new IScroll('#wrapper2', { click: true });
+				   myScroll2 = new IScroll('wrapper2', { click: true });
 				   setTimeout (function(){
 					  myScroll2.refresh();
 				   }, 1700);
