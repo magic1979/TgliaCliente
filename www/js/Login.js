@@ -363,7 +363,9 @@ function onDeviceReady() {
 	
 	$(document).on("touchstart", "#accedi", function(e){
 		//window.location.href = "index.html";
+		
 		login();
+		
 		if ($.browser.iphone || $.browser.ipad) $(this).trigger('click');
 		
 	});
@@ -596,22 +598,6 @@ function login() {
 									 );
 		return;
 	}
-	
-	/*EmailAddr = self.document.formia2.email.value;
-	Filtro = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-]{2,})+\.)+([a-zA-Z0-9]{2,})+$/;
-	if (Filtro.test(EmailAddr)) {
-	 
-		
-	}
-	else {
-		navigator.notification.alert(
-									 'Caratteri email non consentiti',  // message
-									 alertDismissed,         // callback
-									 'Email',            // title
-									 'OK'                  // buttonName
-									 );
-		return;
-	}*/
 	
 
 	LoginVera(email2,pin2);
@@ -964,7 +950,7 @@ function iscriviti(){
            
              var pippo = jQuery.parseJSON( result );
            
-             alert(pippo.id)
+             alert("Utente Registrato!")
              //alert( pippo.code_error)
            },
            error: function( jqXhr, textStatus, errorThrown ){
@@ -995,15 +981,27 @@ function registradame(IDCliente,Nome,Cognome,Email,Citta,Civico,Telefono,CAP,Ses
            $.each(result, function(i,item){
                  //alert(item.Token);
                   
+				if(item.Token=="1"){
                 
-				localStorage.setItem("registrato","0")
+					localStorage.setItem("registrato","0")
+					
+					window.plugins.nativepagetransitions.fade({
+						"duration"       :  500, // in milliseconds (ms), default 400
+						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+						"androiddelay"   :  400,
+						"href" : "index.html"
+					});
 				
-				window.plugins.nativepagetransitions.fade({
-					"duration"       :  500, // in milliseconds (ms), default 400
-					"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-					"androiddelay"   :  400,
-					"href" : "index.html"
-				});
+				}
+				else{
+					navigator.notification.alert(
+					'Credenziali non corrette',  // message
+					alertDismissed,         // callback
+					'Attenzione',            // title
+					'Done'                  // buttonName
+					);
+					
+				}
                   
                 
             });
