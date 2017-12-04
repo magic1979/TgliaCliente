@@ -228,7 +228,6 @@ var app = {
 
             $("#mieiservizi2").html("");
 
-            
             $("#nome").html(localStorage.getItem("nome"));
             
             listaneg()
@@ -237,11 +236,12 @@ var app = {
         }
         
         function listznegozi(){
+			$("#nome").html("LISTA NEGOZI");
+			
             $("#spinner").show();
             
-            $.ajax({
+            /*$.ajax({
                    type: "GET",
-                   //url: "http://servizi.marcopolowit.it/tagliafilarest/api/Cliente/GetbyidCliente/"+localStorage.getItem("idcliente")+"",
                    url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetNegozi/",
                    cache: false,
                    crossDomain: true,
@@ -259,35 +259,27 @@ var app = {
                    $.each(pippo, function(i,item){
                           
                           pluto = item.IDNegozio
-                          
-                          
+
                           tabella1 = "<table width='80%' align='center'>";
                           
-                          tabella1 = tabella1 + "<tr><td align='right' width='100'><a id='"+pluto+"'> <img src='img/logo.png' width='50'> </a></td><td align='left' width='100%'>"+item.NomeEsercente+"</td></tr>"
+                          tabella1 = tabella1 + "<tr><td align='right' width='100' valign='center'><a id='"+pluto+"'> <img src='img/logo.png' width='50'> </a></td><td align='left' width='100%' valign='center'>"+item.NomeEsercente+"</td></tr>"
                           
                           tabella1 = tabella1 + "</table>";
                           
                           $("#mieiservizi").append(tabella1);
-                          
-                          
+
                           $(document).on("touchstart", "#"+pluto+"", function(e){
                                          
-                                         passo2(this.id)
-                                         
-                                         });
-                          
-                          
-                          });
-                   
-                   
-                   // DEVO INCOLLARE QUI DI NUOVO
-                   
-                   
+                             passo2(this.id)
+                             
+                           });
+
+                    });
+
                    setTimeout (function(){
                                myScroll.refresh();
                                }, 500);
-                   
-                   
+
                    },
                    error: function(jqXhr, textStatus, errorThrown){
                    
@@ -296,7 +288,64 @@ var app = {
                    
                    }
                    
-                   });
+                });*/
+            
+            $.ajax({
+                   type: "GET",
+                   url: "http://msop.it/tagliafila/check_listanegozio.php",
+                   cache: false,
+                   crossDomain: true,
+                   contentType: "application/json",
+                   timeout: 7000,
+                   jsonp: 'callback',
+                   crossDomain: true,
+                   success: function (result) {
+                   
+                   var tabella1 =""
+                   $("#mieiservizi").html("");
+                   
+                   $("#spinner").hide();
+                   var listacompleta="";
+                   
+                   $.each(result, function(i,item){
+                          
+                      pluto = item.id
+                      
+                      tabella1 = "<br><table width='80%' align='center'>";
+                      
+                      tabella1 = tabella1 + "<tr><td align='right' width='100' valign='center'><a id='"+pluto+"'> <img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='50' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nomeesercente+"</b></font></td></tr>"
+                          
+                       tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
+                      
+                      tabella1 = tabella1 + "</table>";
+                      
+                      $("#mieiservizi").append(tabella1);
+                      
+                      $(document).on("touchstart", "#"+pluto+"", function(e){
+                                     
+                         passo2(this.id)
+                         
+                       });
+   
+
+                    });
+                   
+                   
+                   setTimeout (function(){
+                      myScroll.refresh();
+                   }, 500);
+
+                   
+                   
+                   },
+                   error: function( jqXhr, textStatus, errorThrown ){
+                   
+                     alert(errorThrown)
+                   
+                   
+                   },
+                   dataType:"jsonp"});
+
         }
         
         
@@ -695,7 +744,7 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
+                   		calendario33 = "<table valign='center' class='nocolor'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
                           
                           $("#calendario33").append(calendario33)
 						  
@@ -783,7 +832,7 @@ var app = {
 						   var cicci ;
 						   $("#calendario33").html("")
 						   
-                           $("#calendario33").append("<div id='0800'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>08:00</b></font> <a id=''> Libero</td></tr></table></div><div id='0815'><table width='100%' class='nocolor'><tr><td width='100%'>08:15 <a id=''> Libero</td></tr></table></div> <div id='0830'><table width='100%' class='nocolor'><tr><td width='100%'>08:30 <a id=''> Libero</td></tr></table></div><div id='0845'><table width='100%' class='nocolor'><tr><td width='100%'>08:45 <a id=''> Libero</td></tr></table></div><div id='0900'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>09:00 </b></font><a id=''> Libero</td></tr></table></div><div id='0915'><table width='100%' class='nocolor'><tr><td width='100%'>09:15 <a id='05'> Libero</td></tr></table></div><div id='0930'><table width='100%' class='nocolor'><tr><td width='100%'>09:30 <a id='06'> Libero</td></tr></table></div><div id='0945'><table width='100%' class='nocolor'><tr><td width='100%'>09:45 <a id='07'> Libero</td></tr></table></div><div id='1000'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>10:00 </b></font><a id='08'> Libero</td></tr></table></div><div id='1015'><table width='100%' class='nocolor'><tr><td width='100%'>10:15 <a id='09'> Libero</td></tr></table></div><div id='1030'><table width='100%' class='nocolor'><tr><td width='100%'>10:30 <a id='10'> Libero</td></tr></table></div><div id='1045'><table width='100%' class='nocolor'><tr><td width='100%'>10:45 <a id='03'> Libero</td></tr></table></div><div id='1100'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>11:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1115'><table width='100%' class='nocolor'><tr><td width='100%'>11:15 <a id='01'> Libero</td></tr></table></div><div id='1130'><table width='100%' class='nocolor'><tr><td width='100%'>11:30 <a id='02'> Libero</td></tr></table></div><div id='1145'><table width='100%' class='nocolor'><tr><td width='100%'>11:45 <a id='03'> Libero</td></tr></table></div><div id='1200'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>12:00 </b></font><a id='04'> Libero</td></tr></table></div><div id='1215'><table width='100%' class='nocolor'><tr><td width='100%'>12:15 <a id='01'> Libero</td></tr></table></div><div id='1230'><table width='100%' class='nocolor'><tr><td width='100%'>12:30 <a id='02'> Libero</td></tr></table></div><div id='1245'><table width='100%' class='nocolor'><tr><td width='100%'>12:45 <a id='03'> Libero</td></tr></table></div><div id='1300'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>13:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1315'><table width='100%' class='nocolor'><tr><td width='100%'>13:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1400'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>14:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1415'><table width='100%' class='nocolor'><tr><td width='100%'>14:15 <a id='04'> Libero</td></tr></table></div><div id='1430'><table width='100%' class='nocolor'><tr><td width='100%'>14:30 <a id='04'> Libero</td></tr></table></div><div id='1445'><table width='100%' class='nocolor'><tr><td width='100%'>14:45 <a id='04'> Libero</td></tr></table></div><div id='1500'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>15:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1515'><table width='100%' class='nocolor'><tr><td width='100%'>15:15 Libero</td></tr></table></div><div id='1530'><table width='100%' class='nocolor'><tr><td width='100%'>15:30 Libero</td></tr></table></div><div id='1545'><table width='100%' class='nocolor'><tr><td width='100%'>15:45 Libero</td></tr></table></div><div id='1600'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>16:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1615'><table width='100%' class='nocolor'><tr><td width='100%'>16:15 Libero</td></tr></table></div><div id='1630'><table width='100%' class='nocolor'><tr><td width='100%'>16:30 Libero</td></tr></table></div><div id='1645'><table width='100%' class='nocolor'><tr><td width='100%'>16:45 Libero</td></tr></table></div><div id='1700'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>17:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1715'><table width='100%' class='nocolor'><tr><td width='100%'>17:15 Libero</td></tr></table></div><div id='1730'><table width='100%' class='nocolor'><tr><td width='100%'>17:30 Libero</td></tr></table></div><div id='1745'><table width='100%' class='nocolor'><tr><td width='100%'>17:45 Libero</td></tr></table></div><div id='1800'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>18:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1815'><table width='100%' class='nocolor'><tr><td width='100%'>18:15 Libero</td></tr></table></div><div id='1830'><table width='100%' class='nocolor'><tr><td width='100%'>18:30 Libero</td></tr></table></div><div id='1845'><table width='100%' class='nocolor'><tr><td width='100%'>18:45 Libero</td></tr></table></div><div id='1900'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>19:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1915'><table width='100%' class='nocolor'><tr><td width='100%'>19:15 Libero</td></tr></table></div><div id='1930'><table width='100%' class='nocolor'><tr><td width='100%'>19:30 Libero</td></tr></table></div><div id='1945'><table width='100%' class='nocolor'><tr><td width='100%'>19:45 Libero</td></tr></table></div> <div id='2000'><table width='100%' class='nocolor'><tr><td width='100%'><font size='3'><b>20:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='2015'><table width='100%' class='nocolor'><tr><td width='100%'>20:15 Libero</td></tr></table></div><div id='2030'><table width='100%' class='nocolor'><tr><td width='100%'>20:30 Libero</td></tr></table></div><div id='2045'><table width='100%' class='nocolor'><tr><td width='100%'>20:45 Libero</td></tr></table></div><br><br><br><br>")
+                           $("#calendario33").append("<div id='0800'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>08:00</b></font> <a id=''> Libero</td></tr></table></div><div id='0815'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>08:15 <a id=''> Libero</td></tr></table></div> <div id='0830'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>08:30 <a id=''> Libero</td></tr></table></div><div id='0845'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>08:45 <a id=''> Libero</td></tr></table></div><div id='0900'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>09:00 </b></font><a id=''> Libero</td></tr></table></div><div id='0915'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>09:15 <a id='05'> Libero</td></tr></table></div><div id='0930'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>09:30 <a id='06'> Libero</td></tr></table></div><div id='0945'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>09:45 <a id='07'> Libero</td></tr></table></div><div id='1000'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>10:00 </b></font><a id='08'> Libero</td></tr></table></div><div id='1015'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>10:15 <a id='09'> Libero</td></tr></table></div><div id='1030'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>10:30 <a id='10'> Libero</td></tr></table></div><div id='1045'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>10:45 <a id='03'> Libero</td></tr></table></div><div id='1100'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>11:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1115'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>11:15 <a id='01'> Libero</td></tr></table></div><div id='1130'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>11:30 <a id='02'> Libero</td></tr></table></div><div id='1145'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>11:45 <a id='03'> Libero</td></tr></table></div><div id='1200'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>12:00 </b></font><a id='04'> Libero</td></tr></table></div><div id='1215'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>12:15 <a id='01'> Libero</td></tr></table></div><div id='1230'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>12:30 <a id='02'> Libero</td></tr></table></div><div id='1245'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>12:45 <a id='03'> Libero</td></tr></table></div><div id='1300'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>13:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1315'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>13:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1400'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>14:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1415'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>14:15 <a id='04'> Libero</td></tr></table></div><div id='1430'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>14:30 <a id='04'> Libero</td></tr></table></div><div id='1445'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>14:45 <a id='04'> Libero</td></tr></table></div><div id='1500'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>15:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1515'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>15:15 Libero</td></tr></table></div><div id='1530'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>15:30 Libero</td></tr></table></div><div id='1545'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>15:45 Libero</td></tr></table></div><div id='1600'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>16:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1615'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>16:15 Libero</td></tr></table></div><div id='1630'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>16:30 Libero</td></tr></table></div><div id='1645'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>16:45 Libero</td></tr></table></div><div id='1700'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>17:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1715'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>17:15 Libero</td></tr></table></div><div id='1730'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>17:30 Libero</td></tr></table></div><div id='1745'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>17:45 Libero</td></tr></table></div><div id='1800'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>18:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1815'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>18:15 Libero</td></tr></table></div><div id='1830'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>18:30 Libero</td></tr></table></div><div id='1845'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>18:45 Libero</td></tr></table></div><div id='1900'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>19:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1915'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>19:15 Libero</td></tr></table></div><div id='1930'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>19:30 Libero</td></tr></table></div><div id='1945'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>19:45 Libero</td></tr></table></div> <div id='2000'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>20:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='2015'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>20:15 Libero</td></tr></table></div><div id='2030'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>20:30 Libero</td></tr></table></div><div id='2045'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>20:45 Libero</td></tr></table></div><br><br><br><br>")
                                            
                                            
                                            
@@ -860,163 +909,163 @@ var app = {
                                                          
                                                          if(ora=="0800"){
 													 
-													 $("#0800").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+													 $("#0800").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
 													 
 													 }
 													 
                                                      else if(ora=="0815"){
                                                      
-													 $("#0815").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+													 $("#0815").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      
                                                      }
                                                      else if(ora=="0830"){
                                                      
-                                                       $("#0830").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                       $("#0830").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      
                                                      }
                                                      else if(ora=="0845"){
-                                                       $("#0845").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                       $("#0845").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="0900"){
-                                                       $("#0900").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                       $("#0900").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="0915"){
-                                                     $("#0915").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#0915").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="0930"){
-                                                     $("#0930").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#0930").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="0945"){
-                                                     $("#0945").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#0945").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1000"){
-                                                     $("#1000").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1000").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1015"){
-                                                     $("#1015").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1015").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1030"){
-                                                     $("#1030").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1030").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1045"){
-                                                     $("#1045").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1045").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1100"){
-                                                     $("#1100").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1100").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1115"){
-                                                     $("#1115").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1115").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1130"){
-                                                     $("#1130").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1130").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1145"){
-                                                     $("#1145").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1145").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1200"){
-                                                     $("#1200").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1200").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1215"){
-                                                     $("#1215").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1215").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1230"){
-                                                     $("#1230").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1230").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1245"){
-                                                     $("#1245").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1245").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1300"){
-                                                     $("#1300").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1300").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1315"){
-                                                     $("#1315").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1315").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1330"){
-                                                     $("#1330").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1330").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1345"){
-                                                     $("#1345").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1345").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1400"){
-                                                     $("#1400").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1400").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1415"){
-                                                     $("#1415").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1415").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1430"){
-                                                     $("#1430").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1430").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1445"){
-                                                     $("#1445").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1445").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1500"){
-                                                     $("#1500").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1500").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1515"){
-                                                     $("#1515").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1515").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1530"){
-                                                     $("#1530").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1530").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1545"){
-                                                     $("#1545").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1545").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1600"){
-                                                     $("#1600").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1600").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1615"){
-                                                     $("#1615").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1615").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1630"){
-                                                     $("#1630").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1630").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1645"){
-                                                     $("#1645").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1645").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1700"){
-                                                     $("#1700").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1700").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1715"){
-                                                     $("#1715").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1715").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1730"){
-                                                     $("#1730").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1730").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1745"){
-                                                     $("#1745").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1745").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1800"){
-                                                     $("#1800").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1800").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1815"){
-                                                     $("#1815").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1815").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1830"){
-                                                     $("#1830").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1830").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1845"){
-                                                     $("#1845").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1845").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1900"){
-                                                     $("#1900").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1900").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1915"){
-                                                     $("#1915").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1915").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1930"){
-                                                     $("#1930").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1930").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="1945"){
-                                                     $("#1945").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#1945").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="2000"){
-                                                     $("#2000").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#2000").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="2015"){
-                                                     $("#2015").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
+                                                     $("#2015").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
                                                      }
                                                      else if(ora=="2030"){
-                                                     $("#2030").html("<table width='100%' class='color' ><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a><br><br><br><br></td></tr></table>");
+                                                     $("#2030").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a><br><br><br><br></td></tr></table>");
                                                      }
                                                      else{
                                                      
@@ -1514,6 +1563,8 @@ var app = {
         
         
         function listaneg(){
+			
+			$("#nome").html("LISTA PRESTAZIONI");
             
             $("#spinner").show();
             var listacompleta="";
@@ -1547,25 +1598,31 @@ var app = {
                           
                           
                           if(item.IDPrestazione=="15"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> <font size='4'> <b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
+                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/colore.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="12"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/permanente.png' width='40'> <font size='4'> <b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
+                    
+                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/permanente.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="16"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/colore.png' width='40'> <font size='4'><b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
+                          
+                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/colore.png' width='40'></td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="14"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/shampoo.png' width='40'>  <font size='4'><b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
+                          
+                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/shampoo.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
                           }
                           else if(item.IDPrestazione=="11"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> <font size='4'><b>"+item.NomePrestazione+"<b></font> </a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
+                          
+                           tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/taglio.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
+                          
                           }
                           else if(item.IDPrestazione=="10"){
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/taglio.png' width='40'> <font size='4'><b>"+item.NomePrestazione+"<b></font></a></td></tr><tr><td align='center' width='100%' ><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
+      
+                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'><img src='img/taglio.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
                           }
                           else{
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/aggiungi.png' width='30'> </a> <b>"+item.NomePrestazione+"<b></td></tr>"
+                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/aggiungi.png' width='30'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr>"
                           }
                           
                           
