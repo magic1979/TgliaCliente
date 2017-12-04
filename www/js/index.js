@@ -649,7 +649,13 @@ var app = {
                    crossDomain: true,
                    success:function(result){
                    
-                     alert("Appuntamento Registrato")
+                     //alert("Appuntamento Registrato")
+					 navigator.notification.alert(
+							   'Appuntamento Registrato',  // message
+							   alertDismissed,         // callback
+							   'OK',            // title
+							   'Done'                  // buttonName@
+							   );
 					 
 					 calendariomio()
 					 
@@ -744,17 +750,17 @@ var app = {
 					  	var mese = item.dataorainizio.substr(5,2)
 					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center' class='nocolor'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
+                   		calendario33 = "<table valign='center' class='nocolor' width='100%'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
                           
                           $("#calendario33").append(calendario33)
 						  
 							
                           $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
                                          
-                                var appuntamentioid = this.id
-                                appuntamentoid = appuntamentioid.replace("aa_","")
-                                
-                                adesso(appuntamentoid)
+							var appuntamentioid = this.id
+							appuntamentoid = appuntamentioid.replace("aa_","")
+							
+							adesso(appuntamentoid)
 								
    
                             });
@@ -786,6 +792,7 @@ var app = {
 					  
 					   setTimeout (function(){
 						  myScroll2.refresh();
+						  e.preventDefault();
 						}, 500);
 					 
 
@@ -1072,20 +1079,20 @@ var app = {
                                                      }
                                                          
                                                          
-                                                            $(document).on("touchstart", "#"+paperino+"", function(e){
-                                                                        
-                                                                adesso(this.id)
-																
-																/*setTimeout (function(){
-                                                                    myScroll2.scrollToElement("#calendar", "1s");
-                                                                }, 700);*/
-                                                                        
-                                                            });
+														$(document).on("touchstart", "#"+paperino+"", function(e){
+																	
+															adesso(this.id)
+															
+															/*setTimeout (function(){
+																myScroll2.scrollToElement("#calendar", "1s");
+															}, 700);*/
+																	
+														});
                                                          
                                                          }
                                                          
                                                          
-                                                        });
+                                                    });
                                                   
                                                   
                                                     $("#calendario33").append("<br><br><br><br>")
@@ -1095,6 +1102,10 @@ var app = {
                                                   
                                                     setTimeout (function(){
                                                        myScroll2.refresh();
+													   
+													   e.preventDefault();
+													   return;
+													   
                                                      }, 700);
                                                   
                                                     },
@@ -1359,7 +1370,13 @@ var app = {
 						  success: function (result) {
 						  
 							$("#spinner2").hide();
-							alert("ok, appuntamento cancellato")
+							//alert("ok, appuntamento cancellato")
+								navigator.notification.alert(
+							   'ok, appuntamento cancellato',  // message
+							   alertDismissed,         // callback
+							   'OK',            // title
+							   'Done'                  // buttonName@
+							   );
 							$("#calendario").tap();
 							
 						   //window.location.href = "index.html";
@@ -1393,7 +1410,13 @@ var app = {
 
 
                    $("#spinner2").hide();
-                   alert("ok, appuntamento modificato")
+                   //alert("ok, appuntamento modificato")
+				   navigator.notification.alert(
+				   'ok, appuntamento modificato',  // message
+				   alertDismissed,         // callback
+				   'OK',            // title
+				   'Done'                  // buttonName@
+				   );
 				   $("#calendario").tap();
 				    
 				   //window.location.href = "index.html";
@@ -1543,7 +1566,13 @@ var app = {
                crossDomain: true,
                success:function(result){
                
-                alert("ok, orario inserito")
+                //alert("ok, orario inserito")
+				navigator.notification.alert(
+				   'ok, orario inserito',  // message
+				   alertDismissed,         // callback
+				   'OK',            // title
+				   'Done'                  // buttonName@
+				   );
                 $("#spinner").hide();
                
                },
@@ -1780,7 +1809,13 @@ var app = {
                crossDomain: true,
                success:function(result){
                
-                 alert("ok, prestazione aggiunta al tuo negozio")
+                 //alert("ok, prestazione aggiunta al tuo negozio")
+				 navigator.notification.alert(
+				   'ok, prestazione aggiunta al tuo negozio',  // message
+				   alertDismissed,         // callback
+				   'OK',            // title
+				   'Done'                  // buttonName@
+				   );
                  $("#spinner").hide();
                  window.location.href = "index.html";
                },
@@ -1970,7 +2005,14 @@ var app = {
                    crossDomain: true,
                    success:function(result){
                    
-                   alert("ok, orario modificato")
+                   //alert("ok, orario modificato")
+				   navigator.notification.alert(
+				   'ok, orario modificato',  // message
+				   alertDismissed,         // callback
+				   'OK',            // title
+				   'Done'                  // buttonName@
+				   );
+				   
                    $("#spinner").hide();
                    
                    vediorario2();
@@ -2087,6 +2129,11 @@ var app = {
                });
     }
 	
+	
+	function alertDismissed() {
+		
+	}	
+	
 
 function onResume() {
 
@@ -2111,7 +2158,7 @@ function onResume() {
                crossDomain: true,
                success:function(result){
                
-                alert("ok")
+                //alert("ok")
                 $("#spinner").hide();
                },
                error: function( jqXhr, textStatus, errorThrown ){

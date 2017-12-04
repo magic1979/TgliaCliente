@@ -993,22 +993,19 @@ function registradame(IDCliente,Nome,Cognome,Email,Citta,Civico,Telefono,CAP,Ses
            success:function(result){
            
            $.each(result, function(i,item){
-                  //alert(item.Token);
+                 //alert(item.Token);
                   
-                  if (item.Token == 1){
-                    localStorage.setItem("registrato","0")
-					
-                    window.plugins.nativepagetransitions.fade({
-						"duration"       :  500, // in milliseconds (ms), default 400
-						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  400,
-						"href" : "index.html"
-					});
+                
+				localStorage.setItem("registrato","0")
+				
+				window.plugins.nativepagetransitions.fade({
+					"duration"       :  500, // in milliseconds (ms), default 400
+					"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
+					"androiddelay"   :  400,
+					"href" : "index.html"
+				});
                   
-                  }
-                  else{
-                  
-                  }
+                
             });
            
            $(".spinner").hide();
