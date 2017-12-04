@@ -792,7 +792,7 @@ var app = {
 					  
 					   setTimeout (function(){
 						  myScroll2.refresh();
-						  e.preventDefault();
+						  //e.preventDefault();
 						}, 500);
 					 
 
@@ -1102,11 +1102,9 @@ var app = {
                                                   
                                                     setTimeout (function(){
                                                        myScroll2.refresh();
+
 													   
-													   e.preventDefault();
-													   return;
-													   
-                                                     }, 700);
+                                                     }, 800);
                                                   
                                                     },
                                                   error: function( jqXhr, textStatus, errorThrown ){
