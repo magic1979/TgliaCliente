@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+		<meta property="og:locale" content="en_US" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="font.css">
+			
+		<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.min.css" />
+		<link rel="stylesheet" href="themes/negozio.css" />
+		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/spinner.css" />
+		<link rel="stylesheet" href="css/app-reset.css" />
+		<link rel="stylesheet" href="css/app-ios.css" />
+		<link rel="stylesheet" type="text/css" href="css/zocial.css" />
+		<link rel="stylesheet" href="css/jquery-ui.css">
+		
+		<script src="jquery-1.10.2.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script src="jquery.countdown.js"></script>
+		<script src="jquery.raty.js"></script>
+		
+		<script type="text/javascript" src="js/iscroll4.js"></script>
+		
+		
+		<script type="text/javascript">
+			
+			var myScroll;
+			
+			function loaded () {
+				myScroll = new IScroll('wrapper', { click: true });
+				
+				setTimeout (function(){
+					myScroll.refresh();
+				}, 1500);
+
+			}
+		
+		document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+		
+		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		
+			</script>
+		
+		
+        <title>FoodApp</title>
+		
+		<style type="text/css">
+			* {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+		
+		html {
+			-ms-touch-action: none;
+		}
+		
+		body,ul,li {
+			padding: 0;
+			margin: 0;
+			border: 0;
+		}
+		
+		body {
+			font-size: 12px;
+			font-family: ubuntu, helvetica, arial;
+			overflow: hidden; /* this is important to prevent the whole page to bounce */
+		}
+		
+		#header {
+			position: absolute;
+			z-index: 2;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 45px;
+			line-height: 45px;
+			padding: 0;
+			color: #eee;
+			font-size: 20px;
+			text-align: center;
+			font-weight: bold;
+		}
+		
+		#footer {
+			position: absolute;
+			z-index: 2;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 48px;
+			background: #0e85af;
+			padding: 0;
+			border-top: 0px solid #444;
+		}
+		
+		#wrapper {
+			position: absolute;
+			z-index: 1;
+			top: 45px;
+			bottom: 48px;
+			left: 0;
+			width: 100%;
+			background: #FFFFFF;
+			overflow: hidden;
+		}
+		
+		#scroller {
+			position: absolute;
+			z-index: 1;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			width: 100%;
+			-webkit-transform: translateZ(0);
+			-moz-transform: translateZ(0);
+			-ms-transform: translateZ(0);
+			-o-transform: translateZ(0);
+			transform: translateZ(0);
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-text-size-adjust: none;
+			-moz-text-size-adjust: none;
+			-ms-text-size-adjust: none;
+			-o-text-size-adjust: none;
+			text-size-adjust: none;
+		}
+		
+		#scroller ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			text-align: left;
+		}
+		
+		#scroller li {
+			padding: 0 10px;
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid #ccc;
+			border-top: 1px solid #fff;
+			background-color: #fafafa;
+			font-size: 14px;
+		}
+		
+			</style>
+		
+		<style>
+			.ui-icon-taifun:after {
+				background-image: url("img/CartW.png");
+				background-size: 18px 18px;
+				
+			}
+			.ui-icon-userhome:after {
+			background-image: url("img/UserW.png");
+			background-size: 18px 18px;
+			
+			}
+			.ui-icon-pinhome:after {
+			background-image: url("img/Altro.png");
+			background-size: 18px 18px;
+			
+			}
+			.ui-icon-ristohome:after {
+			background-image: url("img/RistoW.png");
+			background-size: 18px 18px;
+			
+			}
+			.ui-icon-homehome:after {
+			background-image: url("img/Best1.png");
+			background-size: 18px 18px;
+			
+			}
+		
+			.ui-mobile, .ui-mobile .ui-page, .ui-mobile [data-role="page"],
+			.ui-mobile [data-role="dialog"], .ui-page, .ui-mobile .ui-page-active {
+				overflow: hidden;
+				-webkit-backface-visibility: hidden;
+			}
+		
+			.div1 {
+				background-color: #0e85af;
+				height: 52px;
+				border: none;
+				
+				vertical-align: middle;
+			}
+			.div2 {
+				background-color: #FFFFFF;
+			}
+		.div3 {
+			background-color: #F0F0F0;
+			border: none;
+			margin:0 auto;
+			height: 10px;
+
+		}
+		.div4 {
+			background: rgb(125,126,125); /* Old browsers */
+			background: -moz-linear-gradient(45deg, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
+			background: linear-gradient(45deg, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		}
+		.trBorderCell
+		{
+			height: 30px;
+			width: 320px;
+			background: rgba(0,0,0,.6);
+			
+		}
+		
+		.margine
+		{
+			margin:0 auto;
+		}
+		
+		.arrotondamento
+		{
+			border-radius: 8px;
+			-moz-border-radius: 8px; /* firefox */
+			-webkit-border-radius: 8px; /* safari, chrome */
+		}
+		.custom-btn {
+			width: 280px;
+		}
+		
+		.custom-btn2 {
+			width: 280px;
+		}
+		
+		.custom-btn3 {
+			width: 100px;
+		}
+		
+		.big { height: 80px;}
+		.big .ui-btn-inner { padding-top:25px; }
+		
+		table.tablesorter {
+			font-family:arial;
+			background-color: #f0f0f0;
+			margin:10px 0pt 15px;
+			font-size: 8pt;
+			width: 95%;
+			text-align: left;
+			border: 0px solid #FFF;
+			
+			border-radius: 5px;
+			-moz-border-radius: 5px; /* firefox */
+			-webkit-border-radius: 5px; /* safari, chrome */
+			
+		}
+		table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+			background-color: #0e85af;
+			border: 1px solid #FFF;
+			font-size: 8pt;
+			padding: 4px;
+			width: 55%;
+			
+			border-radius: 5px;
+			-moz-border-radius: 5px; /* firefox */
+			-webkit-border-radius: 5px; /* safari, chrome */
+			
+		}
+		table.tablesorter thead tr .header {
+			background-image: url(bg.gif);
+			background-repeat: no-repeat;
+			background-position: center right;
+			cursor: pointer;
+		}
+		table.tablesorter tbody td {
+			color: #0e85af;
+			padding: 4px;
+			background-color: #FFF;
+			vertical-align: top;
+			
+		}
+		table.tablesorter tbody tr.odd td {
+			background-color:#000000;
+		}
+		table.tablesorter thead tr .headerSortUp {
+			background-image: url(asc.gif);
+		}
+		table.tablesorter thead tr .headerSortDown {
+			background-image: url(desc.gif);
+		}
+		table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+			background-color: #0e85af;
+			
+		}
+		
+		.home {
+			background-color: #0e85af;
+			background-image: url(img/minusW.png);
+			background-size: 26px 26px;
+			background-repeat: no-repeat;
+			background-position:center;
+			
+			height:28px;
+			width:28px;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #FFF;
+			-moz-box-shadow: 0px 0px 0.5px 1px #FFF;
+			box-shadow: 0px 0px 0.5px 1px #FFF;
+		}
+		
+		.home1 {
+			background-color: #0e85af;
+			background-image: url(img/plusW.png);
+			background-size: 26px 26px;
+			background-repeat: no-repeat;
+			background-position:center;
+			
+			height:28px;
+			width:28px;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #FFF;
+			-moz-box-shadow: 0px 0px 0.5px 1px #FFF;
+			box-shadow: 0px 0px 0.5px 1px #FFF;
+		}
+		
+		.home:active {
+			background-color: #000000;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #000;
+			-moz-box-shadow: 0px 0px 0.5px 1px #000;
+			box-shadow: 0px 0px 0.5px 1px #000;
+		}
+		
+		.home1:active {
+			background-color:#000000;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #000;
+			-moz-box-shadow: 0px 0px 0.5px 1px #000;
+			box-shadow: 0px 0px 0.5px 1px #000;
+		}
+
+.circolare {
+	width: 30px;
+	height: 30px;
+	border-radius:999em;
+	-moz-border-radius:999em;
+	-webkit-border-radius:999em;
+	-o-border-radius: 999em;
+	
+	-webkit-box-shadow: 0px 0px 0.5px 0.5px #000;
+	-moz-box-shadow: 0px 0px 0.5px 0.5px #000;
+	box-shadow: 0px 0px 0.5px 0.5px #000;
+}
+		
+a {text-decoration:none;}
+
+.styled-select select {
+	background: transparent;
+	width: 268px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;
+}
+		
+		.banner {
+			left:110px;
+			bottom:20px;
+			position: fixed;
+			
+			margin-left: auto ;
+			margin-right: auto ;
+			
+		}
+		
+		hr.style-six {
+			border: 0;
+			height: 0;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+		}
+		
+		.mynav .ui-select, .mynav .ui-btn {
+			margin-top: 0;
+			margin-bottom: 0;
+			margin-left: 2px;
+			margin-right: 2px !important;
+		}
+		.conn {
+			font-size: 9pt;
+			color:#FFF;
+			background-color: #FF8000;
+		}
+
+.badge1 {
+	position:relative;
+}
+		.badge1[data-badge]:after {
+			content:attr(data-badge);
+			position:absolute;
+			top:3px;
+			right:-1px;
+			font-size:.7em;
+			background:green;
+			color:white;
+			width:20px;height:20px;
+			text-align:center;
+			line-height:20px;
+			border-radius:50%;
+			box-shadow:0 0 1px #333;
+			border: 1px solid #fff;
+			text-shadow:0 0 0;
+		}
+		.badge2 {
+			
+		}
+		.badge2[data-badge]:after {
+			
+		}
+		.badge3 {
+			position:relative;
+		}
+		.badge3[data-badge]:after {
+			content:attr(data-badge);
+			position:absolute;
+			top:-30px;
+			right:-15px;
+			font-size:.9em;
+			background:green;
+			color:white;
+			width:20px;height:20px;
+			text-align:center;
+			line-height:20px;
+			border-radius:50%;
+			box-shadow:0 0 1px #333;
+			border: 1px solid #fff;
+			text-shadow:0 0 0;
+		}
+		
+		.btn {
+			background: #0e85af;
+			background-image: -webkit-linear-gradient(top, #0e85af, ##0e85af);
+			background-image: -moz-linear-gradient(top, #0e85af, ##0e85af);
+			background-image: -ms-linear-gradient(top, #0e85af, ##0e85af);
+			background-image: -o-linear-gradient(top, #0e85af, ##0e85af);
+			background-image: linear-gradient(to bottom, #0e85af, ##0e85af);
+			-webkit-border-radius: 21;
+			-moz-border-radius: 21;
+			border-radius: 21px;
+			font-family: Arial;
+			color: #ffffff;
+			font-size: 16px;
+			padding: 10px 20px 10px 20px;
+			text-decoration: none;
+			text-shadow:0 0 0;
+		}
+		
+		.btn:hover {
+			background: #000000;
+			background-image: -webkit-linear-gradient(top, #000000, #0e85af);
+			background-image: -moz-linear-gradient(top, #000000, #0e85af);
+			background-image: -ms-linear-gradient(top, #000000, #0e85af);
+			background-image: -o-linear-gradient(top, #000000, #0e85af);
+			background-image: linear-gradient(to bottom, #000000, #0e85af);
+			text-decoration: none;
+		}
+		
+		.loghetto {
+			
+			border-radius:5px;
+			-moz-border-radius:5px;
+			-webkit-border-radius:5px;
+			-o-border-radius: 5px;
+			
+		}
+		
+		.div5 {
+			position: fixed;
+			z-index: 2;
+			bottom: 0;
+			right: 0;
+			width: 60%;
+			padding: 0;
+			color: #000;
+			
+			text-align: center;
+			
+		}
+		</style>
+		
+    </head>
+    <body>
+		<!--<div id="menu" style="display: none;">
+			<table height="52"><tr><td></td></tr></table>
+			<h3>Menu</h3>
+			<ul>
+				<li><a href="#page10" onclick="javascript:pagina23()" rel="external"><font size="2">Menu</font></a></li>
+				<li><a href="#home" class="contentLink">Portfolio </a></li>
+				<li><a href="#home" class="contentLink">Contact </a></li>
+			</ul>
+		</div>-->
+		
+		<div id="page" data-role="page" class="div2" >
+			
+			<div id="header" data-role="header" data-theme="b" data-tap-toggle="false" class="div1">
+				<table align="center" width="100%" valign="center" border="0"><tr><td align="center" valign="center"><img src="img/Logo.png"  height="32px"></td></tr></table>
+			</div>
+			
+			<div class="spinner" id="spinner"></div>
+            <a href="#mypanelH" data-role=button id=btnpanel data-theme="b" style="display:none"></a>
+			
+			<div id="wrapper">
+				<div id="scroller">
+					<table align="center" border="0" width="310px" height="120px"><tr><td align="left" width="160px"><img src="img/Logo1.png" width="120px"></td><td align="left" width="60px"><table align="center" border="0" width="60px"><tr><td align="left"><font size="2" color="black" class="scritta">Carrello</font></td></tr><tr><td align="left"></td></tr></table></td><td align="left" width="100px"><a id="badde3" class="badge3" data-badge="1"><img id="carro" src="carrello.png" width="40px"></a></td></tr>
+					</table>
+					<form name="formia9" action="entra2.asp" method="post">
+						<div id="contenutoCart" align="center"></div><br><br>
+						
+						<div id="tabellaCart" align="center"></div>
+						<center>
+                            <table width='100%' border='0' id='' align='center'><tr><td colspan='3' align="center"><a id="premi"  rel="external"><font size="2" class='btn'>Catalogo Premi</font></a></td></tr><tr><td colspan='3'><br></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td align='left' colspan='2' width='220px'><font color='#454545' size='3'>Prezzo Totale: </font></td><td align='right' width='100px'><font color='#454545' size='3'><b><span id="TOTPrezzo"></span>&euro;</b> </font></td><tr><td colspan='3'><hr class='div3'></td></tr><tr id="OraC"><td colspan='3'><b>Orario Negozio </b></td></tr><tr><td colspan='3'><div id="oraConsegna2"></div></td></tr><tr id="OraD"><td colspan='3'><b>Zona Negozio </b></td></tr><tr><td colspan='3'><div id="zoneServite"></div></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><input id="datacal" name="datacal" type="text" value="" placeholder="Data" readonly></td></tr><tr><td colspan='3'><!--<input type='text' data-theme='b' name='OraConsegna' id='OraConsegna' value='' placeholder='Ora Desiderata'>--><select data-theme='b' name='OraConsegna' id='OraConsegna'><option value="10:00">10:00</option><option value="11:00">11:00</option> </select></td></tr><tr><td colspan='3'><input type='text' data-theme='b' name='Note' id='Note' value='' placeholder='Note'></td></tr><tr><td colspan='3'><input type='text' data-theme='b' name='NomeRegalo' id='NomeRegalo' value='' placeholder='Nome e Cognome'></td></tr><tr><td colspan='3'><input type='text' data-theme='b' name='Indirizzo' id='Indirizzo' value='' placeholder='Indirizzo e Civico'></td></tr><tr><td colspan='3'><input type='text' data-theme='b' name='Telefono' id='Telefono' value='' placeholder='Telefono'></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align="center"><b>Metodi di Pagamento</b></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align="center"><!--<a href='#page' onclick='javascript:compraccDemo();' class='zocial cart'></a>--><a id="compracc" data-role='button' class='custom-btn' data-theme='b'>Paga con Carta di Credito</a></td></tr><tr><td colspan='3' align="center"><img src='img/paypal.png' width="200px"></td></tr><!-- <tr><td colspan='3' align="center"><a href='#' onclick='javascript:compraConsegna(1);' id='buttonOrdine' data-role='button' class='custom-btn' data-theme='b'>Paga alla Consegna</a></td></tr>--> <tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align="center"><a id="compraConsegna" data-role='button' class='custom-btn' data-theme='b'>Paga in Negozio</a></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href="TerminiCondizioni.html" rel="external"><font size='1' color='#000'>Accetto i termini di vendita</font></a></td></tr><tr><td colspan='3' align='center'><a href="TerminiCondizioni.html" rel="external"><font size='1' color='#000'>Informativa sulla Privacy</font></a></td></tr></table>
+							<input type="hidden" nome="totordine" id="totordine" value="0">
+							<input type="hidden" nome="totpunti" id="totpunti" value="0">
+							</form>
+					<!--<a href="#"  style="display:none">ORDINA SUBITO</a>
+					 <br>
+					 <a href="javascript:dlt();"><font size="2">CANCELLA TUTTO</font></a></center>-->
+					<!--<br><br>
+					 <a href="premi.html" rel="external"><font size="3" class='btn'>PREMI</font></a></center>-->
+					<br><br><br><br>
+					
+					<div id="noconn" align="center"><a href='javascript:riparti()' class='btn'><font color='#fff'>Connetti</font></a></div>
+				</div>
+			</div>
+			
+			<div id="footer" data-role="footer" data-tap-toggle="false" class="div1">
+				<div data-role="navbar" class="nav" data-grid="d" data-theme="c" class="div1">
+					<ul>
+                        <li><a id="promo" data-icon="homehome" rel="external" ><font size="1">Promo</font></a></li>
+                        <li><a id="menuR" data-icon="ristohome" rel="external"><font size="1">Menu</font></a></li>
+                        <li><a id="badde2" class="badge2" data-badge="1" data-icon="taifun" rel="external"><font size="1">Carrello</font></a></li>
+                        <li><a id="btnprofilo7" data-icon="userhome" rel="external"><font size="1">Recensioni</font></a></li><!--btnprofilo7-->
+                        <li><a id="altro" data-icon="pinhome"><font size="1">Altro</font></a></li>
+					</ul>
+				</div>
+			</div>
+			
+
+			<div data-role="panel" id="mypanelH" data-position-fixed="true" data-position="right" data-display="overlay" width="100%" data-theme="b">
+                <center>
+                    <img src="img/LogoFood.png" height="80px"><br><font class="fontsforweb_fontid_2802" color="#0e85af" size="3">Mirko Acconciature</font>
+                        <br><font color="#000000" size="2">Via Fosso dell'osa 376/e, Roma'</font><br><br>
+                        <ul data-role="listview" data-inset="true" data-theme="a">
+                            <li><a id="premi" rel="external">Card e Premi</a></li>
+                            <li><a id="profilo" rel="external">I Miei Ordini</a></li>
+                            <li><a id="dove" rel="external">Dove Siamo</a></li>
+                            <li><a id="contattaci">Contattaci</a></li>
+                            <li><a href="#" rel="external">Termini e Condizioni</a></li>
+                        </ul>
+                        </center>
+				<br>
+				
+				<table border="0">
+					<tr><td><b>Seguici su:</b></td></tr>
+					<tr><td><a href='javascript:gofacebook()'><img src="img/social1.png" height="50px"></a></td></tr>
+					<tr><td>&nbsp;&nbsp;</td></tr>
+					<tr><td><div id="profile">&nbsp;&nbsp;</div></td></tr>
+					
+				</table>
+				
+				
+			</div>
+
+			
+		</div><!-- /page -->
+		
+
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/Cart.js"></script>
+		
+    </body>
+</html>

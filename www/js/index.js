@@ -1,21 +1,4 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -23,2151 +6,1445 @@ var app = {
     },
     // Bind Event Listeners
     //
-    // Bind any events that are required on startup. Common events are:
+    // Bind any events that are required on startup. Common events are:@
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
-    // deviceready Event Handler
+    // deviceready Event Handler@
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+		//document.addEventListener("resume", onResume, false);
         app.receivedEvent('deviceready');
+
+		
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		document.addEventListener("resume", onResume, false);
 		
-		var pushNotification;
-			var token
-
-			
-			pushNotification = window.plugins.pushNotification;
-			
-			
-			pushNotification.register(
-			successHandler,
-			errorHandler,
-			{
-				"senderID":"875238695742",
-				"ecb":"onNotification"
+		/*if(PushbotsPlugin.isiOS()){
+			PushbotsPlugin.initializeiOS("569cc754177959df038b4567");
+		}
+		if(PushbotsPlugin.isAndroid()){
+			PushbotsPlugin.initializeAndroid("569cc754177959df038b4567", "819657450833");
+		}
+		
+		PushbotsPlugin.resetBadge();*/
+		
+		
+		last_click_time = new Date().getTime();
+		
+		document.addEventListener('click', function (e) {
+								  
+          click_time = e['timeStamp'];
+          
+          if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
+          
+          e.preventDefault();
+          
+          return false;
+          
+          }
+          
+          last_click_time = click_time;
+          
+          }, true);
+		
+		document.addEventListener("showkeyboard", function(){ $("[data-role=footer]").hide();}, false);
+		document.addEventListener("hidekeyboard", function(){ $("[data-role=footer]").show();}, false);
+		
+		
+		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
+		$('input, select')
+		.on('focus', function (e) {
+			$('header, footer').css('position', 'absolute');
+			})
+		.on('blur', function (e) {
+			$('header, footer').css('position', 'fixed');
+			//force page redraw to fix incorrectly positioned fixed elements
+			//setTimeout( function() {
+			//window.scrollTo( $.mobile.window.scrollLeft(), $.mobile.window.scrollTop() );
+			//		   }, 20 );
 			});
-			
-			function tokenHandler (result) {
-			
-				testa(result);
-
-			}
-			
-			
-			function successHandler (result) {
-
-				testa(result);
-			}
-			
-			function errorHandler (error) {
-
-			}
-			
-			
-			function onNotification(e) {
-					   
-				switch( e.event )
-				{
-					case 'registered':
-					if ( e.regid.length > 0 )
-					{
-						//$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
-						// Your GCM push server needs to know the regID before it can push to this device
-						// here is where you might want to send it the regID for later use.
-						alert("regID = " + e.regid);
-					}
-					break;
-					case 'message':
-						// if this flag is set, this notification happened while we were in the foreground.
-						// you might want to play a sound to get the user's attention, throw up a dialog, etc.
-						if (e.foreground)
-						{
-							alert('INLINE NOTIFICATION');
-							// on Android soundname is outside the payload.
-							// On Amazon FireOS all custom attributes are contained within payload
-								   
-						}
-						else
-						{	// otherwise we were launched because the user touched a notification in the notification tray.
-							if (e.coldstart)
-								alert('<li>--COLDSTART NOTIFICATION--');
-							else
-								alert('<li>--BACKGROUND NOTIFICATION--');
-						}
-						   
-						   alert('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-						//android only
-						   alert('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
-						//amazon-fireos only
-						//$("#app-status-ul").append('<li>MESSAGE -> TIMESTAMP: ' + e.payload.timeStamp + '</li>');
-					break;
-					case 'error':
-						alert('<li>ERROR -> MSG:' + e.msg + '</li>');
-					break;
-					default:
-						alert('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
-					break;
-				}
-			}
-			
-			
-			///////// PUSH NUOVE /////////
 	
-
-			function testa (testo) {
-				
-					
-				if (localStorage.getItem("Token") === null || localStorage.getItem("Token")=="null" || typeof(localStorage.getItem("Token")) == 'undefined' || localStorage.getItem("Token")==0 || localStorage.getItem("Token")=="") {
-				
-				
-				setTimeout (function(){
-							
-				
-				$.ajax({
-					   type:"GET",
-					   url:"http://www.msop.it/tagliafila/Check_RegToken_Cli.asp",
-					   data: {device:testo,platform:"android",email:localStorage.getItem("email")},
-					   contentType: "application/json",
-					   json: 'callback',
-					   timeout: 7000,
-					   crossDomain: true,
-					   success:function(result){
-					   
-					   $.each(result, function(i,item){
-					   
-						 setTimeout (function(){
-							localStorage.setItem("Token", testo);
-							//alert(testo);
-						}, 500);
-					   
-					   });
-					   
-					   },
-					   error: function(){
-					   
-						 //alert("No")
-					   
-					   },
-					   dataType:"json"});
-							
-				}, 500);
-				
-				
-				}
-				
-			}
 	
-		   ///// FINE PUSH NOTIFICATION ///////////
-		
-		
-		
-		document.addEventListener("touchmove",function(e) {
-			e.preventDefault();
-		},
-		false
-		);
-		
-		
-	var myScroll;
+		$(document).keydown(function (eventObj){
+			getKey(eventObj);
+		});
         
-         myScroll = new iScroll('wrapper', {
-                           click: true,
-                           useTransform: false,
-                           //bounce: false,
-                           onBeforeScrollStart: function (e)
-                           {
-                           var target = e.target;
-                           while (target.nodeType != 1) {
-                           target = target.parentNode;
-                           }
-                           
-                           if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
-                           e.preventDefault();
-                           }
-                           }
-                           
-                           });
+        
+        localStorage.setItem("info", "0")
+        
+        
+        if(localStorage.getItem("info")=="1"){
             
-         setTimeout (function(){
-                myScroll.refresh();
-         }, 1500);
-        
-        
-        if (localStorage.getItem("email") === null || localStorage.getItem("email")=="null" || typeof(localStorage.getItem("email")) == 'undefined' || localStorage.getItem("email")==0 || localStorage.getItem("email")=="") {
+            $("#informativa").hide();
             
-            if(localStorage.getItem("nome")=="nome"){
-				
-                window.plugins.nativepagetransitions.fade({
-						"duration"       :  800, // in milliseconds (ms), default 400
-						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  600,
-						"href" : "edita.html"
-					});
-			   
-            }
-            else{
-				
-                 window.plugins.nativepagetransitions.fade({
-						"duration"       :  800, // in milliseconds (ms), default 400
-						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  600,
-						"href" : "Login.html"
-					});
-				
-            }
-
+            $("#menucliente").show();
+            
+            $("#mieiservizi").show();
+        
         }
         else{
-
-            $("#mieiservizi2").html("");
-
-            $("#nome").html(localStorage.getItem("nome"));
+            $("#menucliente").hide();
             
-            listaneg()
+            $("#mieiservizi").hide();
             
-            
-        }
-        
-        function listznegozi(){
-			$("#nome").html("LISTA NEGOZI");
-			
-            $("#spinner").show();
-            
-            /*$.ajax({
-                   type: "GET",
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetNegozi/",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/x-www-form-urlencoded",
-                   success: function (result) {
-                   
-                   var tabella1 =""
-                   $("#mieiservizi").html("");
-                   
-                   $("#spinner").hide();
-                   var listacompleta="";
-                   
-                   var pippo = jQuery.parseJSON( result );
-                   
-                   $.each(pippo, function(i,item){
-                          
-                          pluto = item.IDNegozio
-
-                          tabella1 = "<table width='80%' align='center'>";
-                          
-                          tabella1 = tabella1 + "<tr><td align='right' width='100' valign='center'><a id='"+pluto+"'> <img src='img/logo.png' width='50'> </a></td><td align='left' width='100%' valign='center'>"+item.NomeEsercente+"</td></tr>"
-                          
-                          tabella1 = tabella1 + "</table>";
-                          
-                          $("#mieiservizi").append(tabella1);
-
-                          $(document).on("touchstart", "#"+pluto+"", function(e){
-                                         
-                             passo2(this.id)
-                             
-                           });
-
-                    });
-
-                   setTimeout (function(){
-                               myScroll.refresh();
-                               }, 500);
-
-                   },
-                   error: function(jqXhr, textStatus, errorThrown){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   }
-                   
-                });*/
-            
-            $.ajax({
-                   type: "GET",
-                   url: "http://msop.it/tagliafila/check_listanegozio.php",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
-                   
-                   var tabella1 =""
-                   $("#mieiservizi").html("");
-                   
-                   $("#spinner").hide();
-                   var listacompleta="";
-                   
-                   $.each(result, function(i,item){
-                          
-                      pluto = item.id
-                      
-                      tabella1 = "<br><table width='80%' align='center'>";
-                      
-                      tabella1 = tabella1 + "<tr><td align='right' width='100' valign='center'><a id='"+pluto+"'> <img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='50' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nomeesercente+"</b></font></td></tr>"
-                          
-                       tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
-                      
-                      tabella1 = tabella1 + "</table>";
-                      
-                      $("#mieiservizi").append(tabella1);
-                      
-                      $(document).on("touchstart", "#"+pluto+"", function(e){
-                                     
-                         passo2(this.id)
-                         
-                       });
-   
-
-                    });
-                   
-                   
-                   setTimeout (function(){
-                      myScroll.refresh();
-                   }, 500);
-
-                   
-                   
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                     alert(errorThrown)
-                   
-                   
-                   },
-                   dataType:"jsonp"});
-
+            $("#informativa").show();
         }
         
         
-        $(document).on("touchstart", "#pippo2", function(e){
+        $(document).on("touchstart", "#chiudiinfo", function(e){
                        
-            window.location.href = "index.html";
+           localStorage.setItem("info", "1")
                        
-        });
-        
-        
-        function passo2(eccola2){
-            
-            //alert(eccola2)
-            
-            
-            localStorage.setItem("idnegozio",eccola2)
-            
-            // nome negozio
-            
-            $.ajax({
-                   type: "GET",
-                   url: "http://msop.it/tagliafila/check_datinegozio.php?id="+eccola2+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
-                   
-                   $("#spinner").hide();
-                   
-                   $.each(result, function(i,item){
-                          
-                          if(item.Token=="1"){
-                          
-                          var tabella2 = "<table width='80%' align='center'>";
-                          
-                          tabella2 = tabella2 + "<tr><td align='center' colspan='2' width='100%'>"+item.nomeesercente+"</td></tr>"
-                          
-                          tabella2 = tabella2 + "<tr><td align='center' colspan='2' width='100%'><img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='130'></td></tr>"
-                          
-                          tabella2 = tabella2 + "<tr><td align='center' colspan='2' width='100%'><a id='pluto_"+eccola2+"'>SCHEDA NEGOZIO</a></td></tr></table><br><br>"
-                          
-                          $("#mieiservizi2").html(tabella2);
-                          
-                          }
-                          
-                          /*var miafoto = item.miaimg
-                           miafoto = miafoto.replace(".jpg","")
-                           
-                           $("#miaimg").html("<img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='100%'>");
-                           
-                           $("#nomeneg").html("<font color='#fff' size='3'>" + " " + item.nomeesercente);
-                           $("#cittaneg").html("<font color='#000' size='2'>" + " " + item.citta);
-                           $("#indirizzoneg").html("<font color='#000' size='2'>" + " " + item.indirizzo);*/
-                          
-                          });
-                   
-                   
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   
-                   
-                   },
-                   dataType:"jsonp"});
-            
-            //
-            
-            $("#spinner").show();
-            
-            $.ajax({
-                   type: "GET",
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetPrestazioniNegozio/"+eccola2+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/x-www-form-urlencoded",
-                   success: function (result) {
-                   
-                   var tabella1 =""
-                   $("#mieiservizi").html("");
-                   var listacompleta="";
-                   
-                   $("#spinner").hide();
-                   listacompleta="<br>";
-                   
-                   var pippo = jQuery.parseJSON( result );
-                   
-                   
-                   
-                   $.each(pippo, function(i,item){
-                          
-                          
-                          var fruits = item.PrestazioneCaratteristicaNegozio
-                          
-                          tabella1 = "<table width='80%' align='center'>";
-                          
-                          for ( i=0; i < fruits.length; i++ )
-                          {
-                          
-                          if(eccola2==fruits[i]["IDNegozio"]){
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' colspan='2' width='100%'><b>"+item.NomePrestazione+"</b></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'>Durata: "+fruits[i]["DurataMinuti"]+"</td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'>Costo: "+fruits[i]["CostoInSede"]+"€</td></tr>"
-
-                          
-                          }
-                          
-                          
-                          }
-                          
-                          var paperino = item.IDPrestazione
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' colspan='2' width='100%'><br><a id='prest_"+paperino+"'><img src='img/appuntamento_aggiungi.png' width='150'></a></td></tr>"
-                          
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'><br><br><input type='hidden' value='"+eccola2+"' name='idnegozio' id='idnegozio'><input type='hidden' value='"+item.IDPrestazione+"' name='idprestazione' id='idprestazione'><br></td></tr></table>";
-                          
-                          $("#mieiservizi").append(tabella1);
-                          
-                          
-                          $(document).on("touchstart", "#prest_"+paperino+"", function(e){
-                                         
-                                var prest = this.id
-                                prest = prest.replace("prest_","")
-                                         
-                                passo2bis(prest)
-                                         
-                            });
-                          
-                          
-                          $(document).on("touchstart", "#pluto_"+eccola2+"", function(e){
-                                         
-                                         var passala = this.id
-                                         passala = passala.replace("pluto_","")
-                                         
-                                         window.location.href = "next.html?id="+passala;
-                                         
-                                         });
-                          
-                          });
-                   
-                   
-                   
-                   setTimeout (function(){
-                               myScroll.refresh();
-                               }, 500);
-                   
-                   
-                   
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   },
-                   dataType:"json"});
-            
-            
-        }
-        
-        
-        
-        function passo2bis(bisso){
-            
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1;//January is 0, so always add + 1
-            
-            var ora = today.getHours()
-            if(ora<10){ora="0"+ora}
-            
-            var minuti = today.getMinutes();
-            if(minuti<10){minuti="0"+minuti}
-            
-            var secondi = today.getSeconds();
-            if(secondi<10){secondi="0"+secondi}
-            
-            
-            var yyyy = today.getFullYear();
-            if(dd<10){dd="0"+dd}
-            if(mm<10){mm="0"+mm}
-            today = dd+'/'+mm+'/'+yyyy;
-            
-            $("#stamp").html(yyyy+"-"+mm+"-"+dd+" "+ora+":"+minuti+":00");
-            var ora_cell = yyyy+"-"+mm+"-"+dd+" "+ora+":"+minuti+":00";
-            
-            localStorage.setItem("ora_cell", ora_cell);
-            
-            
-            var tabella1 =""
-            $("#mieiservizi").html("");
-            var listacompleta="";
-            
-            tabella1 = "<table width='80%' align='center'>";
-            
-            tabella1 = tabella1 + "<tr><td align='left' width='20%'>Data: </td><td align='left' width='80%'><select id='datatot' name='datatot'><option value='2017' selected>2017</option><option value='2018'>2018</option></select> <select id='mesetot' name='mesetot'><option value='11' selected>Novembre</option><option value='12'>Dicembre</option><option value='01'>Gennaio</option><option value='02'>Febbraio</option><option value='03'>Marzo</option><option value='04'>Aprile</option><option value='05'>Maggio</option><option value='06'>Giugno</option><option value='07'>Luglio</option><option value='08'>Agosto</option><option value='09'>Settembre</option><option value='10'>Ottobre</option></select> <select id='daytot' name='daytot'><option value='"+dd+"' selected>"+dd+"</option><option value='01'>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option><option value='25'>25</option><option value='26'>26</option><option value='27'>27</option><option value='28'>28</option><option value='29'>29</option><option value='30'>30</option><option value='31'>31</option></select></td></tr>"
-            
-            tabella1 = tabella1 + "<tr><td align='left' width='20%'>Ora: </td><td align='left' width='80%'><select id='oratot' name='oratot'><option value='08' selected>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option></select> <select id='mintot' name='mintot'><option value='00' selected>00</option><option value='15' selected>15</option><option value='30' selected>30</option><option value='45' selected>45</option></select></td></tr>"
-            
-            
-            //tabella1 = tabella1 + "<tr><td align='left' width='20%'>Inizio: </td><td align='left' width='80%'><input type='text' value='2017-10-22T16:15:00' name='DataOraInizio' id='DataOraInizio'></td></tr>"
-            
-            //tabella1 = tabella1 + "<tr><td align='left' width='20%'>Fine: </td><td align='left' width='80%'><input type='text' value='2017-10-22T16:30:00' name='DataOraFine' id='DataOraFine'></td></tr>"
-            
-            
-            tabella1 = tabella1 + "<tr><td align='center' width='80' colspan='2'><br><input type='hidden' value='"+bisso+"' name='idnegozio2' id='idnegozio2'><br><a id='regappuntamento'><img src='img/appuntamento_aggiungi.png' width='150'></a></td></tr></table>";
-            
-            $("#mieiservizi").append(tabella1);
-            
-
-        }
-        
-        
-        $(document).on("touchstart", "#regappuntamento", function(e){
+           window.location.href = "#page";
                        
-            var datatot = self.document.formia.datatot.value+"-"+self.document.formia.mesetot.value+"-"+self.document.formia.daytot.value+"T"+self.document.formia.oratot.value+":"+self.document.formia.mintot.value+":00"
-                       
-            
-            var mintot2 = parseInt(self.document.formia.mintot.value) + 15
-                       
-            if(self.document.formia.mintot.value=="45"){
-                var oratot2 = parseInt(self.document.formia.oratot.value) + 1
-            }
-            else{
-                var oratot2 = self.document.formia.oratot.value
-            }
-               
-            if(mintot2=="60"){
-               mintot2 = "00"
-            }
-            
-                       
-             var datatot2 = self.document.formia.datatot.value+"-"+self.document.formia.mesetot.value+"-"+self.document.formia.daytot.value+"T"+oratot2+":"+mintot2+":00"
-                       
-            
-            var registrami = '{"IDCliente": "'+localStorage.getItem("idcliente")+'","IDPrestazione": "'+self.document.formia.idnegozio2.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","IDLavorante": "","DataOraInizio": "'+datatot+'","DataOraFIne": "'+datatot2+'"}'
-            
-            //alert(registrami)
-                       
-            var num1 = Math.floor((Math.random() * 20) + 1);
-            var num2 = Math.floor((Math.random() * 20) + 1);
-            var num3 = Math.floor((Math.random() * 20) + 1);
-            var num4 = Math.floor((Math.random() * 20) + 1);
-            var num5 = Math.floor((Math.random() * 20) + 1);
-            var num6 = Math.floor((Math.random() * 20) + 1);
-            var num7 = Math.floor((Math.random() * 20) + 1);
-            var num8 = Math.floor((Math.random() * 20) + 1);
-                       
-            transazioneprodotto = num1+""+num2+""+num3+""+num4+""+num5+""+num6+""+num7+""+num8;
-                       
-            //regidappuntamento(transazioneprodotto,localStorage.getItem("idcliente"),self.document.formia.idnegozio2.value,localStorage.getItem("idnegozio"),datatot,datatot2)
-            
-            $("#spinner").show();
-            
-            $.ajax({
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Appuntamento/AddAppuntamento/",
-                   dataType: "json",
-                   type: "post",
-                   contentType: "application/json; charset=UTF-8",
-                   data: registrami ,
-                   processData: false,
-                   crossDomain: true,
-                   success:function(result){
-                   
-                     //alert("Appuntamento " + result.IDAppuntamento)
-                    regidappuntamento(result.IDAppuntamento,localStorage.getItem("idcliente"),self.document.formia.idnegozio2.value,localStorage.getItem("idnegozio"),datatot,datatot2)
-                   
-                   $("#spinner").hide();
-                   
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   
-                   alert(errorThrown)
-                   
-                   
-                   },
-                   dataType:"json"});
-            
+           $("#informativa").hide();
+           
+           $("#menucliente").show();
+           
+           $("#mieiservizi").show();
+           
         })
         
-        
-        function regidappuntamento(IDAppuntamento,idcliente,idprestazione,idnegozio,datastart,dataend){
-            
-             //alert(IDAppuntamento+" "+idcliente+" "+idprestazione+" "+idnegozio+" "+datastart+" "+dataend)
-            
-             $.ajax({
-                   type:"GET",
-                   url:"http://msop.it/tagliafila/check_addappuntamentocli.php?idappuntamento="+IDAppuntamento+"&idcliente="+idcliente+"&idprestazione="+idprestazione+"&idnegozio="+idnegozio+"&dataorainizio="+datastart+"&dataorafine="+dataend+"",
-                   contentType: "application/json",
-                   //data: {email:email,pin:pin},
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success:function(result){
-                   
-                     //alert("Appuntamento Registrato")
-					 navigator.notification.alert(
-							   'Appuntamento Registrato',  // message
-							   alertDismissed,         // callback
-							   'OK',            // title
-							   'Done'                  // buttonName@
-							   );
-					 
-					 calendariomio()
-					 
-                   
-                   },
-                   error: function(){
-                   
-                   navigator.notification.alert(
-                                                'Possibile errore di rete, riprova tra qualche minuto',  // message
-                                                alertDismissed,         // callback
-                                                'Attenzione',            // title
-                                                'Done'                  // buttonName
-                                                );
-                   
-                   },
-                   dataType:"jsonp"});
-            
-        }
-        
-        
-        
-        $(document).on("touchstart", "#aggiornaprestazione", function(e){
-                       
-            //alert(self.document.formia.idprestazione.value)
-            //alert(localStorage.getItem("idnegozio"))
-                       
-            //var registrami = '{"IDPrestazione": "'+self.document.formia.idprestazione.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DurataMinuti": "'+self.document.formia.durata.value+'","CostoInSede": "'+self.document.formia.costo.value+'","CostoDomicilio": "","DomicilioAbilitato": "false"}'
-                       
-                       
-            /*$("#spinner").show();
-            $.ajax({
-                              url: "http://servizi.marcopolowit.it/tagliafilarest/api/Prestazione/UpdatePrestazioneNegozio",
-                              dataType: "json",
-                              type: "post",
-                              contentType: "application/json",
-                              data: registrami,
-                              processData: false,
-                              crossDomain: true,
-                              success:function(result){
-                              
-                              alert("ok, orario prestazione aggiornato")
-                              $("#spinner").hide();
-                              },
-                              error: function( jqXhr, textStatus, errorThrown ){
-                              
-                              alert(errorThrown)
-                              $("#spinner").hide();
-                              
-                              },
-            dataType:"json"});*/
-                       
-                       
-         });
-        
-        
-        $(document).on("tap", "#calendario", function(e){
+		
+		var email = localStorage.getItem("email");
+		var loginvera = localStorage.getItem("loginvera");
+		var ciao = "";
+		var ciao1 = "";
+		var distanza = "";
+		var Categoria="";
+		var Provincia="";
+		var model = device.model;
+		var Badge10 = localStorage.getItem("Badge10");
+		var db;
+		var dbCreated = false;
+		
+		//$("#classifica").html("Loading....");
+		
+		if((email=="")||(!email)){
+			$("#btnprofilo").attr("href", "#page4");
+			$("#btnprofilo").attr("onclick", "javascript:checklogin();");
+		}else{
+			$("#btnprofilo").attr("href", "#mypanel");
+			$("#btnprofilo").attr("onclick", "#");
+		}
+		
+		if((Badge10=="")||(!Badge10)||(Badge10==0)){
+			localStorage.setItem("Badge10", 0)
+			$('#badde').removeClass('badge1').addClass('badge2');
 			
-					$("#prolock").hide();
-			   		$("#calendario33").html("")
-			   
-					var myScroll2;
-					var paperino;
+		}else{
+			$('#badde').removeClass('badge2').addClass('badge1');
+			$("#badde").attr("data-badge", Badge10);
+			$("#badde").html('<img src="img/CartW.png" width="20px">');
 			
-				   						    
-					//window.location.href = "#page2";
-					window.plugins.nativepagetransitions.fade({
-						"duration"       :  800, // in milliseconds (ms), default 400
-						"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-						"androiddelay"   :  600,
-						"href" : "#page2"
-					});
-                       
-					   
-				   $.ajax({
-                   type: "GET",
-                   url: "http://msop.it/tagliafila/check_controllo_cli.php?idcliente="+localStorage.getItem("idcliente")+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
-
-                   	$("#spinner2").hide();
+			$('#badde2').removeClass('badge2').addClass('badge1');
+			$("#badde2").attr("data-badge", Badge10);
+			$("#badde2").html('<img src="img/CartW.png" width="20px">');
+		}
+        
+        var negozio = getParameterByName('id_negozio');
+        //alert(negozio)
+		
+		
+		var connectionStatus = false;
+		connectionStatus = navigator.onLine ? 'online' : 'offline';
+		
+		if(connectionStatus=='online'){
+			
+			checkPos();
+			agg();
+			mostrapunti()
+			$(".spinner").hide();
+			
+			buildprodotto('Pizza','Roma',1);
+			
+			
+			if ((localStorage.getItem("emailStory")=="")||(!localStorage.getItem("emailStory"))||(localStorage.getItem("emailStory")==0)){
+				//alert("Non ci sta")
+			}
+			else{
+				if(localStorage.getItem("emailStory")==localStorage.getItem("email2")){
+					//alert("stesso utente")
+				}
+				else{
+					//alert("cancella")
+					if(localStorage.getItem("email3")!=1){
+						navigator.notification.confirm(
+						'Stai cercando di accedere con un altro utente, assicurati prima di svuotare il tuo carrello per non perdere i punti della tua card prima di procedere.',  // message
+							onConfirm,              // callback to invoke with index of button pressed
+							'Attenzione',            // title
+							'Prosegui,Annulla'      // buttonLabels
+					);
+					}
+				}
+			}
+			
+			//REG DEVICE PER PUSH
+			var loggato = localStorage.getItem("loginvera")
+			
+			if((loggato=="")||(!loggato)){
+				//alert("blocco1")
+			}else{
+				
+				
+				/*if(localStorage.getItem("Registrato")!=1){
 					
-					 $.each(result, function(i,item){
-						 
-						var orainiziale = item.dataorainizio.substr(11,2)
-					  	var mininiziale = item.dataorainizio.substr(14,2)
-					  	var anno = item.dataorainizio.substr(0,4)
-					  	var mese = item.dataorainizio.substr(5,2)
-					  	var giorno = item.dataorainizio.substr(8,2)
 					
-                   		calendario33 = "<table valign='center' class='nocolor' width='100%'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
-                          
-                          $("#calendario33").append(calendario33)
-						  
-							
-                          $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
-                                         
-							var appuntamentioid = this.id
-							appuntamentoid = appuntamentioid.replace("aa_","")
-							
-							adesso(appuntamentoid)
+					setTimeout (function(){
 								
-   
-                            });
-						
-						 });
-					 
-					 
-					   myScroll2 = new iScroll('wrapper2', {
-					   click: true,
-					   useTransform: false,
-					   //bounce: false,
-					   onBeforeScrollStart: function (e)
-					   {
-					   var target = e.target;
-					   while (target.nodeType != 1) {
-					   target = target.parentNode;
-					   }
-					   
-					   if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
-					   e.preventDefault();
-					   }
-					   }
-					   
-					   });
-				   
-				   
-				   		$("#calendario33").append("<br><br><br><br><br><br><br><br>")
-					 
-					  
-					   setTimeout (function(){
-						  myScroll2.refresh();
-						  //e.preventDefault();
-						}, 500);
-					 
-
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-					   alert(errorThrown)
-					   $("#spinner").hide();
-                   
-                   },
-                   dataType:"jsonp"});
-					   
-	
-	
-                       
-                       var date = new Date();
-                       var d = date.getDate();
-                       var m = date.getMonth();
-                       var y = date.getFullYear();
-                       
-                       $("#calendar").jqmCalendar({
-                                                  
-                                                  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-                                                  days: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-                                                  startOfWeek: 0
-                                                  
-                                                  });
-                       
-                       
-			   $("#calendar").bind('change', function(event, date) {
-
-						   var events = $("#calendar").data("jqm-calendar").settings.events;
-						   
-						   for ( var i = 0; i < events.length; i++ ) {
-						   if ( events[i].begin.getFullYear() == date.getFullYear() &&
-							   events[i].begin.getMonth() == date.getMonth() &&
-							   events[i].begin.getDate() == date.getDate() ) {
-						   
-						   return false;
-						   }
-						   }
-                                           
-                                           
-						   var cicci ;
-						   $("#calendario33").html("")
-						   
-                           $("#calendario33").append("<div id='0800'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>08:00</b></font> <a id=''> Libero</td></tr></table></div><div id='0815'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>08:15 <a id=''> Libero</td></tr></table></div> <div id='0830'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>08:30 <a id=''> Libero</td></tr></table></div><div id='0845'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>08:45 <a id=''> Libero</td></tr></table></div><div id='0900'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>09:00 </b></font><a id=''> Libero</td></tr></table></div><div id='0915'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>09:15 <a id='05'> Libero</td></tr></table></div><div id='0930'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>09:30 <a id='06'> Libero</td></tr></table></div><div id='0945'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>09:45 <a id='07'> Libero</td></tr></table></div><div id='1000'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>10:00 </b></font><a id='08'> Libero</td></tr></table></div><div id='1015'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>10:15 <a id='09'> Libero</td></tr></table></div><div id='1030'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>10:30 <a id='10'> Libero</td></tr></table></div><div id='1045'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>10:45 <a id='03'> Libero</td></tr></table></div><div id='1100'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>11:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1115'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>11:15 <a id='01'> Libero</td></tr></table></div><div id='1130'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>11:30 <a id='02'> Libero</td></tr></table></div><div id='1145'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>11:45 <a id='03'> Libero</td></tr></table></div><div id='1200'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>12:00 </b></font><a id='04'> Libero</td></tr></table></div><div id='1215'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>12:15 <a id='01'> Libero</td></tr></table></div><div id='1230'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>12:30 <a id='02'> Libero</td></tr></table></div><div id='1245'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>12:45 <a id='03'> Libero</td></tr></table></div><div id='1300'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>13:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1315'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>13:15 Libero</td></tr></table></div><div id='1330'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>13:30 Libero</td></tr></table></div><div id='1345'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>13:45 Libero</td></tr></table></div><div id='1400'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>14:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1415'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>14:15 <a id='04'> Libero</td></tr></table></div><div id='1430'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>14:30 <a id='04'> Libero</td></tr></table></div><div id='1445'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>14:45 <a id='04'> Libero</td></tr></table></div><div id='1500'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>15:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1515'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>15:15 Libero</td></tr></table></div><div id='1530'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>15:30 Libero</td></tr></table></div><div id='1545'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>15:45 Libero</td></tr></table></div><div id='1600'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>16:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1615'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>16:15 Libero</td></tr></table></div><div id='1630'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>16:30 Libero</td></tr></table></div><div id='1645'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>16:45 Libero</td></tr></table></div><div id='1700'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>17:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1715'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>17:15 Libero</td></tr></table></div><div id='1730'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>17:30 Libero</td></tr></table></div><div id='1745'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>17:45 Libero</td></tr></table></div><div id='1800'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>18:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1815'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>18:15 Libero</td></tr></table></div><div id='1830'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>18:30 Libero</td></tr></table></div><div id='1845'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>18:45 Libero</td></tr></table></div><div id='1900'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>19:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='1915'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>19:15 Libero</td></tr></table></div><div id='1930'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>19:30 Libero</td></tr></table></div><div id='1945'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>19:45 Libero</td></tr></table></div> <div id='2000'><table width='100%' class='nocolor' border='1'><tr><td width='100%'><font size='3'><b>20:00</b></font> <a id='04'> Libero</td></tr></table></div><div id='2015'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>20:15 Libero</td></tr></table></div><div id='2030'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>20:30 Libero</td></tr></table></div><div id='2045'><table width='100%' class='nocolor' border='1'><tr><td width='100%'>20:45 Libero</td></tr></table></div><br><br><br><br>")
-                                           
-                                           
-                                           
-                                           $("#appunta").html("");
-                                           
-                                           var giornocc = date.getDate()
-                                           
-                                           if(giornocc=="1"){
-                                             giornocc = "01"
-                                           }
-                                           else if(giornocc=="2"){
-                                             giornocc = "02"
-                                           }
-                                           else if(giornocc=="3"){
-                                           giornocc = "03"
-                                           }
-                                           else if(giornocc=="4"){
-                                           giornocc = "04"
-                                           }
-                                           else if(giornocc=="5"){
-                                           giornocc = "05"
-                                           }
-                                           else if(giornocc=="6"){
-                                           giornocc = "06"
-                                           }
-                                           else if(giornocc=="7"){
-                                           giornocc = "07"
-                                           }
-                                           else if(giornocc=="8"){
-                                           giornocc = "08"
-                                           }
-                                           else if(giornocc=="9"){
-                                           giornocc = "09"
-                                           }
-                                           else{
-                                           
-                                           }
-                                           
-                                           var resulto = date.getFullYear() +"-" +(1+date.getMonth()) + "-" + giornocc +""
-                                           
-                                           
-                                           var numero = 0 ;
-                                           localStorage.setItem("memorizza","0")
-                                           
-                                           //alert("http://msop.it/tagliafila/check_appuntamento_cli.php?idcliente="+localStorage.getItem("idcliente")+"&data="+ resulto +"")
-                                           
-                                           $.ajax({
-                                                  type: "GET",
-                                                  url: "http://msop.it/tagliafila/check_appuntamento_cli.php?idcliente="+localStorage.getItem("idcliente")+"&data="+ resulto +"",
-                                                  cache: false,
-                                                  crossDomain: true,
-                                                  contentType: "application/json",
-                                                  timeout: 7000,
-                                                  jsonp: 'callback',
-                                                  crossDomain: true,
-                                                  success: function (result) {
-                                                  
-                                                  //var pippo = jQuery.parseJSON( result );
-                                                  
-                                                  $.each(result, function(i,item){
-                                                         
-                                                         //alert(item.Token)
-                                                         
-                                                         if(item.Token=="1"){
-                                                         
-                                                         paperino = item.idappuntamento
-                                                         
-                                                         var str = item.dataorainizio;
-                                                         var ora = str.substr(11, 5).replace(":","");
-                                                         
-                                                         var x1 = item.nome;
-                                                         var prex = item.idprestazione
-                                                         
-                                                         
-                                                         if(ora=="0800"){
-													 
-													 $("#0800").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-													 
-													 }
-													 
-                                                     else if(ora=="0815"){
-                                                     
-													 $("#0815").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     
-                                                     }
-                                                     else if(ora=="0830"){
-                                                     
-                                                       $("#0830").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     
-                                                     }
-                                                     else if(ora=="0845"){
-                                                       $("#0845").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="0900"){
-                                                       $("#0900").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="0915"){
-                                                     $("#0915").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="0930"){
-                                                     $("#0930").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="0945"){
-                                                     $("#0945").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1000"){
-                                                     $("#1000").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1015"){
-                                                     $("#1015").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1030"){
-                                                     $("#1030").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1045"){
-                                                     $("#1045").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1100"){
-                                                     $("#1100").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1115"){
-                                                     $("#1115").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1130"){
-                                                     $("#1130").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1145"){
-                                                     $("#1145").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1200"){
-                                                     $("#1200").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1215"){
-                                                     $("#1215").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1230"){
-                                                     $("#1230").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1245"){
-                                                     $("#1245").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1300"){
-                                                     $("#1300").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1315"){
-                                                     $("#1315").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1330"){
-                                                     $("#1330").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1345"){
-                                                     $("#1345").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1400"){
-                                                     $("#1400").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1415"){
-                                                     $("#1415").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1430"){
-                                                     $("#1430").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1445"){
-                                                     $("#1445").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1500"){
-                                                     $("#1500").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1515"){
-                                                     $("#1515").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1530"){
-                                                     $("#1530").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1545"){
-                                                     $("#1545").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1600"){
-                                                     $("#1600").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1615"){
-                                                     $("#1615").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1630"){
-                                                     $("#1630").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1645"){
-                                                     $("#1645").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1700"){
-                                                     $("#1700").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1715"){
-                                                     $("#1715").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1730"){
-                                                     $("#1730").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1745"){
-                                                     $("#1745").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1800"){
-                                                     $("#1800").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1815"){
-                                                     $("#1815").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1830"){
-                                                     $("#1830").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1845"){
-                                                     $("#1845").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1900"){
-                                                     $("#1900").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1915"){
-                                                     $("#1915").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1930"){
-                                                     $("#1930").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="1945"){
-                                                     $("#1945").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="2000"){
-                                                     $("#2000").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="2015"){
-                                                     $("#2015").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a></td></tr></table>");
-                                                     }
-                                                     else if(ora=="2030"){
-                                                     $("#2030").html("<table width='100%' class='nocolor' border='1'><tr><td width='60%' align='left'><font color='#fff'>"+ora+" - "+prex+" - "+ x1 +"</font></td><td width='40%' align='right'><a id='"+paperino+"'><img src='img/appuntamento_modifica.png' width='80'></a><br><br><br><br></td></tr></table>");
-                                                     }
-                                                     else{
-                                                     
-                                                     }
-                                                         
-                                                         
-														$(document).on("touchstart", "#"+paperino+"", function(e){
-																	
-															adesso(this.id)
-															
-															/*setTimeout (function(){
-																myScroll2.scrollToElement("#calendar", "1s");
-															}, 700);*/
-																	
+								PushbotsPlugin.getToken(function(token){
+														localStorage.setItem("Token", token);
+														
+														RegToken()
 														});
-                                                         
-                                                         }
-                                                         
-                                                         
-                                                    });
-                                                  
-                                                  
-                                                    $("#calendario33").append("<br><br><br><br>")
-                                                  
-                                                  
-                                                    //$("#appunta").append("<br><br><br>");
-                                                  
-                                                    setTimeout (function(){
-                                                       myScroll2.refresh();
-
-													   
-                                                     }, 800);
-                                                  
-                                                    },
-                                                  error: function( jqXhr, textStatus, errorThrown ){
-                                                  
-                                                  alert(errorThrown)
-                                                  $("#spinner").hide();
-                                                  
-                                                  },
-                                                  dataType:"jsonp"});
-	                                       
-                                           
-                   });           
-                            
-         });
-		 
-		 
-		 function controllaappuntamenti(){
-				  
-			 $("#calendario33").html("")
-			 $("#spinner2").show();
-			 
-			 
-			  $.ajax({
-                   type: "GET",
-                   url: "http://msop.it/tagliafila/check_controllo_cli.php?idcliente="+localStorage.getItem("idcliente")+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
-
-                   	$("#spinner2").hide();
-					
-					 $.each(result, function(i,item){
-						 
-						var orainiziale = item.dataorainizio.substr(11,2)
-					  	var mininiziale = item.dataorainizio.substr(14,2)
-					  	var anno = item.dataorainizio.substr(0,4)
-					  	var mese = item.dataorainizio.substr(5,2)
-					  	var giorno = item.dataorainizio.substr(8,2)
-					
-                   		calendario33 = "<table valign='center'><tr><td valign='center'><a id='aa_"+item.idappuntamento+"'><img src='img/appuntamento_modifica.png' width='130' class='ui-li-icon ui-corner-none'></a><font size='2' color='#000'>"+mese+","+giorno+" -"+item.nome+" - Ore "+orainiziale+"."+mininiziale+"</font></td></tr></table><br>"
-                          
-                          $("#calendario33").html(calendario33)
-						  
-							
-                          $(document).on("touchstart", "#aa_"+item.idappuntamento+"", function(e){
-                                         
-                                var appuntamentioid = this.id
-                                appuntamentoid = appuntamentioid.replace("aa_","")
-                                
-                                adesso(appuntamentoid)
 								
-   
-                            });
-						
-					 });
-					 
-					  
-				   
-				   $("#calendario33").append("<br><br><br><br><br><br><br><br>")
-					 
-					  
-				   setTimeout (function(){
-					  myScroll2.refresh();
-					}, 500);
-					 
+								}, 2000);
+					
+				}
+				else{
+					
+				}*/
+				
+			}
 
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   },
-                   dataType:"jsonp"});
-	
 			
-		  }
-					   
-				
-				
-		function calendariomio(){
-			
+			$("#footer").show();
 			
 		}
-				
-        
-        
-        function adesso(eccola){
-            
-            //alert(eccola)
-            
-            $("#spinner").show();
-			$("#appunta").show()
-            
-            $.ajax({
-                   type: "GET",
-                   //url: "http://servizi.marcopolowit.it/tagliafilarest/api/Appuntamento/GetByIDAppuntamento?id="+eccola+"",
-                   url: "http://msop.it/tagliafila/check_appuntamentoByid.php?idappuntamento="+eccola+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
-                   
-                   var gattino = ""
-                   var tabella1 = "<form name='formia2' action='entra2.asp' method='post'>"
-                   tabella1 = tabella1 + "<table width='100%' align='center'>";
-                   $("#mieiservizi").html("");
-                   
-                   
-                   $("#spinner").hide();
-                   
-                   //var pippo = jQuery.parseJSON( result );
-                   $.each(result, function(i,item){
-                          
-                          var orainiziale = item.dataorainizio.substr(11,2)
-                          var mininiziale = item.dataorainizio.substr(14,2)
-                          var anno = item.dataorainizio.substr(0,4)
-                          var mese = item.dataorainizio.substr(5,2)
-                          var giorno = item.dataorainizio.substr(8,2)
-                          
-                         tabella1 = tabella1 + "<tr><td align='center' width='100%'><b>DOVE: "+item.nome+"</b></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='hidden' value='"+item.idprestazione+"' name='idprestazione' id='idprestazione'><input type='hidden' value='"+eccola+"' name='eccolaapp' id='eccolaapp'></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='hidden' value='"+item.idcliente+"' name='idcliente' id='idcliente'> <input type='hidden' value='"+anno+"' name='anno2' id='anno2'> <input type='hidden' value='"+mese+"' name='mese2' id='mese2'></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><select id='orainizio2' name='orainizio2'><option value='"+orainiziale+"' selected>"+orainiziale+"</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option></select><select id='mininizio2' name='mininizio2'><option value='"+mininiziale+"' selected>"+mininiziale+"</option><option value='00'>00</option><option value='15'>15</option><option value='30'>30</option><option value='45'>45</option></select></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><select id='dayinizio2' name='dayinizio2'>GIORNO: <option value='"+giorno+"' selected>"+giorno+"</option></select></td></tr>"
-                          
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><a id='aggiornaappuntamento'> <img src='img/appuntamento_modifica.png' width='140'></a> <br><a id='cancappuntamento'> <img src='img/appuntamento_cancella.png' width='140'></a></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='80%'><a id='pippo6'><img src='img/back.png' width='40'></a></td></tr></table></form>";
-                          
-                         /* tabella1 = tabella1 + "<tr><td align='center' width='100%'><b>NOME: "+item.nome+", "+item.cognome+"</b></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='hidden' value='"+item.idprestazione+"' name='idprestazione' id='idprestazione'><input type='hidden' value='"+eccola+"' name='eccolaapp' id='eccolaapp'></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='hidden' value='"+item.idcliente+"' name='idcliente' id='idcliente'></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><input type='text' value='"+item.dataorainizio+"' name='datainizio' id='datainizio'></td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%'><input type='text' value='"+item.dataorafine+"' name='datafine' id='datafine'></td></tr>"
-                          
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'><a id='aggiornaappuntamento'> <img src='img/matita.ico' width='40'></a> </td></tr>"
-                          
-                          tabella1 = tabella1 + "<tr><td align='center' width='80%'><a id='pippo6'><img src='img/back.jpg' width='40'></a></td></tr></table></form>";*/
-                          
-                          
-                          });
-                   
-                   
-                   $("#appunta").html(tabella1);
-				   
-				   $("#prolock").show();
+		else{
+			
+			var tabella = "<table align='center' border='0' width='100%' height='120px'>";
+			tabella = tabella + "<tr><td align='center'><a href='javascript:riparti()' class='btn'><font color='#fff'>Connetti</font></a></td></tr>";
+			tabella = tabella + "</table>";
+			
+			$("#noconn").html(tabella);
+			
+			
+			$("#footer").show();
+		}
+    }
 	
-                   
-                   $(document).on("touchstart", "#pippo6", function(e){
-					   
-					    $("#prolock").hide();
-                                  
-                        // window.location.href = "index.html";
-                                  
-                    });
-                   
-                   
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   },
-                   dataType:"jsonp"});
-            
-            return false;
-            
-            throw new Error('controlledError');
-            
-        }
-        
-        $(document).on("touchstart", "#aggiornaappuntamento", function(e){
-			
-	
-                      var datainizio3 = self.document.formia2.anno2.value+"-"+self.document.formia2.mese2.value+"-"+self.document.formia2.dayinizio2.value+"T"+self.document.formia2.orainizio2.value+":"+self.document.formia2.mininizio2.value+":00"
-                       
-                       
-                       var mintot2 = parseInt(self.document.formia2.mininizio2.value) + 15
-                       
-                       if(self.document.formia2.mininizio2.value=="45"){
-                       var oratot2 = parseInt(self.document.formia2.orainizio2.value) + 1
-                       }
-                       else{
-                       var oratot2 = self.document.formia2.orainizio2.value
-                       }
-                       
-                       if(mintot2=="60"){
-                       mintot2 = "00"
-                       }
-                       
-                       
-                       var datafine3 = self.document.formia2.anno2.value+"-"+self.document.formia2.mese2.value+"-"+self.document.formia2.dayinizio2.value+"T"+oratot2+":"+mintot2+":00"
-                       
-                       
-                       aggiornadame(self.document.formia2.eccolaapp.value,datainizio3,datafine3)
-                       
-                       /*var modifica = '{"IDAppuntamento": "'+self.document.formia2.eccolaapp.value+'","IDCliente": "'+self.document.formia2.idcliente.value+'","IDPrestazione": "'+self.document.formia2.idprestazione.value+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DataOraInizio": "'+datainizio3+'","DataOraFine": "'+datafine3+'"}'
-                       
-                       
-                       $("#spinner").show();
-                       $.ajax({
-                              url: "http://servizi.marcopolowit.it/tagliafilarest/api/Appuntamento/UpdateAppuntamento?id="+self.document.formia2.eccolaapp.value+"",
-                              dataType: "json",
-                              type: "post",
-                              contentType: "application/json",
-                              data: modifica,
-                              processData: false,
-                              crossDomain: true,
-                              success:function(result){
-                              
-                            aggiornadame(self.document.formia2.eccolaapp.value,datainizio3,datafine3)
-                              
-                              
-                              $("#spinner").hide();
-                              
-                              },
-                              error: function( jqXhr, textStatus, errorThrown ){
-                              
-                              alert(errorThrown)
-                              $("#spinner").hide();
-                              
-                              },
-                              dataType:"json"});*/
-                       });
-					   
-					   
-			$(document).on("touchstart", "#cancappuntamento", function(e){
-                       
-                      
-				   var idappuntamento = self.document.formia2.eccolaapp.value
-				   
-				   $("#spinner2").show();
-				   $.ajax({
-						  type: "GET",
-						  url: "http://msop.it/tagliafila/check_cancappuntamentocli.php?idappuntamento="+idappuntamento+"",
-						  cache: false,
-						  crossDomain: true,
-						  contentType: "application/json",
-						  timeout: 7000,
-						  jsonp: 'callback',
-						  crossDomain: true,
-						  success: function (result) {
-						  
-							$("#spinner2").hide();
-							//alert("ok, appuntamento cancellato")
-								navigator.notification.alert(
-							   'ok, appuntamento cancellato',  // message
-							   alertDismissed,         // callback
-							   'OK',            // title
-							   'Done'                  // buttonName@
-							   );
-							$("#calendario").tap();
-							
-						   //window.location.href = "index.html";
-						  
-						  },
-						  error: function( jqXhr, textStatus, errorThrown ){
-						  
-						  alert(errorThrown)
-						  $("#spinner").hide();
-						  
-						  },
-					dataType:"jsonp"});
-            });
-
-        
-        
-        function aggiornadame(idappuntamento,datainizio,datafine){
-			
-			
-            $("#spinner2").show();
-            $.ajax({
-                   type: "GET",
-                   url: "http://msop.it/tagliafila/check_updateappuntamentoneg.php?idappuntamento="+idappuntamento+"&dataorainizio="+datainizio+"&dataorafine="+datafine+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/json",
-                   timeout: 7000,
-                   jsonp: 'callback',
-                   crossDomain: true,
-                   success: function (result) {
+}
 
 
-                   $("#spinner2").hide();
-                   //alert("ok, appuntamento modificato")
-				   navigator.notification.alert(
-				   'ok, appuntamento modificato',  // message
-				   alertDismissed,         // callback
-				   'OK',            // title
-				   'Done'                  // buttonName@
-				   );
-				   $("#calendario").tap();
-				    
-				   //window.location.href = "index.html";
-				   
-
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   },
-           dataType:"jsonp"});
-            
-        }
-
-        
-
-    $(document).on("touchstart", "#aggiorna", function(e){
-                   
+$(document).on("tap", "#btn_coloredonna", function(e){
+               
+       localStorage.setItem("addidprestazione", "15");
+       
+       
+       $("#menucliente").hide();
+       
+       $("#mieiservizi").show();
+       
+       //alert("15")
+       
        listznegozi()
-                   
-       //window.location.href = "index.html";
-                   
-    });
-        
-    
-    $(document).on("touchstart", "#indietro", function(e){
-        
-        window.plugins.nativepagetransitions.fade({
-                "duration"       :  800, // in milliseconds (ms), default 400
-				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  600,
-                "href" : "index.html"
-            });
-                       
-    });
-        
-        
-    $(document).on("touchstart", "#edita", function(e){
-                       
-        window.plugins.nativepagetransitions.fade({
-                "duration"       :  800, // in milliseconds (ms), default 400
-				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  600,
-                "href" : "edita.html"
-            });
-                       
-    });
-        
-        
-    $(document).on("touchstart", "#esci", function(e){
-                   
-        localStorage.setItem("email", "");
-		
-		 window.plugins.nativepagetransitions.fade({
-                "duration"       :  800, // in milliseconds (ms), default 400
-				"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-				"androiddelay"   :  600,
-                "href" : "Login.html"
-            });
-		
-        //window.location.href = "Login.html";
-                   
-    });
-        
-        
-    $(document).on("touchstart", "#addorario", function(e){
-                       
-        var tabella1 =""
-        $("#mieiservizi").html("");
-        var listacompleta="";
-                   
-        $("#spinner").hide();
-                   
-        tabella1 = "<table width='80%' align='center'>";
-                   
-                   
-        tabella1 = tabella1 + "<tr><td align='center' colspan='2' width='100%'><select id='idday'><option value='0'>Scegli Giorno</option><option value='1'>Lunedi</option><option value='2'>Martedi</option><option value='3'>Mercoledi</option><option value='4'>Giovedi</option><option value='5'>Venerdi</option><option value='6'>Sabato</option><option value='7'>Domenica</option></select></td></tr>"
-                   
-        tabella1 = tabella1 + "<tr><td align='left' width='20%'>Inizio:</td><td align='left' width='80%'><input type='text' value='08:30:00' name='orainizio' id='orainizio'></td></tr>"
-                   
-        tabella1 = tabella1 + "<tr><td align='left' width='20%'>Fine:</td><td align='left' width='80%'> <input type='text' value='13:30:00' name='orafine' id='orafine'></td></tr>"
-                   
-                   
-        tabella1 = tabella1 + "<tr><td align='center' colspan='2' width='100%'><a id='insertora'><img src='img/aggiungi.png' width='60'></a></td></tr>"
-                   
-        tabella1 = tabella1 + "<tr><td align='center' width='80' colspan='2'><br><br><a id='pippo2'>INDIETRO</a></td></tr></table>";
-                   
-        $("#mieiservizi").append(tabella1);
-                   
-    });
-        
-    
-         $(document).on("touchstart", "#insertora", function(e){
-    
-            var orari = '{"OraInizio": "'+self.document.formia.orainizio.value+'","OraFine": "'+self.document.formia.orafine.value+'"}'
-            
-            var ggiorno = self.document.formia.idday.value;
-            
-            if(ggiorno!="0"){
-                        
-            $("#spinner").show();
-            
-            $.ajax({
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Orario/AddOrario",
-                   dataType: "json",
-                   type: "post",
-                   contentType: "application/json; charset=UTF-8",
-                   data: orari ,
-                   processData: false,
-                   crossDomain: true,
-                   success:function(result){
-                   
-                     insertorari(result.IDOrario,ggiorno)
-                     //alert(result.IDOrario)
-                   $("#spinner").hide();
-                   
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   
-                   alert(errorThrown)
-                   
-                   
-                   },
-            dataType:"json"});
-            }
-            
-       });
-        
-        
-    function insertorari(orario,giorno) {
-        
-        var orari = '{"IDNegozio": "'+localStorage.getItem("idnegozio")+'","IDGiorno": "'+giorno+'","IDOrario": "'+orario+'"} '
-        
-        
-        $("#spinner").show();
-        
-        $.ajax({
-               url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/AddOrarioNegozio",
-               dataType: "json",
-               type: "post",
-               contentType: "application/json; charset=UTF-8",
-               data: orari ,
-               processData: false,
-               crossDomain: true,
-               success:function(result){
+       
+       //listaprestazione("15")
                
-                //alert("ok, orario inserito")
-				navigator.notification.alert(
-				   'ok, orario inserito',  // message
-				   alertDismissed,         // callback
-				   'OK',            // title
-				   'Done'                  // buttonName@
-				   );
-                $("#spinner").hide();
-               
-               },
-               error: function( jqXhr, textStatus, errorThrown ){
-               
-                //alert(errorThrown)
-               
-               },
-        dataType:"json"});
-    }
-        
-        
-        
-   $(document).on("touchstart", "#lista", function(e){
-        listaneg()
-    });
-        
-        
-        function listaneg(){
-			
-			$("#nome").html("LISTA PRESTAZIONI");
-            
-            $("#spinner").show();
-            var listacompleta="";
-            $("#testvideo").html("");
-            $("#mieiservizi2").html("");
-            
-            //alert("lista")
-            
-            $.ajax({
-                   type: "GET",
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/prestazione/getprestazionibycategory?idCategory=9",
-                   //data: {email:"c2FsdmF0b3JlLmJydW5pQGdtYWlsLmNvbQ",password:"c2FzYTc5"},
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/x-www-form-urlencoded",
-                   success: function (result) {
-                   
-                   var tabella = "";
-                   $("#mieiservizi").html("");
-                   $("#spinner").hide();
-                   listacompleta="<br>";
-                   
-                   
-                   var pippo = jQuery.parseJSON( result );
-                   
-                   $.each(pippo, function(i,item){
-                          
-                          paperino = item.IDPrestazione
-                          
-                          tabella = "<table width='90%' align='center'>";
-                          
-                          
-                          if(item.IDPrestazione=="15"){
-                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/colore.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/coloredonna.jpg' width='320'> </a> </td></tr>"
-                          }
-                          else if(item.IDPrestazione=="12"){
-                    
-                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/permanente.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/permanente.jpg' width='320'> </a> </td></tr>"
-                          }
-                          else if(item.IDPrestazione=="16"){
-                          
-                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/colore.png' width='40'></td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/piega.jpg' width='320'> </a> </td></tr>"
-                          }
-                          else if(item.IDPrestazione=="14"){
-                          
-                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/shampoo.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/shampouomo.jpg' width='320'> </a> </td></tr>"
-                          }
-                          else if(item.IDPrestazione=="11"){
-                          
-                           tabella = tabella + "<tr><td align='left' width=13%' valign='center'> <img src='img/taglio.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/tagliodonna.jpg' width='320'> </a> </td></tr>"
-                          
-                          }
-                          else if(item.IDPrestazione=="10"){
-      
-                          tabella = tabella + "<tr><td align='left' width=13%' valign='center'><img src='img/taglio.png' width='40'> </td><td align='left' width='54%' valign='center'><font size='3'> <b>"+item.NomePrestazione+"<b></font></td><td align='left' width=33%' valign='center'><a id='"+paperino+"'> <img src='img/SERVIZI.png' width='80'> </a></td></tr><tr><td align='center' width='100%' colspan='3'><a id='#'> <img src='img/tagliouomo.jpg' width='320'> </a> </td></tr>"
-                          }
-                          else{
-                          tabella = tabella + "<tr><td align='left' width='100%'><a id='"+paperino+"'> <img src='img/aggiungi.png' width='30'> </a> <b>"+item.NomePrestazione+","+paperino+"<b></td></tr>"
-                          }
-                          
-                          
-                          tabella = tabella + "</table>";
-                          
-                          
-                          $("#mieiservizi").append(tabella);
-                          
-                          
-                          $(document).on("touchstart", "#"+paperino+"", function(e){
-                                         
-                                passo(this.id) // passare la variabile in una nuova funzione
-                                         
-                           });
-                          
-                          });
-                   
-                   
-                   
-                   setTimeout (function(){
-                               myScroll.refresh();
-                               }, 500);
-                   
-                   
-                   function passo(eccola){
-                   
-                   //alert(eccola);
-                   localStorage.setItem("addidprestazione", eccola);
-                   
-                   
-                   listaprestazione(eccola)
-                   
-                   }
-                   
-                   
-                   //$("#listacompleta").html(listacompleta);
-                   
-                   $("#spinner").hide();
-                   
-                   
-                   },
-                   error: function(jqXhr, textStatus, errorThrown){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   }
-                   
-                   });
-        }
-        
-    
-        
-        function listaprestazione(idp){
-            $("#spinner").show();
-            var listacompleta="";
-            $("#testvideo").html("");
-            
-            //alert("http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetNegoziByIDPrestazione/"+idp+"")
-            
-            $.ajax({
-                   type: "GET",
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetNegoziByIDPrestazione/"+idp+"",
-                   //data: {email:"c2FsdmF0b3JlLmJydW5pQGdtYWlsLmNvbQ",password:"c2FzYTc5"},
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/x-www-form-urlencoded",
-                   success: function (result) {
-                   
-                   var tabella =""
-                   $("#mieiservizi").html("");
-                   $("#spinner").hide();
-                   listacompleta="<br>";
-                   
-                   var pippo = jQuery.parseJSON( result );
-                   
-                   $.each(pippo, function(i,item){
-                          
-                         // if(item.IDPrestazione==idp){
-                          
-                          tabella = "<table width='80%' align='center'>";
-                          
-                          tabella = tabella + "<tr><td align='center' width='100%' colspan='2'> <b>"+item.NomeEsercente+"<b></td></tr>"
-                          
-                          tabella = tabella + "<tr><td align='left' width='100%' colspan='2'>"+item.Citta+", "+item.Indirizzo+"</td></tr>"
-                          
-                          tabella = tabella + "<tr><td align='left' width='100%' colspan='2'>"+item.Email+", "+item.Telefono+"</td></tr>"
-                          
-                          tabella = tabella + "<tr><td align='center' width='100%' colspan='2'><a id='list_"+item.IDNegozio+"'> <img src='img/appuntamento_aggiungi.png' width='150'></a> </td></tr>"
-                          
-                          tabella = tabella + "</table><br>";
-                          
-                          $("#mieiservizi").append(tabella);
-                          
-                          
-                          
-                          $(document).on("touchstart", "#list_"+item.IDNegozio+"", function(e){
-                                         
-                            var idnego = this.id
-                            idnego = idnego.replace("list_","")
-                                         
-                             localStorage.setItem("idnegozio",idnego)
-                              
-                             //alert(idp + localStorage.getItem("idnegozio"))
-                                         
-                             //passo2bis(idp)
-                                         
-                             passo2(idnego)
-                                         
-                          });
-                          
-                          
-                          
+})
 
-                         // }
-                          
-                          
-                     });
-                   
-                   
-                   setTimeout (function(){
-                      myScroll.refresh();
-                    }, 500);
 
-                   
-                     $("#spinner").hide();
-                   
-                   
-                   },
-                   error: function(jqXhr, textStatus, errorThrown){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   }
-                   
-            });
-        }
-        
-        
-    $(document).on("touchstart", "#insertprestazione", function(e){
-            
-        var registrami = '{"IDPrestazione": "'+localStorage.getItem("addidprestazione")+'","IDNegozio": "'+localStorage.getItem("idnegozio")+'","DurataMinuti": "'+self.document.formia.durata2.value+'","CostoInSede": "'+self.document.formia.costo2.value+'","CostoDomicilio": "","DomicilioAbilitato": "false"}'
-        
-        //alert(registrami)
-        
-        $("#spinner").show();
-        $.ajax({
-               url: "http://servizi.marcopolowit.it/tagliafilarest/api/Prestazione/AddPrestazioneNegozio",
-               dataType: "json",
-               type: "post",
-               contentType: "application/json",
-               data: registrami,
-               processData: false,
-               crossDomain: true,
-               success:function(result){
+
+
+
+$(document).on("touchstart", "#menuR", function(e){
                
-                 //alert("ok, prestazione aggiunta al tuo negozio")
-				 navigator.notification.alert(
-				   'ok, prestazione aggiunta al tuo negozio',  // message
-				   alertDismissed,         // callback
-				   'OK',            // title
-				   'Done'                  // buttonName@
-				   );
-                 $("#spinner").hide();
-                 window.location.href = "index.html";
-               },
-               error: function( jqXhr, textStatus, errorThrown ){
+   window.location.href = "menu.html";
+   
+})
+
+$(document).on("touchstart", "#badde2", function(e){
                
-               alert("Prestazione gia aggiunta")
-               $("#spinner").hide();
+   window.location.href = "cart.html";
+   
+})
+
+
+$(document).on("touchstart", "#btnprofilo7", function(e){
                
-               },
-               dataType:"json"});
-        
-    });
-        
-        
-    $(document).on("touchstart", "#vediorario", function(e){
-        
-        $("#spinner").show();
-        
-        $.ajax({
-               type: "GET",
-               url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetOrariNegozio/"+localStorage.getItem("idnegozio")+"",
-               //data: {email:"c2FsdmF0b3JlLmJydW5pQGdtYWlsLmNvbQ",password:"c2FzYTc5"},
-               cache: false,
-               crossDomain: true,
-               contentType: "application/x-www-form-urlencoded",
-               success: function (result) {
+   window.location.href = "rating.html";
+})
+
+
+
+$(document).on("touchstart", "#altro", function(e){
                
-               var gattino = ""
-               var tabella1 =""
-               tabella1 = "<table width='80%' align='center'>";
-               $("#mieiservizi").html("");
+   $("#btnpanel").click();
+   
+});
+
+
+$(document).on("touchstart", "#premi", function(e){
                
-               //tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'><br><br><a id='pippo3'>INDIETRO</a></td></tr>";
+    window.location.href = "premi.html";
+})
+
+$(document).on("touchstart", "#index_negozio", function(e){
                
-               $("#spinner").hide();
-               //var listacompleta="<br>";
+    window.location.href = "index.html";
+ })
+
+
+
+$(document).on("touchstart", "#profilo", function(e){
                
-               var plutone = result.ORARI_NEGOZIO
+   var loggato = localStorage.getItem("loginvera")
+   var tblProfile;
+   
+   if((loggato=="")||(!loggato)){
+   window.location.href = "Login.html";
+   }else{
+   
+   window.location.href = "Profilo.html";
+   }
+})
+
+
+$(document).on("touchstart", "#contattaci", function(e){
                
-               for ( i=0; i < plutone.length; i++ )
-               {
-                 //if(gattino != plutone[i]["Giorno"]){
+    window.location.href = "tel:+3906111111";
+ })
+
+
+$(document).on("touchstart", "#dove", function(e){
                
-                  tabella1 = tabella1 + "<tr><td align='left' width='100%'><a id='"+plutone[i]["IDOrario"]+"'><img src='img/edita.png' width='60'></a><b>"+plutone[i]["Giorno"]+"</b></td></tr>"
-               
-                 //}
-               
-                 tabella1 = tabella1 + "<tr><td align='left' width='100%'>"+plutone[i]["OraInizio"]+"</td></tr>"
-                 tabella1 = tabella1 + "<tr><td align='left' width='100%'>"+plutone[i]["OraFine"]+"<br><br></td></tr>"
-                 //alert(plutone[i]["IDGiorno"])
-               
-                 //gattino = plutone[i]["Giorno"]
-               
-            
-                 $(document).on("touchstart", "#"+plutone[i]["IDOrario"]+"", function(e){
-                              
-                    passo3(this.id)
-                              
-                 });
-               
-               }
-               
-               tabella1 = tabella1 + "<tr><td align='center' width='80%'><a id='pippo3'>INDIETRO</a></td></tr></table>";
-               
-               $("#mieiservizi").append(tabella1);
-               
-               
-               
-               $(document).on("touchstart", "#pippo3", function(e){
-                              
-                    window.location.href = "index.html";
-                              
-                });
-               
+    gomappa();
+})
+
+
+function listznegozi(){
+    
+    $("#nome").html("<img src='img/coloredonna.jpg' width='100%'><br><br>");
+    
+    $("#spinner").show();
+    
+    /*$.ajax({
+     type: "GET",
+     url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetNegozi/",
+     cache: false,
+     crossDomain: true,
+     contentType: "application/x-www-form-urlencoded",
+     success: function (result) {
      
-               
-               function passo3(eccola3){
-               
-                  vediorarioprestazione(eccola3)
-               
-               
-                 }
-               
-               
-               },
-               error: function(jqXhr, textStatus, errorThrown){
-               
-                 alert(errorThrown)
-                 $("#spinner").hide();
-               
-               }
-               
-        });
-    });
-        
-        
-        
-        function vediorarioprestazione(ideccola){
-            
-            //alert(ideccola)
-            
-            $("#spinner").show();
-            
-            $.ajax({
-                   type: "GET",
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetOrariNegozio/"+localStorage.getItem("idnegozio")+"",
-                   cache: false,
-                   crossDomain: true,
-                   contentType: "application/x-www-form-urlencoded",
-                   success: function (result) {
-                   
-                   //alert("ok")
-                   
-                   var gattino = ""
-                   var tabella1 =""
-                   tabella1 = "<table width='80%' align='center'>";
-                   $("#mieiservizi").html("");
-
-                   
-                   $("#spinner").hide();
-                   
-                   var plutone = result.ORARI_NEGOZIO
-                   
-                   for ( i=0; i < plutone.length; i++ )
-                   {
-                   
-                     //alert(plutone[i]["IDOrario"])
-                   
-                     if(ideccola == plutone[i]["IDOrario"]){
-
-                   
-                       tabella1 = tabella1 + "<tr><td align='center' width='100%'><b>"+plutone[i]["Giorno"]+"</b></td></tr>"
-                   
-                       tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='text' value='"+plutone[i]["OraInizio"]+"' name='orainizio2' id='orainizio2'><input type='hidden' value='"+ideccola+"' name='eccola' id='eccola'></td></tr>"
-                   
-                       tabella1 = tabella1 + "<tr><td align='left' width='100%'><input type='text' value='"+plutone[i]["OraFine"]+"' name='orafine2' id='orafine2'></td></tr>"
-
-                     }
-
-                   
-                   }
-                   
-                    tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'><a id='aggiornaorarioprestazione'> <img src='img/update.png' width='60'></a> </td></tr>"
-                   
-                   tabella1 = tabella1 + "<tr><td align='center' width='80%'><a id='pippo4'>INDIETRO</a></td></tr></table>";
-                   
-                   $("#mieiservizi").append(tabella1);
-                   
-                   
-                   
-                   $(document).on("touchstart", "#pippo4", function(e){
-                                  
-                        window.location.href = "index.html";
-                                  
-                    });
-                   
-                   
-                   },
-                   error: function(jqXhr, textStatus, errorThrown){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   }
-                   
-                   });
-        }
-        
-        
-        
-    $(document).on("touchstart", "#aggiornaorarioprestazione", function(e){
-            
-            //alert(eccola3);
-            
-            var orari = '{"IDOrario": "'+self.document.formia.eccola.value+'","OraInizio": "'+self.document.formia.orainizio2.value+'","OraFine": "'+self.document.formia.orafine2.value+'","DisponibilitaLavorantePrestazione": [],"DisponibilitaNegozioPrestazione": [],"LavoranteOrario": [],"NegozioOrario": [],"OrarioPrestazioneDomicilio": []} '
-            // var orari = '{"OraInizio": "08:31:00","OraFine": "13:31:00"}'
-            
-            
-            $("#spinner").show();
-            $.ajax({
-                   url: "http://servizi.marcopolowit.it/tagliafilarest/api/Orario/UpdateOrario",
-                   dataType: "json",
-                   type: "post",
-                   contentType: "application/json",
-                   data: orari,
-                   processData: false,
-                   crossDomain: true,
-                   success:function(result){
-                   
-                   //alert("ok, orario modificato")
-				   navigator.notification.alert(
-				   'ok, orario modificato',  // message
-				   alertDismissed,         // callback
-				   'OK',            // title
-				   'Done'                  // buttonName@
-				   );
-				   
-                   $("#spinner").hide();
-                   
-                   vediorario2();
-                   },
-                   error: function( jqXhr, textStatus, errorThrown ){
-                   
-                   alert(errorThrown)
-                   $("#spinner").hide();
-                   
-                   },
-                   dataType:"json"});
-    });
-        
-        
-    function vediorario2() {
-        
-        $("#spinner").show();
-        
-        $.ajax({
-               type: "GET",
-               url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetOrariNegozio/"+localStorage.getItem("idnegozio")+"",
-               //data: {email:"c2FsdmF0b3JlLmJydW5pQGdtYWlsLmNvbQ",password:"c2FzYTc5"},
-               cache: false,
-               crossDomain: true,
-               contentType: "application/x-www-form-urlencoded",
-               success: function (result) {
-               
-               
-               var tabella1 =""
-               tabella1 = "<table width='80%' align='center'>";
-               $("#mieiservizi").html("");
-               
-               //tabella1 = tabella1 + "<tr><td align='center' width='100%' colspan='2'><br><br><a id='pippo3'>INDIETRO</a></td></tr>";
-               
-               $("#spinner").hide();
-               //var listacompleta="<br>";
-               
-               var plutone = result.ORARI_NEGOZIO
-               
-               for ( i=0; i < plutone.length; i++ )
-               {
-               
-               tabella1 = tabella1 + "<tr><td align='left' width='100%'><a id='"+plutone[i]["IDOrario"]+"'><img src='img/edita.png' width='60'></a><b>"+plutone[i]["Giorno"]+"</b></td></tr>"
-               tabella1 = tabella1 + "<tr><td align='left' width='100%'>"+plutone[i]["OraInizio"]+"</td></tr>"
-               tabella1 = tabella1 + "<tr><td align='left' width='100%'>"+plutone[i]["OraFine"]+"<br><br></td></tr>"
-               //alert(plutone[i]["IDGiorno"])
-               
-               
-               
-               $(document).on("touchstart", "#"+plutone[i]["IDOrario"]+"", function(e){
-                              
-                    passo4(this.id)
-                              
+     var tabella1 =""
+     $("#mieiservizi").html("");
+     
+     $("#spinner").hide();
+     var listacompleta="";
+     
+     var pippo = jQuery.parseJSON( result );
+     
+     $.each(pippo, function(i,item){
+     
+     pluto = item.IDNegozio
+     
+     tabella1 = "<table width='80%' align='center'>";
+     
+     tabella1 = tabella1 + "<tr><td align='right' width='100' valign='center'><a id='"+pluto+"'> <img src='img/logo.png' width='50'> </a></td><td align='left' width='100%' valign='center'>"+item.NomeEsercente+"</td></tr>"
+     
+     tabella1 = tabella1 + "</table>";
+     
+     $("#mieiservizi").append(tabella1);
+     
+     $(document).on("touchstart", "#"+pluto+"", function(e){
+     
+     passo2(this.id)
+     
+     });
+     
+     });
+     
+     setTimeout (function(){
+     myScroll.refresh();
+     }, 500);
+     
+     },
+     error: function(jqXhr, textStatus, errorThrown){
+     
+     alert(errorThrown)
+     $("#spinner").hide();
+     
+     }
+     
+     });*/
+    
+    $.ajax({
+           type: "GET",
+           url: "http://msop.it/tagliafila/check_listanegozio.php",
+           cache: false,
+           crossDomain: true,
+           contentType: "application/json",
+           timeout: 7000,
+           jsonp: 'callback',
+           crossDomain: true,
+           success: function (result) {
+           
+           var tabella1 =""
+           $("#mieiservizi").html("");
+           
+           $("#spinner").hide();
+           var listacompleta="";
+           
+           $.each(result, function(i,item){
+                  
+                  pluto = item.id
+                  
+                  tabella1 = "<table width='80%' align='center'>";
+                  
+                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+pluto+"'> <img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='150' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nomeesercente+"</b></font></td></tr>"
+                  
+                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
+                  
+                  tabella1 = tabella1 + "</table><br>";
+                  
+                  $("#mieiservizi").append(tabella1);
+                  
+                  
+                  $(document).on("touchstart", "#"+pluto+"", function(e){
+                                 
+                     window.location.href = "index_negozio.html?id_negozio=MKD";
+                                 
+                    //passo2(this.id)
+                     
                 });
-               
-               }
-               
-               //tabella1 = tabella1 + "<tr><td align='left' width='80' colspan='2'><br><br><a id='pippo3'>INDIETRO</a></td></tr></table>";
-               
-               $("#mieiservizi").append(tabella1);
-               
-               
-               
-               $(document).on("touchstart", "#pippo3", function(e){
-                              
-                              window.location.href = "index.html";
-                              
-                              });
-               
-               
-               
-               function passo4(eccola4){
-               
-               vediorarioprestazione(eccola4)
-               
-               /*var orari = '{"IDOrario": "'+eccola3+'","OraInizio": "10:00:00","OraFine": "13:00:00","DisponibilitaLavorantePrestazione": [],"DisponibilitaNegozioPrestazione": [],"LavoranteOrario": [],"NegozioOrario": [],"OrarioPrestazioneDomicilio": []} '
-              
-               
-               
-               $("#spinner").show();
-               $.ajax({
-                      url: "http://servizi.marcopolowit.it/tagliafilarest/api/Orario/UpdateOrario",
-                      dataType: "json",
-                      type: "post",
-                      contentType: "application/json",
-                      data: orari,
-                      processData: false,
-                      crossDomain: true,
-                      success:function(result){
-                      
-                      alert("ok, orario modificato")
-                      $("#spinner").hide();
-                      
-                      vediorario2();
-                      },
-                      error: function( jqXhr, textStatus, errorThrown ){
-                      
-                      alert(errorThrown)
-                      $("#spinner").hide();
-                      
-                      },
-                      dataType:"json"});*/
-               }
-               
-               
-               },
-               error: function(jqXhr, textStatus, errorThrown){
-               
-               alert(errorThrown)
-               $("#spinner").hide();
-               
-               }
-               
-               });
-    }
+                  
+                  
+            });
+           
+           
+           setTimeout (function(){
+                       myScroll.refresh();
+                       }, 500);
+           
+           
+           
+           },
+           error: function( jqXhr, textStatus, errorThrown ){
+           
+           alert(errorThrown)
+           
+           
+           },
+           dataType:"jsonp"});
+    
+}
+
+
+
+function onConfirm(button) {
 	
-	
-	function alertDismissed() {
+	if (button==1){
+		localStorage.setItem("email3", 1);
+		dlt()
+	}
+	else{
+		localStorage.setItem("email2", localStorage.getItem("emailStory"));
 		
-	}	
+		localStorage.setItem("loginvera", "")
+		localStorage.setItem("email", "")
+		
+		window.location.href = "Login.html";
+	}
+}
+
+function gocart() {
+	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
+	$(document).on('pagebeforeshow', function () {
+		$(this).find('a[data-rel=back]').buttonMarkup({
+		iconpos: 'notext'
+	});
+				   
+	//setTimeout(function() {
+		//$(window).scrollTop($(window).scrollTop()+1);
+		//window.scrollTo(0,0);
+	//}, 500);
+				   
+ });
+	
+	var email = localStorage.getItem("email");
+	var Badge10 = localStorage.getItem("Badge10");
+	$("#badde3").attr("data-badge", Badge10);
+	
+	if (Badge10 > 0){
+		$('#badde3').removeClass('badge2').addClass('badge3');
+	}
+
+	
+	if((email=="")||(!email)){
+		$("#btnprofilo3").attr("href", "#page4");
+		$("#btnprofilo3").attr("onclick", "javascript:checklogin();");
+	}else{
+		$("#btnprofilo3").attr("href", "#mypanel");
+		$("#btnprofilo3").attr("onclick", "#");
+	}
+	
+	//$("#riepilogo9").html("");
+	
+
+	//$('#contenutoCart').html(landmark);
+	seleziona();
+}
+
+function AggProd(prod) {
+	
+	var loggato = localStorage.getItem("loginvera")
+	var tblProfile;
+	
+	if((loggato=="")||(!loggato)){
+		window.location.href = "Login.html";
+		return;
+	}
+	
+	var aggiornamento = 0;
+	var msg;
+	var prezzo;
+	var test;
+	var P1 = '110';
+	
+	if (prod==1){
+		msg="Pizza";
+		prezzo="6.50";
+	}
+	else if (prod==2){
+		msg="Panino";
+		prezzo="4.50";
+	}
+	else{
+		msg="Menu";
+		prezzo="8.00";
+	}
+
+	
+	localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))+1)
+	var Badge10 = localStorage.getItem("Badge10");
+
+	$('#badde').removeClass('badge2').addClass('badge1');
+	$("#badde").attr("data-badge", Badge10);
+	$("#badde").html('<img src="img/CartW.png" width="20px">');
+	
+	$('#badde2').removeClass('badge2').addClass('badge1');
+	$("#badde2").attr("data-badge", Badge10);
+	$("#badde2").html('<img id="carro2" src="img/CartW.png" width="20px">');
+	
+	$('#badde3').removeClass('badge2').addClass('badge1');
+	$("#badde3").attr("data-badge", Badge10);
+	
+	$('#badde4').removeClass('badge2').addClass('badge1');
+	$("#badde4").attr("data-badge", Badge10);
+	$("#badde4").html('<img src="img/CartW.png" width="20px">');
+	
+	$( "#carro2" ).effect( "bounce", "slow" );
+	
+	db.transaction(function (tx) {
+		tx.executeSql('UPDATE Ordine set Qta=Qta+1, Descrizione=Descrizione + '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
+			aggiornamento = 1;
+			//alert("Prod:" + prod);
+		}, null);
+	});
+	
+	localStorage.setItem("emailStory", localStorage.getItem("email"));
+	
+	//se sono diverse cancello carrello
+
+	if(aggiornamento==0){
+		agg2(prod)
+		//alert("Prod:" + prod);
+	}
+	
+	
+}
+
+function SottProd(prod) {
+	var aggiornamento = 0;
+	var azione=0;
+	var msg;
+	var prezzo;
+	var test;
+	var P1 = '110';
+	
+	if (prod==1){
+		msg="Pizza";
+		prezzo="6.50";
+	}
+	else if (prod==2){
+		msg="Panino";
+		prezzo="4.50";
+	}
+	else{
+		msg="Menu";
+		prezzo="8.00";
+	}
+	
+	var Badge10;
+	/*if (parseInt(localStorage.getItem("Badge10")) > 0){
+		localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))-1)
+	
+		Badge10 = localStorage.getItem("Badge10");
+	
+		$("#badde").attr("data-badge", Badge10);
+		$("#badde").html('<img src="img/CartW.png" width="20px">');
+	
+		$("#badde2").attr("data-badge", Badge10);
+		$("#badde2").html('<img src="img/CartW.png" width="20px">');
+		
+	}
+	else {
+		Badge10 = 0;
+		
+		$("#badde").attr("data-badge", Badge10);
+		$("#badde").html('<img src="img/CartW.png" width="20px">');
+		
+		$("#badde2").attr("data-badge", Badge10);
+		$("#badde2").html('<img src="img/CartW.png" width="20px">');
+
+	}*/
+	
+	db.transaction(function (tx) {
+       tx.executeSql('SELECT * FROM Ordine where id='+ prod +'', [], function (tx, results) {
+					 var len = results.rows.length, i;
+
+						for (i = 0; i < len; i++){
+							if (parseInt(results.rows.item(i).Qta) > 1){
+								tx.executeSql('UPDATE Ordine set Qta=Qta-1, Descrizione=Descrizione - '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
+										//alert("UPD");
+										
+											  localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))-1)
+											  
+											  Badge10 = localStorage.getItem("Badge10");
+											  
+											  $("#badde").attr("data-badge", Badge10);
+											  $("#badde").html('<img src="img/CartW.png" width="20px">');
+											  
+											  $("#badde2").attr("data-badge", Badge10);
+											  $("#badde2").html('<img src="img/CartW.png" width="20px">');
+											  
+											  $("#badde3").attr("data-badge", Badge10);
+											  
+											  $("#badde4").attr("data-badge", Badge10);
+
+								   }, null);
+							}
+							else{
+									tx.executeSql('DELETE FROM Ordine where id='+ prod +'', [], function (tx, results) {
+										//alert("DEL");
+										$(".buttonOrdine").hide();
+												  
+												  localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))-1)
+												  Badge10 = localStorage.getItem("Badge10");
+												  
+												  $("#badde").attr("data-badge", Badge10);
+												  $("#badde").html('<img src="img/CartW.png" width="20px">');
+												  
+												  $("#badde2").attr("data-badge", Badge10);
+												  $("#badde2").html('<img src="img/CartW.png" width="20px">');
+												  
+												  $("#badde3").attr("data-badge", Badge10);
+												  
+												  $("#badde4").attr("data-badge", Badge10);
+												  
+								   }, null);
+							}
+						}
+
+					 }, null);
+				   });
+	
+	seleziona();
+}
+
+function agg(){
+	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var msg;
+	var test;
+	var P1 = '110';
+	
+	db.transaction(function (tx) {
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
+       //tx.executeSql('INSERT INTO Ordine (id, IdProdotto, Qta, Descrizione, Nome) VALUES (1, 1, 1, "Omaggio", "Omaggio")');
+	});
+	
+}
+
+function agg2(prod){
+	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var msg;
+	var prezzo;
+	var test;
+	var P1 = '110';
+	
+	if (prod==1){
+		msg="Pizza";
+		prezzo="6.50";
+		}
+	else if (prod==2){
+		msg="Panino";
+		prezzo="4.50";
+	}
+	else{
+		msg="Menu";
+		prezzo="8.00";
+	}
+	
+	db.transaction(function (tx) {
+       tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
+       tx.executeSql('INSERT INTO Ordine (id, IdProdotto, Qta, Descrizione, Nome) VALUES ('+ prod +', 1, 1, "'+ prezzo +'", "'+ msg +'")');
+				   });
+	
+	seleziona();
+}
+
+
+function seleziona() {
+	var Badge10 = localStorage.getItem("Badge10");
+	$("#badde3").attr("data-badge", Badge10);
+	var TOT = localStorage.getItem("TOT");
+	
+	var landmark = '<table id="myTable" class="tablesorter"><thead><tr><th><font color="white" size="2">ORDINE</font><img src="img/giu2.png" height="10px"></th><th><font color="white" size="2">QTA</font><img src="img/giu2.png" height="10px"></th><th><font color="white" size="2">COSTO</font><img src="img/giu2.png" height="10px"></th><th><font color="white" size="2"></font></th><th><font color="white" size="2"></font></th></tr></thead><tbody id="contenutoCart">';
+	
+	
+	db.transaction(function (tx) {
+       tx.executeSql('SELECT * FROM Ordine', [], function (tx, results) {
+					 var len = results.rows.length, i;
+					 
+					 //alert(len);
+					 
+					 for (i = 0; i < len; i++){
+					 
+					 msg = results.rows.item(i).IdProdotto + "," + results.rows.item(i).Qta + "," + results.rows.item(i).Descrizione + "," + results.rows.item(i).Nome;
+					 
+					 landmark = landmark + '<tr><td><font size="3">'+ results.rows.item(i).Nome +'</font></td><td><font size="3">'+ results.rows.item(i).Qta +'</font></td><td><font size="3">'+ results.rows.item(i).Descrizione +'</font></td><td align="center"><a href="javascript:SottProd('+ parseInt(results.rows.item(i).id) +')"><div width="28px" class="home"></div></a></td><td align="center"><a href="javascript:AggProd('+ parseInt(results.rows.item(i).id) +')"><div width="28px" class="home1"></div></td></tr>';
+					 
+					  //TOT = (Number(TOT) + Number(results.rows.item(i).Descrizione));
+					 
+					 //$("#buttonOrdine").show();
+					 
+					 //miaVariabile = msg.split(",");
+					 
+					 //document.write(miaVariabile[0] + "<br>");
+					 //document.write(miaVariabile[1] + "<br>");
+					 
+					 //$('#esempio').html(miaVariabile[0] + miaVariabile[1]);
+					 //$('#contenutoCart').html(msg);
+					 
+					 }
+					 
+					 landmark = landmark + '</tbody></table>';
+					 $('#contenutoCart').html(landmark);
+					 
+					 selPrezzo();
+					 //$('#TOTPrezzo').html(TOT.toFixed(2));
+					 //localStorage.setItem("TOT", TOT.toFixed(2))
+					 
+					 
+					 }, null);
+				   });
+
+}
+
+function dlt(){
+	localStorage.setItem("Badge10", 0)
+	$('#badde').removeClass('badge1').addClass('badge2');
+	
+	db.transaction(function (tx) {
+		tx.executeSql('DELETE FROM Ordine', [], function (tx, results) {
+	}, null);
+	});
+	
+	
+	localStorage.setItem("Badge10", 0)
+	
+	Badge10 = localStorage.getItem("Badge10");
+	
+	$("#badde").attr("data-badge", Badge10);
+	
+	$("#badde2").attr("data-badge", Badge10);
+
+	$('#badde3').removeClass('badge3').addClass('badge2');
+	
+	$('#badde4').removeClass('badge3').addClass('badge2');
+	
+	localStorage.setItem("TOT", 0)
+
+	seleziona();
+}
+
+function selPrezzo(){
+	db.transaction(function (tx) {
+       tx.executeSql('SELECT SUM(Descrizione) as TOT FROM Ordine', [], function (tx, results) {
+					 var len = results.rows.length, i;
+					 
+					 //alert(len);
+					 
+					 for (i = 0; i < len; i++){
+						$('#TOTPrezzo').html(Number(results.rows.item(i).TOT).toFixed(2));
+					 }
+
+					 
+					 }, null);
+				   });
+	
+	document.removeEventListener('touchmove', handleTouch, false);
+
+}
+
+function compraConsegna(){
+	navigator.notification.alert(
+								 'Riceverai la conferma e i tempi di consegna entro pochi minuti, grazie.',  // message
+								 alertDismissed,         // callback
+								 'Ordine Spedito',            // title
+								 'Chiudi'                  // buttonName
+								 );
+}
+
+
+function verificawifi(){
+	$("#verifica").click();
+}
+
 
 function onResume() {
-
- 	window.plugins.nativepagetransitions.fade({
-		"duration"       :  800, // in milliseconds (ms), default 400
-		"iosdelay"       :   50, // ms to wait for the iOS webview to update before animation kicks in, default 60
-		"androiddelay"   :  600,
-		"href" : "index.html"
-	});
-	 
+	app.initialize();
 }
-    
-        
-    function cancellaorari() {
-        $("#spinner").show();
-        $.ajax({
-               url: "http://servizi.marcopolowit.it/tagliafilarest/api/orario/deleteorario/21",
-               type: "DELETE",
-               contentType: "application/x-www-form-urlencoded",
-               //data: "21",
-               processData: false,
-               crossDomain: true,
-               success:function(result){
-               
-                //alert("ok")
-                $("#spinner").hide();
-               },
-               error: function( jqXhr, textStatus, errorThrown ){
-               
-                alert(errorThrown)
-                $("#spinner").hide();
-               
-               },
-               dataType:"json"});
-        
-    }
+
+function checkPos() {
+	
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 10000, enableHighAccuracy: false, maximumAge: 0 });
+	
+	function onSuccess(position) {
+		ciao = position.coords.latitude;
+		ciao1 = position.coords.longitude;
+		
+		localStorage.setItem("lat", ciao)
+		localStorage.setItem("lng", ciao1)
+		
+		localStorage.setItem("geostory", "SI")
+		
+		//$("#radio").attr("href", "maps:saddr="+ ciao +","+ ciao1 +"&daddr=Via di Acilia,17,Roma");
+		
+		
+		//alert('Lat' + ciao + 'Lng' + ciao1);
+		/*$("#radio").attr("href", "maps:saddr="+ ciao +","+ ciao1 +"&daddr=Via di Acilia,17,Roma");
+		$("#radio2").attr("href", "maps:saddr="+ ciao +","+ ciao1 +"&daddr=Via di Acilia,17,Roma");
+		$("#radio9").attr("href", "maps:saddr="+ ciao +","+ ciao1 +"&daddr=Via di Acilia,17,Roma");*/
+	}
+	
+	
+	function onError(error) {
+		
+		localStorage.setItem("geostory", "NO")
+		
+		/*$("#radio").attr("maps:q=Via di Acilia, 17,Roma");
+		$("#radio2").attr("maps:q=Via di Acilia, 17,Roma");
+		$("#radio9").attr("maps:q=Via di Acilia, 17,Roma");*/
+
+	}
+	
+}
+
+
+function gomappa(){
+	var addressLongLat = '41.903266,12.684647';
+	
+	window.open("http://maps.apple.com/?q="+addressLongLat, '_system');
+	//window.location.href = "http://maps.apple.com/?q="+addressLongLat
+	//window.open("http://maps.google.com/?q="+addressLongLat, '_system');
+	
+	//var ref = window.open('http://maps.apple.com/?q=Via di Acilia, 7', '_system');
+	
+}
+
+
+function gofacebook(){
+	var ref = window.open('https://m.facebook.com/gabriele.fucito.5', '_system', 'location=no');
+}
+
+
+function getDistance(lat1,lon1,lat2,lon2) {
+	var R = 6371; // Radius of the earth in km
+	var dLat = deg2rad(lat2-lat1);  // deg2rad below
+	var dLon = deg2rad(lon2-lon1);
+	var a =
+	Math.sin(dLat/2) * Math.sin(dLat/2) +
+	Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+	Math.sin(dLon/2) * Math.sin(dLon/2)
+	;
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	var d = R * c; // Distance in km
+	return d;
+}
+
+function deg2rad(deg) {
+	return deg * (Math.PI/180)
+}
+
+
+
+function apri() {
+	var pagina = "donazione";
+	var ref = window.open('http://www.pokeranswer.it/live/'+ pagina +'.asp', '_blank', 'location=no');
+	//www.pokeranswer.it/live/aams.html
+}
+
+function GoBack() {
+	$(window).scroll(function() {
+					 if($(window).scrollTop() + $(window).height() > $(document).height() - 40) {
+					 buildprodotto(localStorage.getItem("Categoria"),localStorage.getItem("Provincia"),2,1);
+					 }
+					 });
+	  history.go(-1);
 	
 	}
-};
+
+function prodotto(idProdotto) {
+	
+	//loaded();
+	//$(window).off("scroll");
+	
+	$(document).on('pagebeforeshow', function () {
+				   $(this).find('a[data-rel=back]').buttonMarkup({
+																 iconpos: 'notext'
+																 });
+
+
+				   setTimeout (function(){
+						myScroll.refresh();
+					}, 1000);
+
+				   });
+
+	
+	
+	var landmark2 ="";
+	$(".spinner").show();
+	var Recensione = "";
+	var model = device.model;
+	
+	$(".spinner").show();
+	$.ajax({
+		   type:"GET",
+		   url:"http://gtechplay.com/bck/www/Check_Prodotto.asp",
+		   contentType: "application/json",
+		   data: {ID:idProdotto},
+		   timeout: 7000,
+		   jsonp: 'callback',
+		   crossDomain: true,
+		   success:function(result){
+		   
+		   $.each(result, function(i,item){
+				  
+				  $("#idheader").html("<table id='idheader' height='50'><tr><td width='30px' align='center'></td><td width='240px' align='center' valign='middle'><font color='#FFFFFF' size='3'>"+ item.Nome +"</font></td><td width='50px' align='center' valign='middle'></td></tr></table>");
+				  
+				  if((item.TitRecensione=="")||(!item.TitRecensione)){
+				  var Recensione = "";
+				  }
+				  else{
+				  Recensione = "<tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>"+ item.TitRecensione +"<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Recensione +"</font></td></tr>";
+				  }
+				  
+				  
+				  if (model.indexOf('iPad') >= 0) {
+				  $("#prodotto").html("<img src='http://gtechplay.com/public/bck/"+ item.IMG +".png' width='700px' height='440px' class='arrotondamento'><table width='90%' border='0' id='' align='center'><tr><td colspan='3'><font color='#454545' size='3'><b>"+ item.DescrizioneS +"</b></font></td></tr><tr><td colspan='3' align='left'><font color='#454545' size='2'>Valore: <strike>"+ item.Valore +"</strike></font></td></tr><tr><td colspan='3'></td></tr><tr><td align='left'><font color='#FF8000' size='4'><b>"+ item.Deal +"&euro; </b></font></td><td align='right' colspan='2'><font color='#454545' size='2'>"+ item.Nome +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Dove Siamo<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'><img src='img/pin.png' height='24px'> "+ item.Indirizzo +"<br>"+ item.Cap +", "+ item.Citta +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>In Sintesi<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Sintesi +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Dettagli<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Dettagli +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Condizioni<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Condizioni +"</font></td></tr>"+ Recensione +"<tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href='#page3' onclick='javascript:riepilogo("+ idProdotto +",1);' data-transition='slide' class='zocial email'>&nbsp;&nbsp;&nbsp;Regala Coupon&nbsp;&nbsp;&nbsp;</a></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href='javascript:condividi("+ idProdotto +");' class='zocial facebook'>Condividi su Facebook</a></td></tr></table>");
+				  }
+				  else{
+				  $("#prodotto").html("<img src='http://gtechplay.com/public/bck/"+ item.IMG +".png' width='320px' height='180px'><table width='100%' border='0' id='' align='center'><tr><td colspan='3'><font color='#454545' size='3'><b>"+ item.DescrizioneS +"</b></font></td></tr><tr><td colspan='3' align='left'><font color='#454545' size='2'>Valore: <strike>"+ item.Valore +"</strike></font></td></tr><tr><td colspan='3'></td></tr><tr><td align='left'><font color='#FF8000' size='4'><b>"+ item.Deal +"&euro; </b></font></td><td align='right' colspan='2'><font color='#454545' size='2'>"+ item.Nome +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Dove Siamo<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'><img src='img/pin.png' height='24px'> "+ item.Indirizzo +"<br>"+ item.Cap +", "+ item.Citta +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>In Sintesi<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Sintesi +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Dettagli<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Dettagli +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Condizioni<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Condizioni +"</font></td></tr>"+ Recensione +"<tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href='#page3' onclick='javascript:riepilogo("+ idProdotto +",1);' data-transition='slide' class='zocial email'>&nbsp;&nbsp;&nbsp;Regala Coupon&nbsp;&nbsp;&nbsp;</a></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href='javascript:condividi("+ idProdotto +");' class='zocial facebook'>Condividi su Facebook</a></td></tr></table>");
+				  }
+				  
+				  //$("#clock").countdown("2015/"+ item.MeseScadenza +"/"+ item.GiornoScadenza +" "+ item.OraScadenza +":"+ item.MinutiScadenza +":00", function(event) {
+										//$(this).html(event.strftime('%D giorni %H:%M:%S'));
+										//});
+				  
+				  });
+		   
+		   $(".spinner").hide();
+		   
+		   
+		   },
+		   error: function(){
+		   $(".spinner").hide();
+		   
+		   navigator.notification.alert(
+										'Possibile errore di rete, riprova tra qualche minuto',  // message
+										alertDismissed,         // callback
+										'Attenzione',            // title
+										'Done'                  // buttonName
+										);
+		   
+		   },
+		   dataType:"jsonp"});
+	
+	
+	$("#idfooter").html("<table id='idfooter' border='1'><tr><td width='200px' align='center'><span id='clock'></span></td><td width='120px' align='center'><a href='#page3' onclick='javascript:riepilogo("+ idProdotto +",0);' data-transition='slide' class='ui-btn ui-shadow ui-corner-all'>Acquista!</a></td></tr></table>");
+	
+	
+}
+
+
+function buildprodotto(Categoria,Provincia,Pagina) {
+	
+	localStorage.setItem("Categoria", "");
+	localStorage.setItem("Provincia", "");
+	
+	var idProdotto = 1;
+	var landmark2="";
+	$(".spinner").show();
+	var model = device.model;
+	var MeseScadenza = "06";
+	var GiornoScadenza = "14";
+	var OraScadenza = "15";
+	var MinutiScadenza = "00";
+	
+	// inserire nel WS le date di scadenza
+	
+	$(".spinner").show();
+	$.ajax({
+		   type:"GET",
+		   url:"http://gtechplay.com/bck/www/Check_Home.asp",
+		   contentType: "application/json",
+		   //data: {Categoria:Categoria,Provincia:Provincia,Pagina:Pagina},
+		   data: {Categoria:"offerte"},
+		   timeout: 7000,
+		   jsonp: 'callback',
+		   crossDomain: true,
+		   success:function(result){
+		   
+		   $.each(result, function(i,item){
+				if (item.ID != 0){
+				   distanza = getDistance(localStorage.getItem("lat"),localStorage.getItem("lng"),item.Lat,item.Long).toFixed(1);
+				  
+				  var immagine = item.IMG;
+				  //immagine = immagine.slice(0,-4);
+				  
+				   //var n1 = immagine.indexOf(".png");
+				  
+				  if (model.indexOf('iPad') >= 0) {
+					landmark2 = landmark2 + "<a style='text-decoration: none;' href='#page2' onclick='javascript:pagina22("+ item.Cod_Prodotto +");' id='linkdettagli' ><img src='http://gtechplay.com/public/bck/"+ item.IMG +".png' width='700px' height='400px' class='arrotondamento'><table height='30px' border='0' width='90%'><tr><td align='left' colspan='2'><font size='3' color='#454545'>"+ item.Descrizione +"</font></td></tr><tr><td align='left' width='50%'><font size='2' color='#454545'>"+ item.Nome +"</font></td><td align='right'><font size='2' color='#454545'>"+ item.Citta +"</font></font></td></tr><tr><td align='left' width='50%'><font size='2' color='#454545'>Distanza:Km "+ distanza +" </font></td><td align='right'><font size='4' color='#0e85af'>"+ item.Indirizzo +"</font></td></tr></table></a><br><hr class='div3'>";
+				  }
+				  else{
+					landmark2 = landmark2 + "<div id="+ item.Cod_Prodotto +"'><a style='text-decoration: none;' id='add_"+item.Cod_Prodotto+"' rel='external' onclick='#' data-transition='slide' id='linkdettagli"+ item.Cod_Prodotto +"'><img src='http://gtechplay.com/public/bck/"+ item.IMG +".png' width='100%'><table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='3' color='#454545'>"+ item.Descrizione +"</font></td></tr><tr><td align='left' width='160px'><br><font size='2' color='#454545'>Acquistati:</font><font size='2' color='#0e85af'> "+ item.Acquistati +"</font></td><td align='right'><br><font size='2' color='#0e85af'>Vale:<strike>"+ item.Valore +"&euro;</strike> "+ item.Sconto +"%</font></font></td></tr><tr><td align='left' width='160px' valign='center'><font size='2' color='#454545'>Scade tra: </font><font size='2' color='#0e85af'>"+ item.GiorniRimanenti +" </font><font size='2' color='#454545'>giorni</font></td><td id='deallo"+ item.Cod_Prodotto +"' colspan='2' align='right'><font size='5' color='#0e85af'>"+ item.Deal +"&euro;</font></td></tr><tr id='vis2"+ item.Cod_Prodotto +"' style='display:none' class='visione'><td align='left' colspan='2'><font size='1' color='#454545' class='someclass'>"+ item.Dettagli +"</font></td></tr></table></a><br><hr class='div3'></div>";
+                  
+                  
+                    $(document).on("tap", "#add_"+item.Cod_Prodotto+"", function(e){
+                                 
+                         var numerofesta = this.id
+                         numerofesta = numerofesta.replace("add_","")
+                         
+                         window.location.href = "index3.html?prod="+ numerofesta +"";
+                     
+                     });
+                  
+                  
+				  }
+				  
+				  idProdotto = idProdotto+1;
+                
+				  
+				  
+				}
+				else{
+				  landmark2 ="Nessun risultato trovato";
+				}
+				  
+				
+			});
+		   
+		   $(".spinner").hide();
+		   $("#noconn").hide();
+		   
+		   $("#classifica").html(landmark2);
+           
+           
+           $(document).on("touchstart", "#linkdettagli"+ item.Cod_Prodotto +"", function(e){
+                          
+              alert("menu.html");
+                          
+            })
+		   
+		   setTimeout (function(){
+				myScroll.refresh();
+			}, 1000);
+		   //myScroll = new IScroll('#wrapper', { click: true });
+		   
+		   
+		   },
+		   error: function(){
+		   $(".spinner").hide();
+		   
+		   
+		   
+		   navigator.notification.alert(
+										'Possibile errore di rete, riprova tra qualche minuto',  // message
+										alertDismissed,         // callback
+										'Attenzione',            // title
+										'Done'                  // buttonName
+										);
+		   
+		   },
+		   dataType:"jsonp"});
+	
+			//$('#getting-started').countdown('2015/06/30', function(event) {
+				//$(this).html(event.strftime('%w sett. %d giorni %H:%M:%S'));
+			//});
+
+}
+
+function vedi(prod) {
+	
+	//alert("vedi" + prod);
+	
+	//var elementHeight = element.height();
+	var windowHeight  = $(window).height();
+	
+	var altezza= windowHeight;
+	//alert(altezza);
+	
+	if (prod!=4){
+		myScroll.scrollTo(0, -altezza, 0);
+	}
+	else
+	{
+		myScroll.scrollTo(0, 0, 0);
+	}
+	
+	// chiamare prodotto e costruire una nuova pagina solo con uno tutto aperto.
+	
+	setTimeout(function() {
+			   $("#vis1"+ prod +"").toggle( "slide" );
+			   $("#vis2"+ prod +"").toggle( "slide" );
+			   $("#deallo"+ prod +"").attr("colspan", "1");
+			   $("#linkdettagli"+ prod +"").attr("href", "javascript:NOvedi("+ prod +")");
+			   
+			   
+			   setTimeout(function() {
+						  myScroll.refresh();
+			   }, 300);
+	}, 300);
+	
+
+	
+	//myScroll.refresh();
+}
+
+function NOvedi(prod) {
+	//alert("Novedi" + prod);
+	
+	setTimeout(function() {
+	$("#vis1"+ prod +"").hide();
+	$("#vis2"+ prod +"").hide();
+	$("#deallo"+ prod +"").attr("colspan", "2");
+	$("#linkdettagli"+ prod +"").attr("href", "javascript:vedi("+ prod +")");
+	
+	myScroll.refresh();
+	}, 300);
+
+}
+
+function compraoff(id) {
+	//alert(id);
+	$("#compraofferta"+ id +"").show();
+}
+
+
+
+function compraEmail() {
+	window.plugin.email.open({
+		to:      ['info@mistertod.it'],
+		subject: 'Contatti',
+		body:    '',
+		isHtml:  true
+	});
+}
+
+function EmailDimenticata() {
+	navigator.notification.prompt(
+								  'Inserisci il tuo indirizzo email',  // message
+								  onPrompt,                  // callback to invoke
+								  'Recupera la Password',            // title
+								  ['Invia','Annulla'],             // buttonLabels
+								  'Email'                 // defaultText
+								  );
+}
+
+function onPrompt(results) {
+	if(results.buttonIndex==1){
+		if (results.input1 == "") {
+			navigator.notification.alert(
+										 'inserire indirizzo email',  // message
+										 alertDismissed,         // callback
+										 'Email',            // title
+										 'OK'                  // buttonName
+										 );
+			return;
+		}
+		
+		EmailAddr = results.input1;
+		Filtro = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-]{2,})+\.)+([a-zA-Z0-9]{2,})+$/;
+		if (Filtro.test(EmailAddr)) {
+			
+		}
+		else {
+			navigator.notification.alert(
+										 'Caratteri email non consentiti',  // message
+										 alertDismissed,         // callback
+										 'Email',            // title
+										 'OK'                  // buttonName
+										 );
+			return;
+		}
+
+		//Recupera la Password
+		//alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
+		
+		$(".spinner").show();
+		$.ajax({
+			   type:"GET",
+			   url:"http://gtechplay.com/bck/www/Check_RecPassword.asp",
+			   contentType: "application/json",
+			   data: {email:results.input1},
+			   timeout: 7000,
+			   jsonp: 'callback',
+			   crossDomain: true,
+			   success:function(result){
+			   
+			   $.each(result, function(i,item){
+					if(item.Token==1024){
+					  navigator.notification.alert(
+												   'Invio eseguito correttamente',  // message
+												   alertDismissed,         // callback
+												   'Recupero Password',            // title
+												   'OK'                  // buttonName
+												   );
+					}
+					else{
+						navigator.notification.alert(
+												   'Recupero fallito, riprova in seguito',  // message
+												   alertDismissed,         // callback
+												   'Errore Recupero',            // title
+												   'OK'                  // buttonName
+												   );
+					}
+
+			   
+					  
+				});
+			   
+			   $(".spinner").hide();
+			   
+			   },
+			   error: function(){
+			   $(".spinner").hide();
+			   
+			   navigator.notification.alert(
+											'Possibile errore di rete, riprova tra qualche minuto',  // message
+											alertDismissed,         // callback
+											'Attenzione',            // title
+											'Done'                  // buttonName@
+											);
+			   
+			   },
+		dataType:"jsonp"});
+
+		
+	}
+		
+}
+
+function errorHandler(error) {
+	navigator.notification.alert(
+								 'Possibile errore di rete, riprova tra qualche minuto',  // message
+								 alertDismissed,         // callback
+								 'Attenzione',            // title
+								 'Done'                  // buttonName
+								 );
+}
+
+
+function getKey(key){
+	if ( key == null ) {
+		keycode = event.keyCode;
+		
+	} else {
+		keycode = key.keyCode;
+	}
+	
+	if (keycode ==13){
+		
+		document.activeElement.blur();
+		$("input").blur()
+		return false;
+		
+	}
+	
+}
+
+
+function alertDismissed() {
+	
+}
+
+function rati() {
+	$('#rati1').raty({ score: 3 });
+}
+
+function initscroll() {
+	
+	myScroll = new IScroll('wrapper', { click: true });
+	
+				   
+	document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+				   
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+}
+
+
+
+function saldopunti(){
+	var loggato = localStorage.getItem("loginvera")
+	
+	
+	if((loggato=="")||(!loggato)){
+		//alert("No")
+		window.location.href = "Login.html";
+	}else{
+		//window.location.href = "profilo.html";
+		//window.location.href = "Login.html";
+		
+		/*localStorage.getItem("Nome")
+		localStorage.getItem("Cognome")
+		localStorage.getItem("Punti")
+		localStorage.getItem("Indirizzo")
+		localStorage.getItem("Citta")
+		localStorage.getItem("Telefono")
+		localStorage.getItem("email")*/
+		
+		var tblProfile = "<tr><td><b>PROFILO</b></td></tr><tr><td>" + localStorage.getItem("Nome") +"&nbsp;"+ localStorage.getItem("Cognome") +"</td></tr><tr><td>" + localStorage.getItem("Indirizzo") + "</td></tr><tr><td>&nbsp;&nbsp;</td></tr><tr><td>SALDO PUNTI: "+ localStorage.getItem("Punti") +"</td></tr>"
+		
+		$("#profile").html(tblProfile)
+		$("#profile").show()
+		
+	}
+	//localStorage.setItem("email", "")
+	//localStorage.setItem("loginfacebook", "NO") @
+	//localStorage.setItem("loginvera", "NO")
+	
+	
+	/*navigator.notification.alert(
+								 'hai 19 punti al momento, se raggiungi 32 punti una bibita in omaggio',  // message
+								 alertDismissed,         // callback
+								 'Saldo Punti',            // title
+								 'Chiudi'                  // buttonName
+								 );*/
+	
+}
+
+function mostrapunti(){
+	var loggato = localStorage.getItem("loginvera")
+	var tblProfile;
+	
+	//Se email story == NO allora cancello
+	
+	if((loggato=="")||(!loggato)){
+		tblProfile = "<tr><td><a href='javascript:saldopunti()' id='#' data-role='button' class='ui-btn ui-corner-all ui-btn-inline ui-icon-check ui-btn-icon-left' data-theme='b'>Login</a></td></tr>"
+	}else{
+		
+		tblProfile = "<tr><td>SALDO PUNTI: "+ localStorage.getItem("Punti") +"</td></tr><tr><td><a href='javascript:uscire()' id='#' data-role='button' class='ui-btn ui-corner-all ui-btn-inline ui-icon-delete ui-btn-icon-left' data-theme='b'>Logout</a></td></tr>"
+	
+	}
+	
+	$("#profile").html(tblProfile)
+	$("#profile").show()
+	
+}
+
+
+function uscire(){
+localStorage.setItem("loginvera", "")
+localStorage.setItem("email", "")
+	
+window.location.href = "index.html";
+}
+
+
+function goprofilo(){
+	var loggato = localStorage.getItem("loginvera")
+	var tblProfile;
+	
+	if((loggato=="")||(!loggato)){
+		window.location.href = "Login.html";
+	}else{
+		
+		window.location.href = "Profilo.html";
+	}
+}
+
+function exitapp(){
+	navigator.app.exitApp();
+}
+
+function riparti(){
+	
+	window.location.href = "index.html";
+	
+}
+
+function RegToken(){
+	//alert("entrato2")
+	
+	$(".spinner").show();
+	$.ajax({
+		   type:"GET",
+		   url:"http://www.gtechplay.com/vogliadipizza2/www/bck/Check_RegToken.asp",
+		   contentType: "application/json",
+		   data: {email:localStorage.getItem("email"),token:localStorage.getItem("Token"),platform:"Ios"},
+		   timeout: 7000,
+		   jsonp: 'callback',
+		   crossDomain: true,
+		   success:function(result){
+		   
+		   $.each(result, function(i,item){
+				  if (item.Token == '1024'){
+				  //alert(item.Token)
+				  localStorage.setItem("Registrato", "1");
+				  
+				  }
+				  else{
+				  //alert(item.Token)
+				  localStorage.setItem("Registrato", "0");
+				  
+				  }
+				  });
+		   
+		   $(".spinner").hide();
+		   //window.location.href = "index.html";
+		   
+		   },
+		   error: function(){
+		   $(".spinner").hide();
+		   
+		   navigator.notification.alert(
+										'Possibile errore di rete, riprova tra qualche minuto',  // message
+										alertDismissed,         // callback
+										'Attenzione',            // title
+										'Done'                  // buttonName
+										);
+		   
+		   },
+		   dataType:"jsonp"});
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                          results = regex.exec(location.search);
+                          return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+                          }
+
+
+

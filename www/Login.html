@@ -6,7 +6,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 			
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-		<meta name="apple-mobile-web-app-capable" content="yes">
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" href="font.css">
@@ -15,41 +14,75 @@
 		<link rel="stylesheet" href="themes/negozio.css" />
 		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 		<link rel="stylesheet" href="css/spinner.css" />
+		<link rel="stylesheet" href="css/app-reset.css" />
+		<link rel="stylesheet" href="css/app-ios.css" />
+		<link rel="stylesheet" type="text/css" href="css/zocial.css" />
+		<link rel="stylesheet" href="css/jquery-ui.css">
 		
 		<script src="jquery-1.10.2.min.js"></script>
 		<script src="js/jquery-ui.min.js"></script>
 		<script src="js/jquery.mobile-1.4.2.min.js"></script>
+		<script src="jquery.countdown.js"></script>
+		<script src="jquery.raty.js"></script>
 		
-	
-		<title>FoodApp</title>
 		
-		<style type="text/css" media="all">
-
-			
-		body {
-			font-size:12px;
-			-webkit-user-select:none;
-			-webkit-text-size-adjust:none;
-			font-family:helvetica;
+        <title>FoodApp</title>
+		
+		<style type="text/css">
+			* {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+		
+		html {
+			-ms-touch-action: none;
 		}
 		
+		body,ul,li {
+			padding: 0;
+			margin: 0;
+			border: 0;
+		}
+		
+		body {
+			font-size: 12px;
+			font-family: ubuntu, helvetica, arial;
+			overflow: hidden; /* this is important to prevent the whole page to bounce */
+		}
+		
+		#header {
+			position: absolute;
+			z-index: 2;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 45px;
+			line-height: 45px;
+			padding: 0;
+			color: #fff;
+			font-size: 20px;
+			text-align: center;
+			font-weight: bold;
+		}
+		
+		#footer {
+			position: absolute;
+			z-index: 2;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 48px;
+			background: #fff;
+			padding: 0;
+			border-top: 0px solid #444;
+		}
 		
 		#wrapper {
 			position: absolute;
 			z-index: 1;
-			top: 5px;
-			bottom: 0px;
-			left: 0;
-			width: 100%;
-			background: #fff;
-			overflow: hidden;
-		}
-		
-		#wrapper2 {
-			position: absolute;
-			z-index: 1;
-			top: 5px;
-			bottom: 0px;
+			top: 45px;
+			bottom: 48px;
 			left: 0;
 			width: 100%;
 			background: #fff;
@@ -96,17 +129,35 @@
 			font-size: 14px;
 		}
 		
-		
-		.Large {
-			font-size: 20pt;
-		}
-		
-		
-	    </style>
+			</style>
 		
 		<style>
+			.ui-icon-taifun:after {
+				background-image: url("img/CartW.png");
+				background-size: 18px 18px;
+				
+			}
+			.ui-icon-userhome:after {
+			background-image: url("img/UserW.png");
+			background-size: 18px 18px;
 			
+			}
+			.ui-icon-pinhome:after {
+			background-image: url("img/Altro.png");
+			background-size: 18px 18px;
 			
+			}
+			.ui-icon-ristohome:after {
+			background-image: url("img/RistoW.png");
+			background-size: 18px 18px;
+			
+			}
+			.ui-icon-homehome:after {
+			background-image: url("img/Best1.png");
+			background-size: 18px 18px;
+			
+			}
+		
 			.ui-mobile, .ui-mobile .ui-page, .ui-mobile [data-role="page"],
 			.ui-mobile [data-role="dialog"], .ui-page, .ui-mobile .ui-page-active {
 				overflow: hidden;
@@ -114,7 +165,7 @@
 			}
 		
 			.div1 {
-				background-color: #000;
+				background-color: #0e85af;
 				height: 52px;
 				border: none;
 				
@@ -124,7 +175,7 @@
 				background-color: #FFFFFF;
 			}
 		.div3 {
-			background-color: #37b658;
+			background-color: #F0F0F0;
 			border: none;
 			margin:0 auto;
 			height: 10px;
@@ -159,21 +210,16 @@
 			-moz-border-radius: 8px; /* firefox */
 			-webkit-border-radius: 8px; /* safari, chrome */
 		}
-		
 		.custom-btn {
-			text-decoration: none;
-			text-shadow:0 0 0;
-			
-			width: 300px;
+			width: 280px;
 		}
 		
 		.custom-btn2 {
-			width: 300px;
+			width: 280px;
 		}
 		
 		.custom-btn3 {
 			width: 100px;
-			
 		}
 		
 		.big { height: 80px;}
@@ -232,6 +278,67 @@
 			
 		}
 		
+		.home {
+			background-color: #9d3434;
+			background-image: url(img/minusW.png);
+			background-size: 26px 26px;
+			background-repeat: no-repeat;
+			background-position:center;
+			
+			height:28px;
+			width:28px;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #FFF;
+			-moz-box-shadow: 0px 0px 0.5px 1px #FFF;
+			box-shadow: 0px 0px 0.5px 1px #FFF;
+		}
+		
+		.home1 {
+			background-color: #9d3434;
+			background-image: url(img/plusW.png);
+			background-size: 26px 26px;
+			background-repeat: no-repeat;
+			background-position:center;
+			
+			height:28px;
+			width:28px;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #FFF;
+			-moz-box-shadow: 0px 0px 0.5px 1px #FFF;
+			box-shadow: 0px 0px 0.5px 1px #FFF;
+		}
+		
+		.home:active {
+			background-color: #000000;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #000;
+			-moz-box-shadow: 0px 0px 0.5px 1px #000;
+			box-shadow: 0px 0px 0.5px 1px #000;
+		}
+		
+		.home1:active {
+			background-color:#000000;
+			border-radius:999em;
+			-moz-border-radius:999em;
+			-webkit-border-radius:999em;
+			-o-border-radius: 999em;
+			
+			-webkit-box-shadow: 0px 0px 0.5px 1px #000;
+			-moz-box-shadow: 0px 0px 0.5px 1px #000;
+			box-shadow: 0px 0px 0.5px 1px #000;
+		}
 
 .circolare {
 	width: 30px;
@@ -286,9 +393,51 @@ a {text-decoration:none;}
 		.conn {
 			font-size: 9pt;
 			color:#FFF;
-			background-color: #FFF;
+			background-color: #FF8000;
 		}
 
+.badge1 {
+	position:relative;
+}
+		.badge1[data-badge]:after {
+			content:attr(data-badge);
+			position:absolute;
+			top:3px;
+			right:-1px;
+			font-size:.7em;
+			background:green;
+			color:white;
+			width:18px;height:18px;
+			text-align:center;
+			line-height:20px;
+			border-radius:50%;
+			box-shadow:0 0 1px #333;
+			border: 1px solid #fff;
+		}
+		.badge2 {
+			
+		}
+		.badge2[data-badge]:after {
+			
+		}
+		.badge3 {
+			position:relative;
+		}
+		.badge3[data-badge]:after {
+			content:attr(data-badge);
+			position:absolute;
+			top:-30px;
+			right:-15px;
+			font-size:.7em;
+			background:green;
+			color:white;
+			width:20px;height:20px;
+			text-align:center;
+			line-height:20px;
+			border-radius:50%;
+			box-shadow:0 0 1px #333;
+			border: 1px solid #fff;
+		}
 		.visione {
 			color:#000;
 			font-size: 9pt;
@@ -296,193 +445,138 @@ a {text-decoration:none;}
 			text-shadow:0 0 0;
 		}
 		
-		.scrivo {
-			display: block;
-			width: 100%;
-			margin: 0px;
-			border: solid 0.5px #dcdcdc;
-			font-family: sans-serif;
-			font-size: 20px;
-			appearance: none;
-			box-shadow: none;
-			border-radius: none;
-			
-			-webkit-appearance: none;
-			-webkit-border-radius:0px;
-			@include border-radius(0);
+		.someClass b {
+			font-weight: normal;
+			text-decoration: none;
+			text-shadow:0 0 0;
 		}
 		
+		.someClass {
+			font-weight: normal;
+			text-decoration: none;
+			text-shadow:0 0 0;
+		}
+		.someClass2 {
+			font-weight: normal;
+			text-decoration: none;
+			text-shadow:0 0 0;
+			font-size: 18px;
+		}
 		
-
 		</style>
 		
     </head>
     <body>
 		
-        <!--start-->
 		
-		<div id="page" data-role="page" >
-
-			<div class="spinner" id="spinner"></div>
-			
-			<div id="wrapper">
-				<div id="scroller">
-
-			<center>
-			<br>
-            <img src="img/logo.png" width="50">
-			
-            <br>
-			<form name="formia2" action="entra2.asp" method="post">
-
-			<table id="formreg" align="center" width="300px">
-				<tr id="campireg">
-					<td width="100%" align="center">
-						 
-						 <input type="text" data-role="none" name="email" id="email" value="" placeholder="Username" class="scrivo">
-						
-					</td>
-				</tr>
-				<tr>
-					<td align="center">&nbsp;
-						
-					</td>
-				</tr>
-				<tr>
-					<td align="left">
-						<input type="password" data-role="none" name="password" id="password" value="" placeholder="Inserire la password" class="scrivo">
-					</td>
-				</tr>
-				<tr>
-					<td align="center">&nbsp;
-						
-					</td>
-				</tr>
-				<tr>
-					<td align="center">
-						<a href="#" id="accedi" data-role="button" class="custom-btn" data-theme="a"><font size="4">Accedi</font></a>
-					</td>
-				</tr>
-				<tr>
-					<td align="center">&nbsp;
-						
-					</td>
-				</tr>
-				
-                </form>
-				<tr>
-					<td align="center">
-						<br>
-                        <font size="5" color="#000"><b>Taglia la Fila</b></font><br>
-						<!---->
-					</td>
-				</tr>
-				<tr>
-					<td align="center">&nbsp;
-						
-					</td>
-				</tr>
-				
-				<tr>
-					<td align="center">
-						<a href="#" id="pagi7" data-role="button" class="custom-btn" data-theme="a"><font color="#FFF" size="4">Iscriviti</font></a>
-					</td>
-				</tr>	
-				
-				
-			</table>
-			<br><br><br>
-			
-			
+		<div id="page" data-role="page" class="div2" >
             
-            <br><br>
-            <div id="stamp"></div>
-			
-		</div>
+			<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1" data-add-back-btn="true" >
+				<span class="ui-title"> <img src="img/Logo.png" height="32px"></span>
+				<!--  data-back-btn-text=""-->
 			</div>
 			
-		
+			<div data-role="content"><center>Accedi al tuo account</center></div>
+			
+			<center>
+				
+			<table id="formreg" align="center" width="320px">
+				<tr id="campireg">
+					<td width="320px" align="center">
+						 <form name="formia2" action="entra2.asp" method="post">
+							 <input type="text" data-theme="b" name="email" id="email" value="" placeholder="Email">
+							 <input type="password" data-theme="b" name="password" id="password" value="" placeholder="Password">
+							 <a id="logon" data-role="button" class="custom-btn" data-theme="b">Accedi</a>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td width="320px" align="left">
+						<a href="javascript:EmailDimenticata()"><font size="1" color="red">Password dimenticata</font></a><br>
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="320px" align="center">
+						<br>
+					</td>
+				</tr>
+
+			</table>
+			
+			<table align="center" width="320px">
+			<tr>
+				<td width="220px" align="left">
+					Serve un account?
+				</td>
+				<td width="100px" align="center">
+					<a id="goiscriviti" data-role="button" class="custom-btn3" data-theme="b">Iscriviti</a>
+				</td>
+			</tr>
+			</table>
+			
+			</center>
+			<div data-role="footer" align="center" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1">
+				<table id="idfooter4" width="100%" align="center">
+					<tr>
+						<td width="100px" align="left">
+					<a href="index.html" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
+				</td>
+				<td width="220px" align="center"><font color='#fff' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)</td>
+				</tr></table>
+			</div><!-- /footer4 -->
 		</div><!-- /page4 -->
 		
 		
-		
-		<div id="page7" data-role="page" >
-			<!--<div data-role="header" data-theme="c" data-position="fixed" data-tap-toggle="false" class="div1">
-				<table align="center" width="100%" valign="center" border="0"><tr><td></td></tr><tr><td align="center" valign="center"><img src="img/Logo.png" height="80px"></td></tr></table>
-			</div>-->
-            
-            
-			<br>
+		<div id="page6" data-role="page" class="div2" >
+			<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1" data-add-back-btn="true">
+				<table id="idheader6" height='50' align='center'><tr><td><img src="img/Logo.png" height="32px"></td></tr></table>
+			</div>
+			<div data-role="content"><center>Registrati su Taglialafila</center></div>
+			
 			<center>
-            <img src="img/logo.png" width="50">
-			<br>
-			<div class="spinner" id="spinner2"></div>
-			<center>
-				
-				<table id="formreg" align="center" width="300px">
-					<tr>
-						<td width="100%" align="center">
-							<form name="formia" action="entra.asp" method="post">
+			
+			<table id="formreg" align="center" width="320px">
 
-								<input type="text" data-role="none" name="emailreg" id="emailreg" value="" placeholder="Email" class="scrivo"><br>
-								<input type="text" data-role="none" name="pinreg" id="pinreg" value="" placeholder="Password" class="scrivo"><br>
-								<input type="text" data-role="none" name="nick" id="nick" value="" placeholder="Nome" class="scrivo"><br>
-											
-								<a href="#" id="iscriviti" data-role="button" data-theme="a" class="custom-btn"><font size="4">Iscriviti</font></a></center>
-							</form>
-						</td>
-					</tr>
-					<tr>
-					<td align="center">&nbsp;
-						
+				<tr>
+					<td width="320px" align="center">
+					 <form name="formia" action="entra.asp" method="post">
+						<input type="text" data-theme="b" name="emailreg" id="emailreg" value="" placeholder="Email">
+						<input type="text" data-theme="b" name="pinreg" id="pinreg" value="" placeholder="Password">
+						<input type="text" data-theme="b" name="nome" id="nome" value="" placeholder="Nome">
+						<input type="text" data-theme="b" name="cognome" id="cognome" value="" placeholder="Cognome">
+						<input type="text" data-theme="b" name="indirizzo" id="indirizzo" value="" placeholder="Indirizzo">
+						<input type="text" data-theme="b" name="cap" id="cap" value="" placeholder="Cap">
+						<input type="text" data-theme="b" name="civico" id="civico" value="" placeholder="Civico">
+						<input type="text" data-theme="b" name="citta" id="citta" value="" placeholder="Citta">
+						<input type="text" data-theme="b" name="telefono" id="telefono" value="" placeholder="Telefono">
+									
+						<a id="iscriviti" data-role="button" data-theme="b" class="custom-btn">Iscriviti</a>
+					 </form>
 					</td>
-					</tr>
+				</tr>
+			</table>
+			
+<table align="center" width="320px">
+<tr>
+	<td width="220px" align="left">
+		Hai un account?
+	</td>
+	<td width="100px" align="center">
+		<a id="accedi" data-role="button" class="custom-btn3" data-theme="b">Accedi</a>
+	</td>
+</tr>
+</table>
+			<div data-role="footer" align="center" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1">
+				<table id="idfooter4" width="100%" align="center">
 					<tr>
-						<td width="100%" align="center">
-							<a href="#" id="accedi1" data-role="button" class="custom-btn" data-theme="a"><font color="#FFF" size="4">Accedi</font></a>
+						<td width="100px" align="left">
+							<a href="index.html" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
 						</td>
-					</tr>
-				</table>
-				<br>
-                
-				
-				<div data-role="footer" align="center" data-theme="a" data-position="fixed" data-tap-toggle="false" class="div1">
-					<table id="idfooter4" width="100%" align="center">
-						<tr>
-							<td width="220px" align="center"><font color='#FFF' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)
-								</td>
-						</tr></table>
-				</div><!-- /footer6 -->
-				
+						<td width="220px" align="center"><font color='#fff' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)</td>
+					</tr></table>
+			</div><!-- /footer6 -->
 		</div><!-- /page6 -->
-		
-		<div id="page8" data-role="page">
-
-			<div class="spinner" id="spinner3"></div>
-			<center>
-				
-				<table id="formreg" align="center" width="320px">
-					
-					<tr>
-						<td width="320px" align="center">
-							<form name="formia8" action="entra.asp" method="post">
-								
-							</form>
-						</td>
-					</tr>
-				</table>
-				
-				<div data-role="footer" align="center" data-theme="a" data-position="fixed" data-tap-toggle="false" class="div1">
-					<table id="idfooter4" width="100%" align="center">
-						<tr>
-							<td width="220px" align="center"><font color='#FFF' size="1"> <a href="#" id="indietro8" data-role="button" data-theme="a" class="custom-btn"><font color="e260fe" size="4">Conferma</font></a>
-						</td>
-						</tr>
-						
-					</table>
-				</div><!-- /footer6 -->
-				</div><!-- /page6 -->
-
 		
 
 		
