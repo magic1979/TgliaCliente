@@ -57,10 +57,12 @@ function onDeviceReady() {
 	var distanza = "";
 	var Categoria="";
 	var Provincia="";
-	var model = device.model;
+	var model = "Ipad";
 	var Badge10 = localStorage.getItem("Badge10");
 	var db;
 	var dbCreated = false;
+	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var email = localStorage.getItem("email");
 	var Badge10 = localStorage.getItem("Badge10");
@@ -108,7 +110,7 @@ function someFunctionOnDblClick(){
 }
 
 function seleziona() {
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
 	var Badge10 = localStorage.getItem("Badge10");
 	$("#badde3").attr("data-badge", Badge10);
@@ -306,7 +308,8 @@ function AggProd(prod) {
 }
 
 function agg2(prod){
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	
 	var msg;
 	var prezzo;
 	var test;

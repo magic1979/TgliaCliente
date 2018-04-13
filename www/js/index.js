@@ -103,7 +103,7 @@ var app = {
 		var db;
 		var dbCreated = false;
 		
-		//$("#classifica").html("Loading....");
+	
 		
 		if((email=="")||(!email)){
 			$("#btnprofilo").attr("href", "#page4");
@@ -135,10 +135,21 @@ var app = {
 		connectionStatus = navigator.onLine ? 'online' : 'offline';
 		
 		if(connectionStatus=='online'){
+	
+			var msg;
+			var test;
+			var P1 = '110';
+	
+			var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
+			db.transaction(function (tx) {
+				tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
+			})
 			
-			checkPos();
-			agg();
+			//agg();
+			
 			mostrapunti()
+			
 			$(".spinner").hide();
 			
 			buildprodotto('Pizza','Roma',1);
@@ -163,6 +174,7 @@ var app = {
 					}
 				}
 			}
+			
 			
 			//REG DEVICE PER PUSH
 			var loggato = localStorage.getItem("loginvera")
@@ -640,15 +652,17 @@ function SottProd(prod) {
 }
 
 function agg(){
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	
+	/*db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	var msg;
 	var test;
 	var P1 = '110';
 	
 	db.transaction(function (tx) {
        tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
-       //tx.executeSql('INSERT INTO Ordine (id, IdProdotto, Qta, Descrizione, Nome) VALUES (1, 1, 1, "Omaggio", "Omaggio")');
-	});
+       
+	});*/
 	
 }
 
@@ -930,7 +944,7 @@ function prodotto(idProdotto) {
 				  }
 				  
 				  
-				  if (model.indexOf('iPad') >= 0) {
+				  if (model == "Ipad") {
 				  $("#prodotto").html("<img src='http://gtechplay.com/public/bck/"+ item.IMG +".png' width='700px' height='440px' class='arrotondamento'><table width='90%' border='0' id='' align='center'><tr><td colspan='3'><font color='#454545' size='3'><b>"+ item.DescrizioneS +"</b></font></td></tr><tr><td colspan='3' align='left'><font color='#454545' size='2'>Valore: <strike>"+ item.Valore +"</strike></font></td></tr><tr><td colspan='3'></td></tr><tr><td align='left'><font color='#FF8000' size='4'><b>"+ item.Deal +"&euro; </b></font></td><td align='right' colspan='2'><font color='#454545' size='2'>"+ item.Nome +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Dove Siamo<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'><img src='img/pin.png' height='24px'> "+ item.Indirizzo +"<br>"+ item.Cap +", "+ item.Citta +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>In Sintesi<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Sintesi +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Dettagli<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Dettagli +"</font></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3'><font color='#454545' size='3'>Condizioni<hr class='style-six'></font></td></tr><tr><td colspan='3'><font color='#454545' size='2'>"+ item.Condizioni +"</font></td></tr>"+ Recensione +"<tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href='#page3' onclick='javascript:riepilogo("+ idProdotto +",1);' data-transition='slide' class='zocial email'>&nbsp;&nbsp;&nbsp;Regala Coupon&nbsp;&nbsp;&nbsp;</a></td></tr><tr><td colspan='3'><hr class='div3'></td></tr><tr><td colspan='3' align='center'><a href='javascript:condividi("+ idProdotto +");' class='zocial facebook'>Condividi su Facebook</a></td></tr></table>");
 				  }
 				  else{
@@ -1008,7 +1022,7 @@ function buildprodotto(Categoria,Provincia,Pagina) {
 				  
 				   //var n1 = immagine.indexOf(".png");
 				  
-				  if (model.indexOf('iPad') >= 0) {
+				  if (model== "Ipad") {
 					landmark2 = landmark2 + "<a style='text-decoration: none;' href='#page2' onclick='javascript:pagina22("+ item.Cod_Prodotto +");' id='linkdettagli' ><img src='http://gtechplay.com/public/bck/"+ item.IMG +".png' width='700px' height='400px' class='arrotondamento'><table height='30px' border='0' width='90%'><tr><td align='left' colspan='2'><font size='3' color='#454545'>"+ item.Descrizione +"</font></td></tr><tr><td align='left' width='50%'><font size='2' color='#454545'>"+ item.Nome +"</font></td><td align='right'><font size='2' color='#454545'>"+ item.Citta +"</font></font></td></tr><tr><td align='left' width='50%'><font size='2' color='#454545'>Distanza:Km "+ distanza +" </font></td><td align='right'><font size='4' color='#0e85af'>"+ item.Indirizzo +"</font></td></tr></table></a><br><hr class='div3'>";
 				  }
 				  else{
