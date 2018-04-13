@@ -24,37 +24,16 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		
-		/*if(PushbotsPlugin.isiOS()){
-			PushbotsPlugin.initializeiOS("569cc754177959df038b4567");
-		}
-		if(PushbotsPlugin.isAndroid()){
-			PushbotsPlugin.initializeAndroid("569cc754177959df038b4567", "819657450833");
-		}
-		
-		PushbotsPlugin.resetBadge();*/
-		
-		
-		last_click_time = new Date().getTime();
-		
-		document.addEventListener('click', function (e) {
-								  
-          click_time = e['timeStamp'];
-          
-          if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-          
-          e.preventDefault();
-          
-          return false;
-          
-          }
-          
-          last_click_time = click_time;
-          
-          }, true);
-		
-		document.addEventListener("showkeyboard", function(){ $("[data-role=footer]").hide();}, false);
-		document.addEventListener("hidekeyboard", function(){ $("[data-role=footer]").show();}, false);
-		
+			var myScroll;
+			
+
+			myScroll = new IScroll('wrapper', { click: true });
+			
+			setTimeout (function(){
+				myScroll.refresh();
+			}, 2000);
+
+	
 		
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
 		$('input, select')
@@ -68,6 +47,7 @@ var app = {
 			//window.scrollTo( $.mobile.window.scrollLeft(), $.mobile.window.scrollTop() );
 			//		   }, 20 );
 			});
+			
 	
 	
 		$(document).keydown(function (eventObj){
@@ -118,7 +98,7 @@ var app = {
 		var distanza = "";
 		var Categoria="";
 		var Provincia="";
-		var model = device.model;
+		var model = "Iphone";
 		var Badge10 = localStorage.getItem("Badge10");
 		var db;
 		var dbCreated = false;
@@ -419,8 +399,8 @@ function listznegozi(){
            
            
            setTimeout (function(){
-                       myScroll.refresh();
-                       }, 500);
+               myScroll.refresh();
+           }, 500);
            
            
            
@@ -925,7 +905,7 @@ function prodotto(idProdotto) {
 	var landmark2 ="";
 	$(".spinner").show();
 	var Recensione = "";
-	var model = device.model;
+	var model = "Iphone";
 	
 	$(".spinner").show();
 	$.ajax({
@@ -965,6 +945,10 @@ function prodotto(idProdotto) {
 		   
 		   $(".spinner").hide();
 		   
+		   setTimeout (function(){
+				myScroll.refresh();
+			}, 1000);
+		   
 		   
 		   },
 		   error: function(){
@@ -995,7 +979,7 @@ function buildprodotto(Categoria,Provincia,Pagina) {
 	var idProdotto = 1;
 	var landmark2="";
 	$(".spinner").show();
-	var model = device.model;
+	var model = "Iphone";
 	var MeseScadenza = "06";
 	var GiornoScadenza = "14";
 	var OraScadenza = "15";
@@ -1059,6 +1043,10 @@ function buildprodotto(Categoria,Provincia,Pagina) {
 		   $("#noconn").hide();
 		   
 		   $("#classifica").html(landmark2);
+		   
+		   setTimeout (function(){
+				myScroll.refresh();
+			}, 2000);
            
            
            $(document).on("touchstart", "#linkdettagli"+ item.Cod_Prodotto +"", function(e){
