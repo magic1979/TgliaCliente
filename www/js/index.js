@@ -29,14 +29,14 @@ var app = {
 			var myScroll;
 			
 
-			myScroll = new IScroll('wrapper', { click: true });
+			myScroll = new iScroll('wrapper', { click: true });
 			
 			setTimeout (function(){
 				myScroll.refresh();
 			}, 2000);
 
 
-        alert("1")
+           alert("1")
 	
 		
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
@@ -1309,16 +1309,7 @@ function rati() {
 	$('#rati1').raty({ score: 3 });
 }
 
-function initscroll() {
-	
-	myScroll = new IScroll('wrapper', { click: true });
-	
-				   
-	document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
-				   
-	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
-}
 
 
 
