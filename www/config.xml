@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
-		id        = "com.tagliafila"
-		versionCode="1"
-		version   = "1">
+		id        = "com.festeatema"
+		versionCode="4"
+		version   = "4">
 		<name>TagliaFila</name>
-		<description>TagliaFila Clienti</description>
-		<author href="http://msop.it" email="info@msop.it">
-			Associzione Game Answer
+		<description>Taglia la fila </description>
+		<author href="http://msop.it/privacy.html">
+			Associazione Game Answer
 		</author>
 		
 		<preference name="pgb-builder-version" value="2" />
@@ -15,7 +15,7 @@
 		<preference name="orientation" value="portrait" />
 		<preference name="android-windowSoftInputMode" value="adjustResize" />
 		<preference name="fullscreen" value="false" />
-		<preference name="target-device" value="handset" />
+		<preference name="target-device" value="handset" />  <!-- all: possible values handset, tablet, or universal -->
 		<preference name="webviewbounce" value="true" />
 		<preference name="prerendered-icon" value="true" />
 		<preference name="stay-in-webview" value="true" />
@@ -96,7 +96,6 @@
 		cordova-plugin-ionic-keyboard
 
 		-->
-		
 		
 		<plugin name="cordova-plugin-cache" source="npm" />
 		<plugin name="cordova-plugin-pushplugin" source="npm" />
