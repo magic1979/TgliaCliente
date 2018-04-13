@@ -24,10 +24,7 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		
-		    alert("start")
-		
 			var myScroll;
-			
 
 			myScroll = new iScroll('wrapper', { click: true });
 			
@@ -36,9 +33,6 @@ var app = {
 			}, 2000);
 
 
-           alert("1")
-	
-		
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
 		$('input, select')
 		.on('focus', function (e) {
@@ -52,8 +46,6 @@ var app = {
 			//		   }, 20 );
 			});
 			
-		alert("2")
-	
 	
 		$(document).keydown(function (eventObj){
 			getKey(eventObj);
@@ -94,6 +86,11 @@ var app = {
            $("#mieiservizi").show();
            
         })
+		
+		
+		setTimeout (function(){
+			myScroll.refresh();
+		}, 1000);
         
 		
 		var email = localStorage.getItem("email");
@@ -109,7 +106,6 @@ var app = {
 		var dbCreated = false;
 		
 	
-		
 		if((email=="")||(!email)){
 			$("#btnprofilo").attr("href", "#page4");
 			$("#btnprofilo").attr("onclick", "javascript:checklogin();");
@@ -134,9 +130,7 @@ var app = {
         
         var negozio = getParameterByName('id_negozio');
         //alert(negozio)
-		
-		
-		alert("3")
+
 		
 		var connectionStatus = false;
 		connectionStatus = navigator.onLine ? 'online' : 'offline';
@@ -155,7 +149,6 @@ var app = {
 			
 			//agg();
 			
-			alert("4")
 			
 			mostrapunti()
 			
@@ -163,7 +156,6 @@ var app = {
 			
 			buildprodotto('Pizza','Roma',1);
 			
-			alert("5")
 			
 			
 			if ((localStorage.getItem("emailStory")=="")||(!localStorage.getItem("emailStory"))||(localStorage.getItem("emailStory")==0)){

@@ -3,28 +3,17 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
-	last_click_time = new Date().getTime();
+	var myScroll;
+			
+			
+	myScroll = new IScroll('wrapper', { click: true });
+	setTimeout (function(){
+		myScroll.refresh();
+	}, 1500);
 	
-	document.addEventListener('click', function (e) {
-							  
-							  click_time = e['timeStamp'];
-							  
-							  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-							  
-							  e.preventDefault();
-							  
-							  return false;
-							  
-							  }
-							  
-							  last_click_time = click_time;
-							  
-							  }, true);
 	
-    
-    $.mobile.defaultPageTransition = 'none';
-    $.mobile.defaultDialogTransition = 'none';
-	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+			
     $(".spinner").show();
     var connectionStatus = false;
     connectionStatus = navigator.onLine ? 'online' : 'offline';
@@ -56,7 +45,7 @@ function onDeviceReady() {
 	var distanza = "";
 	var Categoria="";
 	var Provincia="";
-	var model = device.model;
+	var model = "Iphone";
 	var Badge10 = localStorage.getItem("Badge10");
 	var db;
 	var dbCreated = false;
@@ -300,7 +289,8 @@ function AggProd(prod) {
 }
 
 function agg2(prod){
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	
 	var msg;
 	var prezzo;
 	var test;

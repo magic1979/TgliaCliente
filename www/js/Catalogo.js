@@ -3,33 +3,24 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
-	last_click_time = new Date().getTime();
+	var myScroll;
+			
+	function loaded () {
+		myScroll = new IScroll('wrapper', { click: true });
+	}
+			
 	
-	document.addEventListener('click', function (e) {
-							  
-							  click_time = e['timeStamp'];
-							  
-							  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-							  
-							  e.preventDefault();
-							  
-							  return false;
-							  
-							  }
-							  
-							  last_click_time = click_time;
-							  
-							  }, true);
-
-    $.mobile.defaultPageTransition = 'none';
-    $.mobile.defaultDialogTransition = 'none';
+	var msg;
+	var test;
+	var P1 = '110';
+	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	
     $(".spinner").show();
     var connectionStatus = false;
     connectionStatus = navigator.onLine ? 'online' : 'offline';
     
-	document.addEventListener("showkeyboard", function(){ $("[data-role=footer]").hide();}, false);
-	document.addEventListener("hidekeyboard", function(){ $("[data-role=footer]").show();}, false);
 	
 	// Workaround for buggy header/footer fixed position when virtual keyboard is on/off
 	$('input, select')
@@ -57,7 +48,7 @@ function onDeviceReady() {
 	var distanza = "";
 	var Categoria="";
 	var Provincia="";
-	var model = device.model;
+	var model = "iphone";
 	var Badge10 = localStorage.getItem("Badge10");
 	var db;
 	var dbCreated = false;
@@ -182,7 +173,7 @@ function buildcatalogo(Catalogo) {
 
 
 function seleziona() {
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
 }
 
