@@ -24,6 +24,8 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		
+		    alert("start")
+		
 			var myScroll;
 			
 
@@ -33,6 +35,8 @@ var app = {
 				myScroll.refresh();
 			}, 2000);
 
+
+        alert("1")
 	
 		
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
@@ -48,6 +52,7 @@ var app = {
 			//		   }, 20 );
 			});
 			
+		alert("2")
 	
 	
 		$(document).keydown(function (eventObj){
@@ -131,6 +136,8 @@ var app = {
         //alert(negozio)
 		
 		
+		alert("3")
+		
 		var connectionStatus = false;
 		connectionStatus = navigator.onLine ? 'online' : 'offline';
 		
@@ -148,11 +155,15 @@ var app = {
 			
 			//agg();
 			
+			alert("4")
+			
 			mostrapunti()
 			
 			$(".spinner").hide();
 			
 			buildprodotto('Pizza','Roma',1);
+			
+			alert("5")
 			
 			
 			if ((localStorage.getItem("emailStory")=="")||(!localStorage.getItem("emailStory"))||(localStorage.getItem("emailStory")==0)){
@@ -206,6 +217,8 @@ var app = {
 
 			
 			$("#footer").show();
+			
+			alert("6")
 			
 		}
 		else{
@@ -446,7 +459,7 @@ function onConfirm(button) {
 }
 
 function gocart() {
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
 	$(document).on('pagebeforeshow', function () {
 		$(this).find('a[data-rel=back]').buttonMarkup({
@@ -667,7 +680,7 @@ function agg(){
 }
 
 function agg2(prod){
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var msg;
 	var prezzo;
 	var test;
@@ -688,8 +701,9 @@ function agg2(prod){
 	
 	db.transaction(function (tx) {
        tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
+	   
        tx.executeSql('INSERT INTO Ordine (id, IdProdotto, Qta, Descrizione, Nome) VALUES ('+ prod +', 1, 1, "'+ prezzo +'", "'+ msg +'")');
-				   });
+	});
 	
 	seleziona();
 }
