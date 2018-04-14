@@ -3,8 +3,6 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
-	alert("1")
-	
 	var msg;
 	var test;
 	var P1 = '110';
@@ -29,8 +27,6 @@ function onDeviceReady() {
 		//		   }, 20 );
 		});
 		
-		alert("2")
-		
 		
 		var myScroll;
 			
@@ -54,14 +50,17 @@ function onDeviceReady() {
 	var Provincia="";
 	var model = "Iphone";
 	var Badge10 = localStorage.getItem("Badge10");
-	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var dbCreated = false;
 	
-	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	//var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	
 	alert("3")
+	
+	window.sqlitePlugin.selfTest(function() {
+		alert('DataBase WORK');
+	});
 	
 	//$("#radio").attr("href", "maps:saddr="+ localStorage.getItem("ciao") +","+ localStorage.getItem("ciao1") +"&daddr=Via di Acilia,17,Roma");
 	
