@@ -3,25 +3,16 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
 	//document.addEventListener("resume", onResume, false);
     
-    //alert("index3")
-	
-	last_click_time = new Date().getTime();
-	
-	document.addEventListener('click', function (e) {
-							  
-							  click_time = e['timeStamp'];
-							  
-							  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-							  
-							  e.preventDefault();
-							  
-							  return false;
-							  
-							  }
-							  
-							  last_click_time = click_time;
-							  
-							  }, true);
+	   var myScroll;
+			
+			
+		myScroll = new iScroll('wrapper', { click: true });
+		
+		setTimeout (function(){
+			myScroll.refresh();
+		}, 1500);
+			
+   
 
 	// Workaround for buggy header/footer fixed position when virtual keyboard is on/off
 	$('input, select')
@@ -42,7 +33,7 @@ function onDeviceReady() {
 	var distanza = "";
 	var Categoria="";
 	var Provincia="";
-	var model = device.model;
+	var model = "Iphone";
 	var Badge10 = localStorage.getItem("Badge10");
 	var db;
 	var dbCreated = false;
@@ -80,7 +71,10 @@ function onDeviceReady() {
 	
 	if(connectionStatus=='online'){
 		
-		checkPos();
+		
+		var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+		
+		//checkPos();
 		agg();
 		$(".spinner").hide();
         
@@ -106,7 +100,9 @@ function onDeviceReady() {
 }
 
 $(document).on("touchstart", "#tornahome", function(e){
+	
   window.location.href = "index_negozio.html";
+  
 });
 
 
@@ -179,7 +175,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  }
 						  
 						  function gocart() {
-						  db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+						  //db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 						  
 						  $(document).on('pagebeforeshow', function () {
 										 $(this).find('a[data-rel=back]').buttonMarkup({
@@ -425,7 +421,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  }
 						  
 						  function agg(){
-						  db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+						  //db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 						  var msg;
 						  var test;
 						  var P1 = '110';
@@ -450,7 +446,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 								  localStorage.setItem("emailStory", localStorage.getItem("email"));
 							  }
 							  
-						  db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+						  //db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 						  var msg;
 						  var prezzo;
 						  var test;
