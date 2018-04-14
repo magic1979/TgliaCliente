@@ -3,21 +3,18 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
+	alert("1")
 	
 	var msg;
 	var test;
 	var P1 = '110';
 	
-	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
-		
-	
+
     $(".spinner").show();
 	
     var connectionStatus = false;
     connectionStatus = navigator.onLine ? 'online' : 'offline';
     
-	document.addEventListener("showkeyboard", function(){ $("[data-role=footer]").hide();}, false);
-	document.addEventListener("hidekeyboard", function(){ $("[data-role=footer]").show();}, false);
 	
 	// Workaround for buggy header/footer fixed position when virtual keyboard is on/off
 	$('input, select')
@@ -31,6 +28,8 @@ function onDeviceReady() {
 		//window.scrollTo( $.mobile.window.scrollLeft(), $.mobile.window.scrollTop() );
 		//		   }, 20 );
 		});
+		
+		alert("2")
 		
 		
 		var myScroll;
@@ -55,8 +54,14 @@ function onDeviceReady() {
 	var Provincia="";
 	var model = "Iphone";
 	var Badge10 = localStorage.getItem("Badge10");
-	var db;
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	var dbCreated = false;
+	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
+	
+	alert("3")
 	
 	//$("#radio").attr("href", "maps:saddr="+ localStorage.getItem("ciao") +","+ localStorage.getItem("ciao1") +"&daddr=Via di Acilia,17,Roma");
 	
@@ -78,12 +83,20 @@ function onDeviceReady() {
 		$("#btnprofilo5").attr("href", "#mypanel");
 		$("#btnprofilo5").attr("onclick", "#");
 	}
+	
+	
+	alert("4")
 
 	
     if(connectionStatus=='online'){
+		
+		alert("5")
+		
 		$(".spinner").hide();
+		
 		buildmenu()
 		mostrapunti()
+		
     }
     
     else{

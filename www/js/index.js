@@ -210,7 +210,7 @@ var app = {
 			
 			$("#footer").show();
 			
-			alert("6")
+			//alert("6")
 			
 		}
 		else{
