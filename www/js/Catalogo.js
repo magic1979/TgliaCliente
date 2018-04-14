@@ -78,8 +78,10 @@ function onDeviceReady() {
     if(connectionStatus=='online'){
 		$(".spinner").hide();
 		mostrapunti();
-		buildcatalogo(Catalogo)
+		
 		seleziona();
+		
+		buildcatalogo(Catalogo)
 		
     }
     
@@ -175,11 +177,13 @@ function buildcatalogo(Catalogo) {
 function seleziona() {
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
-	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	//var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 }
 
 function AggProd(prod) {
+	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var loggato = localStorage.getItem("loginvera")
 	var tblProfile;
@@ -227,11 +231,11 @@ function AggProd(prod) {
 		   
 		   
 		   db.transaction(function (tx) {
-						  tx.executeSql('UPDATE Ordine set Qta=Qta+1, Descrizione=Descrizione + '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
-										aggiornamento = 1;
-										//alert("Prod:" + prod);
-										}, null);
-						  });
+			tx.executeSql('UPDATE Ordine set Qta=Qta+1, Descrizione=Descrizione + '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
+				aggiornamento = 1;
+				//alert("Prod:" + prod);
+				}, null);
+			});
 		   
 		   if(aggiornamento==0){
 		   agg2(prod)
@@ -315,6 +319,8 @@ function agg2(prod){
 
 
 function SottProd(prod) {
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	var aggiornamento = 0;
 	var azione=0;
 	var msg;

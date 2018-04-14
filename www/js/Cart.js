@@ -187,6 +187,8 @@ function selPunti(){
 }
 
 function dlt(){
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	db.transaction(function (tx) {
 				   tx.executeSql('DELETE FROM Ordine', [], function (tx, results) {
 								 }, null);
@@ -207,6 +209,8 @@ function dlt(){
 }
 
 function dlt2(){
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	db.transaction(function (tx) {
 				   tx.executeSql('DELETE FROM Ordine', [], function (tx, results) {
 								 }, null);
@@ -228,6 +232,8 @@ function dlt2(){
 
 
 function AggProd(prod) {
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	var aggiornamento = 0;
 	var msg;
 	var prezzo;
@@ -344,6 +350,8 @@ function agg2(prod){
 }
 
 function SottProd(prod) {
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	var aggiornamento = 0;
 	var azione=0;
 	var msg;

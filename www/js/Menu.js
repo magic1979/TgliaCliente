@@ -56,7 +56,7 @@ function onDeviceReady() {
 	//alert("3")
 	
 	window.sqlitePlugin.selfTest(function() {
-		alert('DataBase WORK');
+		//alert('DataBase WORK');
 	});
 	
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
@@ -226,6 +226,7 @@ function buildmenu() {
 
 function seleziona() {
 	////db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	
 	
 	var Badge10 = localStorage.getItem("Badge10");
 	$("#badde3").attr("data-badge", Badge10);
