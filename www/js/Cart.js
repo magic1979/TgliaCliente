@@ -6,7 +6,7 @@ function onDeviceReady() {
 	var myScroll;
 			
 
-	myScroll = new IScroll('wrapper', { click: true });
+	myScroll = new iScroll('wrapper', { click: true });
 	
 	setTimeout (function(){
 		myScroll.refresh();

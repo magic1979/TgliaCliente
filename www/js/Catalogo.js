@@ -6,7 +6,7 @@ function onDeviceReady() {
 	var myScroll;
 			
 	function loaded () {
-		myScroll = new IScroll('wrapper', { click: true });
+		myScroll = new iScroll('wrapper', { click: true });
 	}
 			
 	

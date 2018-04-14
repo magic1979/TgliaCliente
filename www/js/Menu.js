@@ -31,7 +31,7 @@ function onDeviceReady() {
 		var myScroll;
 			
 		
-		myScroll = new IScroll('wrapper', { click: true });
+		myScroll = new iScroll('wrapper', { click: true });
 		
 		setTimeout (function(){
 			myScroll.refresh();
@@ -53,14 +53,13 @@ function onDeviceReady() {
 	
 	var dbCreated = false;
 	
-	//var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
-	
-	
 	alert("3")
 	
 	window.sqlitePlugin.selfTest(function() {
 		alert('DataBase WORK');
 	});
+	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	//$("#radio").attr("href", "maps:saddr="+ localStorage.getItem("ciao") +","+ localStorage.getItem("ciao1") +"&daddr=Via di Acilia,17,Roma");
 	
