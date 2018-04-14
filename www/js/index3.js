@@ -498,7 +498,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  
 						  
 						  
-						  function seleziona() {
+						 function seleziona() {
 						  var Badge10 = localStorage.getItem("Badge10");
 						  $("#badde3").attr("data-badge", Badge10);
 						  var TOT = localStorage.getItem("TOT");

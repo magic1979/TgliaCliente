@@ -132,7 +132,7 @@ function seleziona() {
 					 }
                      
                      
-                      $(document).on("tap", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
+                      $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
                                     
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("add_","")
@@ -142,7 +142,7 @@ function seleziona() {
                       });
                      
                      
-                     $(document).on("tap", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
+                     $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
                                     
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("meno_","")
@@ -160,6 +160,8 @@ function seleziona() {
 					 selPrezzo();
 					 
 					 selPunti();
+					 
+					 return;
 
 					 }, null);
 				   });
