@@ -72,10 +72,8 @@ function onDeviceReady() {
 	if(connectionStatus=='online'){
 		
 		
-		var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
-		
-		//checkPos();
 		agg();
+		
 		$(".spinner").hide();
         
         //alert(IDProd)
@@ -176,6 +174,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  
 						  function gocart() {
 						  //db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+						  var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 						  
 						  $(document).on('pagebeforeshow', function () {
 										 $(this).find('a[data-rel=back]').buttonMarkup({
@@ -422,6 +421,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  
 						  function agg(){
 						  //db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+						  var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 						  var msg;
 						  var test;
 						  var P1 = '110';
@@ -447,6 +447,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 							  }
 							  
 						  //db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+						  var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 						  var msg;
 						  var prezzo;
 						  var test;

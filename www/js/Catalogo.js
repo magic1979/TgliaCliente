@@ -14,7 +14,7 @@ function onDeviceReady() {
 	var test;
 	var P1 = '110';
 	
-	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	//var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	
     $(".spinner").show();
@@ -175,6 +175,8 @@ function buildcatalogo(Catalogo) {
 function seleziona() {
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 }
 
 function AggProd(prod) {
@@ -265,7 +267,9 @@ function agg2(prod){
 		localStorage.setItem("emailStory", localStorage.getItem("email"));
 	}
 	
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	var msg;
 	var prezzo;
 	var test;

@@ -48,7 +48,7 @@ function onDeviceReady() {
 	var db;
 	var dbCreated = false;
 	
-	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	//var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var email = localStorage.getItem("email");
 	var Badge10 = localStorage.getItem("Badge10");
@@ -97,6 +97,7 @@ function someFunctionOnDblClick(){
 
 function seleziona() {
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var Badge10 = localStorage.getItem("Badge10");
 	$("#badde3").attr("data-badge", Badge10);
@@ -295,6 +296,7 @@ function AggProd(prod) {
 
 function agg2(prod){
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var msg;
 	var prezzo;

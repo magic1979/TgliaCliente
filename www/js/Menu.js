@@ -53,7 +53,7 @@ function onDeviceReady() {
 	
 	var dbCreated = false;
 	
-	alert("3")
+	//alert("3")
 	
 	window.sqlitePlugin.selfTest(function() {
 		alert('DataBase WORK');
@@ -83,12 +83,12 @@ function onDeviceReady() {
 	}
 	
 	
-	alert("4")
+	//alert("4")
 
 	
     if(connectionStatus=='online'){
 		
-		alert("5")
+		//alert("5")
 		
 		$(".spinner").hide();
 		
