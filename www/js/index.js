@@ -30,7 +30,7 @@ var app = {
 			
 			setTimeout (function(){
 				myScroll.refresh();
-			}, 2000);
+			}, 3000);
 
 
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@

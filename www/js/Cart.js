@@ -3,6 +3,25 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
+	last_click_time = new Date().getTime();
+	
+	document.addEventListener('click', function (e) {
+							  
+	  click_time = e['timeStamp'];
+	  
+	  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
+	  
+	  e.preventDefault();
+	  
+	  return false;
+	  
+	  }
+	  
+	  last_click_time = click_time;
+	  
+	  }, true);
+	  
+	
 	var myScroll;
 			
 
@@ -47,7 +66,7 @@ function onDeviceReady() {
 	var Badge10 = localStorage.getItem("Badge10");
 	var db;
 	var dbCreated = false;
-	
+	var pippo = "0";
 	//var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var email = localStorage.getItem("email");
@@ -133,6 +152,8 @@ function seleziona() {
                      
                      
                       $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
+						  
+						alert("1")
                                     
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("add_","")
@@ -144,6 +165,8 @@ function seleziona() {
                      
                      $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
                                     
+						alert("2")
+									
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("meno_","")
                         
@@ -234,6 +257,9 @@ function dlt2(){
 
 
 function AggProd(prod) {
+	
+	alert("3")
+
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var aggiornamento = 0;
@@ -303,6 +329,9 @@ function AggProd(prod) {
 }
 
 function agg2(prod){
+	
+	alert("4")
+	
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
@@ -352,6 +381,9 @@ function agg2(prod){
 }
 
 function SottProd(prod) {
+	
+	alert("5")
+	
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var aggiornamento = 0;
