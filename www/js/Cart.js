@@ -5,7 +5,7 @@ function onDeviceReady() {
 	
 	last_click_time = new Date().getTime();
 	
-	document.addEventListener('touchstart', function (e) {
+	document.addEventListener('click', function (e) {
 							  
 	  click_time = e['timeStamp'];
 	  
@@ -22,9 +22,10 @@ function onDeviceReady() {
 	  }, true);
 	  
 	
+	
 	var myScroll;
 		   
-   myScroll = new iScroll('wrapper', {
+    myScroll = new iScroll('wrapper', {
 		click: true,
 		useTransform: false,
 		//bounce: false,
@@ -40,8 +41,12 @@ function onDeviceReady() {
 			}
 		}
 
-	});
-
+	 });
+	
+	
+	setTimeout (function(){
+			myScroll.refresh();
+		}, 1500);
 
 	
     $(".spinner").show();
@@ -164,7 +169,7 @@ function seleziona() {
                      
                       $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
 						  
-						//alert("1")
+						alert("1")
                                     
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("add_","")
@@ -176,7 +181,7 @@ function seleziona() {
                      
                      $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
                                     
-						//alert("2")
+						alert("2")
 									
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("meno_","")
@@ -269,7 +274,7 @@ function dlt2(){
 
 function AggProd(prod) {
 	
-	//alert("3")
+	alert("3")
 
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
@@ -322,10 +327,6 @@ function AggProd(prod) {
 		   
 		   seleziona();
 		   
-		   e.preventDefault();
-	  
-	  		return false;
-		   
 		   },
 		   error: function(){
 		   $(".spinner").hide();
@@ -345,7 +346,7 @@ function AggProd(prod) {
 
 function agg2(prod){
 	
-	//alert("4")
+	alert("4")
 	
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
@@ -378,10 +379,6 @@ function agg2(prod){
 						  });
 		   
 		   $(".spinner").hide();
-		   
-		   e.preventDefault();
-	  
-	  		return false;
 		   
 		   },
 		   error: function(){
@@ -469,10 +466,6 @@ function SottProd(prod) {
 										}, null);
 						  });
 		   seleziona();
-		   
-		   e.preventDefault();
-	  
-	  	  return false;
 		   
 		   },
 		   error: function(){
