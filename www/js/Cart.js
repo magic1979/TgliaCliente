@@ -151,6 +151,9 @@ function seleziona() {
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
+	var timeout;
+    var lastTap = 0;
+	
 	var Badge10 = localStorage.getItem("Badge10");
 	$("#badde3").attr("data-badge", Badge10);
 	var TOT = localStorage.getItem("TOT");
@@ -182,31 +185,85 @@ function seleziona() {
 					 {
 						landmark = landmark + '<tr><td><font size="3">'+ results.rows.item(i).Nome +'</font></td><td><font size="3">'+ results.rows.item(i).Qta +'<font color="#000" size="1"> x('+ Number(Punita).toFixed(2) +'&euro;)</font></td><td><font size="3">'+ Number(results.rows.item(i).Descrizione).toFixed(2) +'&euro;</font></td><td align="center"><a id="meno_'+parseInt(results.rows.item(i).id)+'"><div width="28px" class="home"></div></a></td><td align="center"><a id="add_'+parseInt(results.rows.item(i).id)+'"><div width="28px" class="home1"></div></td></tr>';
 					 }
+					 
+					 
+					 var elm1 = document.getElementById("add_"+parseInt(results.rows.item(i).id)+"");
+					 var elm2 = document.getElementById("meno_"+parseInt(results.rows.item(i).id)+"");
                      
-                     
-                      $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
-						  
-						//alert("1")
-                                    
-                        var numerofesta = this.id
-                        numerofesta = numerofesta.replace("add_","")
-                        
-                        AggProd(numerofesta)
-                        
-                      });
-                     
-                     
-                     $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
-                                    
-						//alert("2")
+					 var timeout;
+					 var lastTap = 0;
+					 
+					 elm1.addEventListener('touchend', function(event) {
+						var currentTime = new Date().getTime();
+						var tapLength = currentTime - lastTap;
+						clearTimeout(timeout);
+						if (tapLength < 500 && tapLength > 0) {
+							
+							event.preventDefault();
+							
+						} else {
+							
+							timeout = setTimeout(function() {
+								
+									//alert("1")
+												
+									var numerofesta = this.id
+									numerofesta = numerofesta.replace("add_","")
 									
+									AggProd(numerofesta)
+									
+								  
+								    clearTimeout(timeout);
+								
+							 }, 500);
+							
+						}
+                    
+					 lastTap = currentTime;
+					 });
+                      
+                     
+					 
+					 elm2.addEventListener('touchend', function(event) {
+						var currentTime = new Date().getTime();
+						var tapLength = currentTime - lastTap;
+						clearTimeout(timeout);
+						if (tapLength < 500 && tapLength > 0) {
+							
+							event.preventDefault();
+							
+						} else {
+							
+							timeout = setTimeout(function() {
+								
+									//alert("1")
+												
+									var numerofesta = this.id
+									numerofesta = numerofesta.replace("add_","")
+									
+									SottProd(numerofesta)
+									
+								  
+								    clearTimeout(timeout);
+								
+							 }, 500);
+							
+						}
+                    
+					 lastTap = currentTime;
+					 });
+					 
+	
+                    /*$(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
+		
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("meno_","")
                         
                         SottProd(numerofesta)
                         
-                    });
-					 
+                    });*/
+					
+		 
 					 
 					 }
 					 
