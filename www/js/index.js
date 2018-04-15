@@ -24,13 +24,13 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		
-			var myScroll;
+		var myScroll;
 
-			myScroll = new iScroll('wrapper', { click: true });
-			
-			setTimeout (function(){
-				myScroll.refresh();
-			}, 3000);
+		myScroll = new iScroll('wrapper', { click: true });
+		
+		setTimeout (function(){
+			myScroll.refresh();
+		}, 1000);
 
 
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
@@ -84,13 +84,17 @@ var app = {
            $("#menucliente").show();
            
            $("#mieiservizi").show();
+		   
+		   setTimeout (function(){
+				myScroll.refresh();
+			}, 1000);
            
         })
 		
 		
 		setTimeout (function(){
 			myScroll.refresh();
-		}, 1000);
+		}, 200);
         
 		
 		var email = localStorage.getItem("email");
@@ -147,15 +151,13 @@ var app = {
 				tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
 			})
 			
-			//agg();
-			
+	
 			
 			mostrapunti()
 			
 			$(".spinner").hide();
 			
 			buildprodotto('Pizza','Roma',1);
-			
 			
 			
 			if ((localStorage.getItem("emailStory")=="")||(!localStorage.getItem("emailStory"))||(localStorage.getItem("emailStory")==0)){

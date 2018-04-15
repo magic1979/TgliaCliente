@@ -153,6 +153,8 @@ function seleziona() {
 	
 	var timeout;
     var lastTap = 0;
+	var last = 0;
+	var last2 = 0;
 	
 	var Badge10 = localStorage.getItem("Badge10");
 	$("#badde3").attr("data-badge", Badge10);
@@ -190,39 +192,38 @@ function seleziona() {
 					 var timeout;
 					 var lastTap = 0;
 	
-					 $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
-						 
-						var currentTime = new Date().getTime();
-						var tapLength = currentTime - lastTap;
-						
-						clearTimeout(timeout);
-						
-						if (tapLength < 500 && tapLength > 0) {
-							
-							e.preventDefault();
-							
-						} 
-						else {
-							
-							timeout = setTimeout(function() {
-												
-									var numerofesta = this.id
-									numerofesta = numerofesta.replace("add_","")
-									
-									AggProd(numerofesta)
-									
-								  
-								    clearTimeout(timeout);
-								
-							 }, 500);
-							
-						}
-		
-						
-						lastTap = currentTime;
+					  
+                    $(document).on("touchend", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
+                                    
+                        var currentTime = new Date().getTime();
+                        var tapLength = currentTime - lastTap;
+
                         
+                        if (tapLength < 200 && tapLength > 0) {
+                        
+                          e.preventDefault();
+                        
+                        }
+                        else {
+                                    
+                            // alert("last "+last)
+                                    
+                             var numerofesta = this.id
+                             numerofesta = numerofesta.replace("add_","")
+                                    
+                             if(last==0){
+                                    
+                                AggProd(numerofesta)
+                                    
+                              }
+                                    
+                             last = last+1;
+                                    
+                        }
+                        
+                        lastTap = currentTime;
+                                    
                     });
-                     
 					 
 					 
 					 
@@ -230,33 +231,32 @@ function seleziona() {
                     $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
 		
                        var currentTime = new Date().getTime();
-						var tapLength = currentTime - lastTap;
-						
-						clearTimeout(timeout);
-						
-						if (tapLength < 500 && tapLength > 0) {
-							
-							e.preventDefault();
-							
-						} 
-						else {
-							
-							timeout = setTimeout(function() {
-												
-									var numerofesta = this.id
-									numerofesta = numerofesta.replace("add_","")
-									
-									SottProd(numerofesta)
-									
-								  
-								    clearTimeout(timeout);
-								
-							 }, 500);
-							
-						}
-		
-						
-						lastTap = currentTime;
+                        var tapLength = currentTime - lastTap;
+
+                        
+                        if (tapLength < 200 && tapLength > 0) {
+                        
+                          e.preventDefault();
+                        
+                        }
+                        else {
+                                    
+                            // alert("last "+last)
+                                    
+                             var numerofesta = this.id
+                             numerofesta = numerofesta.replace("meno_","")
+                                    
+                             if(last2==0){
+                                    
+                               SottProd(numerofesta)
+                                    
+                              }
+                                    
+                             last2 = last2+1;
+                                    
+                        }
+                        
+                        lastTap = currentTime;
                         
                     });
 					
