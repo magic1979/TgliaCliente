@@ -900,7 +900,7 @@ function compra() {
         return;
     }
 	
-	//alert(amount)
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var ordinazione="";
 	db.transaction(function (tx) {
@@ -1105,6 +1105,9 @@ function compraCarta() {
 	
 	
 	var ordinazione="";
+	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	db.transaction(function (tx) {
        tx.executeSql('SELECT * FROM Ordine', [], function (tx, results) {
 					 var len = results.rows.length, i;
