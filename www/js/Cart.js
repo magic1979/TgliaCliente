@@ -206,12 +206,11 @@ function seleziona() {
                         }
                         else {
                                     
-                            // alert("last "+last)
-                                    
-                             var numerofesta = this.id
-                             numerofesta = numerofesta.replace("add_","")
+                             alert("last "+last)
                                     
                              if(last==0){
+								var numerofesta = this.id
+                                numerofesta = numerofesta.replace("add_","")
                                     
                                 AggProd(numerofesta)
                                     
@@ -241,12 +240,12 @@ function seleziona() {
                         }
                         else {
                                     
-                            // alert("last "+last)
-                                    
-                             var numerofesta = this.id
-                             numerofesta = numerofesta.replace("meno_","")
-                                    
+                             alert("last2 "+last2)
+    
                              if(last2==0){
+								 
+							   var numerofesta = this.id
+                               numerofesta = numerofesta.replace("meno_","")
                                     
                                SottProd(numerofesta)
                                     
