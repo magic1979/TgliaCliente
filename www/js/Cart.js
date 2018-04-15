@@ -5,9 +5,9 @@ function onDeviceReady() {
 	
 	last_click_time = new Date().getTime();
 	
-	document.addEventListener('click', function (e) {
+	document.addEventListener("touchstart", function (e) {
 							  
-	  click_time = e['timeStamp'];
+	  click_time = e["timeStamp"];
 	  
 	  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
 	  
@@ -21,15 +21,34 @@ function onDeviceReady() {
 	  
 	  }, true);
 	  
-	
-	var myScroll;
 			
+	var myScroll;
+		   
+   myScroll = new iScroll('wrapper', {
+		click: true,
+		useTransform: false,
+		//bounce: false,
+		onBeforeScrollStart: function (e)
+		{
+			var target = e.target;
+			while (target.nodeType != 1) {
+			target = target.parentNode;
+			}
+			
+			if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'OPTION') {
+			e.preventDefault();
+			}
+		}
 
-	myScroll = new iScroll('wrapper', { click: true });
-	
-	setTimeout (function(){
+	});
+   
+   
+   setTimeout (function(){
+			   
 		myScroll.refresh();
-	}, 1500);
+
+			   
+	}, 500);
 
 
 	
@@ -153,7 +172,7 @@ function seleziona() {
                      
                       $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
 						  
-						alert("1")
+						//alert("1")
                                     
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("add_","")
@@ -190,6 +209,7 @@ function seleziona() {
 				   });
 }
 
+
 function selPrezzo(){
 	db.transaction(function (tx) {
        tx.executeSql('SELECT SUM(Descrizione) as TOT FROM Ordine', [], function (tx, results) {
@@ -210,6 +230,7 @@ function selPrezzo(){
 function selPunti(){
 	document.getElementById("totpunti").value = localStorage.getItem("Punti");
 }
+
 
 function dlt(){
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
@@ -232,6 +253,7 @@ function dlt(){
 	
 	seleziona();
 }
+
 
 function dlt2(){
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
@@ -258,15 +280,25 @@ function dlt2(){
 
 function AggProd(prod) {
 	
-	alert("3")
-
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
+	var loggato = localStorage.getItem("loginvera")
+	var tblProfile;
+	
+	if((loggato=="")||(!loggato)){
+		window.location.href = "Login.html";
+		return;
+	}
+	else{
+		localStorage.setItem("emailStory", localStorage.getItem("email"));
+	}
 	
 	var aggiornamento = 0;
 	var msg;
 	var prezzo;
 	var test;
 	var P1 = '110';
+	
 	
 	$(".spinner").show();
 	$.ajax({
@@ -280,36 +312,39 @@ function AggProd(prod) {
 		   success:function(result){
 		   
 		   $.each(result, function(i,item){
-				  msg=item.Nome;
-				  prezzo=item.Deal;
-				  
-				  });
-		   
-		   db.transaction(function (tx) {
-						  tx.executeSql('UPDATE Ordine set Qta=Qta+1, Descrizione=Descrizione + '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
-										aggiornamento = 1;
-										//alert("Prod:" + prod);
-										}, null);
-						  });
-		   
-		   $(".spinner").hide();
+			  msg=item.Nome;
+			  prezzo=item.Deal;
+				 
+			});
 		   
 		   localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))+1)
 		   var Badge10 = localStorage.getItem("Badge10");
 		   
-		   
 		   $('#badde3').removeClass('badge2').addClass('badge1');
 		   $("#badde3").attr("data-badge", Badge10);
+		   $("#badde3").html('<img id="carro3" src="img/CartW.png" width="20px">');
 		   
-		   $( "#carro" ).effect( "bounce", "slow" );
+		   $( "#carro3" ).effect( "bounce", "slow" );
 		   
+		   
+		   db.transaction(function (tx) {
+			tx.executeSql('UPDATE Ordine set Qta=Qta+1, Descrizione=Descrizione + '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
+				aggiornamento = 1;
+				//alert("Prod:" + prod);
+				}, null);
+			});
 		   
 		   if(aggiornamento==0){
 		   agg2(prod)
 		   //alert("Prod:" + prod);
 		   }
+   
+		   $(".spinner").hide();
 		   
-		   seleziona();
+		    e.preventDefault();
+	  
+	  		return false;
+		   
 		   
 		   },
 		   error: function(){
@@ -325,12 +360,19 @@ function AggProd(prod) {
 		   },
 		   dataType:"jsonp"});
 	
-	
 }
 
 function agg2(prod){
+	var loggato = localStorage.getItem("loginvera")
+	var tblProfile;
 	
-	alert("4")
+	if((loggato=="")||(!loggato)){
+		window.location.href = "Login.html";
+		return;
+	}
+	else{
+		localStorage.setItem("emailStory", localStorage.getItem("email"));
+	}
 	
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
@@ -361,8 +403,12 @@ function agg2(prod){
 						  tx.executeSql('CREATE TABLE IF NOT EXISTS Ordine (id unique, IdProdotto, Qta, Descrizione, Nome)');
 						  tx.executeSql('INSERT INTO Ordine (id, IdProdotto, Qta, Descrizione, Nome) VALUES ('+ prod +', 1, 1, "'+ prezzo +'", "'+ msg +'")');
 						  });
-		   
+						  
 		   $(".spinner").hide();
+		   
+		    e.preventDefault();
+	  
+	 		 return false;
 		   
 		   },
 		   error: function(){
@@ -377,13 +423,10 @@ function agg2(prod){
 		   
 		   },
 		   dataType:"jsonp"});
-	
+
 }
 
 function SottProd(prod) {
-	
-	alert("5")
-	
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	var aggiornamento = 0;
@@ -409,10 +452,8 @@ function SottProd(prod) {
 				  prezzo=item.Deal;
 				  
 				  });
-		   
 		   var Badge10;
 		   
-		   $(".spinner").hide();
 		   
 		   db.transaction(function (tx) {
 						  tx.executeSql('SELECT * FROM Ordine where id='+ prod +'', [], function (tx, results) {
@@ -421,27 +462,32 @@ function SottProd(prod) {
 										for (i = 0; i < len; i++){
 										if (parseInt(results.rows.item(i).Qta) > 1){
 										tx.executeSql('UPDATE Ordine set Qta=Qta-1, Descrizione=Descrizione - '+ prezzo +' where id='+ prod +'', [], function (tx, results) {
-													  //alert("UPD");
+													  //alert("Prod:" + prod);
 													  
 													  localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))-1)
 													  
 													  Badge10 = localStorage.getItem("Badge10");
-													  
 													  $("#badde3").attr("data-badge", Badge10);
-													  $( "#carro" ).effect( "bounce", "slow" );
+													  $("#badde3").html('<img id="carro3" src="img/CartW.png" width="20px">');
+													  
+													  $( "#carro3" ).effect( "bounce", "slow" );
+													  
 													  
 													  }, null);
 										}
 										else{
 										tx.executeSql('DELETE FROM Ordine where id='+ prod +'', [], function (tx, results) {
 													  //alert("DEL");
+													  
 													  $(".buttonOrdine").hide();
 													  
 													  localStorage.setItem("Badge10", parseInt(localStorage.getItem("Badge10"))-1)
 													  Badge10 = localStorage.getItem("Badge10");
 													  
 													  $("#badde3").attr("data-badge", Badge10);
-													  $( "#carro" ).effect( "bounce", "slow" );
+													  $("#badde3").html('<img id="carro3" src="img/CartW.png" width="20px">');
+													  
+													  $( "#carro3" ).effect( "bounce", "slow" );
 													  
 													  }, null);
 										}
@@ -449,8 +495,12 @@ function SottProd(prod) {
 										
 										}, null);
 						  });
-		   seleziona();
+		   $(".spinner").hide();
 		   
+		    e.preventDefault();
+	  
+	  		return false;
+	  
 		   },
 		   error: function(){
 		   $(".spinner").hide();
@@ -465,6 +515,9 @@ function SottProd(prod) {
 		   },
 		   dataType:"jsonp"});
 	
+	
+	
+	//seleziona();
 }
 
 
