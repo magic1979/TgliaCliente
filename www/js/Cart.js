@@ -206,8 +206,6 @@ function seleziona() {
                         }
                         else {
                                     
-                             alert("last "+last)
-                                    
                              if(last==0){
 								var numerofesta = this.id
                                 numerofesta = numerofesta.replace("add_","")
@@ -240,9 +238,7 @@ function seleziona() {
                         }
                         else {
                                     
-                             alert("last2 "+last2)
-    
-                             if(last2==0){
+                             if(last==0){
 								 
 							   var numerofesta = this.id
                                numerofesta = numerofesta.replace("meno_","")
@@ -251,7 +247,7 @@ function seleziona() {
                                     
                               }
                                     
-                             last2 = last2+1;
+                             last = last+1;
                                     
                         }
                         
