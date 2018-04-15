@@ -276,6 +276,8 @@ function seleziona() {
 }
 
 function selPrezzo(){
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	db.transaction(function (tx) {
        tx.executeSql('SELECT SUM(Descrizione) as TOT FROM Ordine', [], function (tx, results) {
 					 var len = results.rows.length, i;
