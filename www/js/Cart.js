@@ -3,13 +3,13 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
-	last_click_time = new Date().getTime();
+	/*last_click_time = new Date().getTime();
 	
 	document.addEventListener('click', function (e) {
 							  
 	  click_time = e['timeStamp'];
 	  
-	  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
+	  if (click_time && (click_time - last_click_time) < 300) { e.stopImmediatePropagation();
 	  
 	  e.preventDefault();
 	  
@@ -19,7 +19,24 @@ function onDeviceReady() {
 	  
 	  last_click_time = click_time;
 	  
-	  }, true);
+	  }, true);*/
+	  
+	  
+	  document.addEventListener("touchend", tryToAvoidDoubleTap, true);
+	  
+	    var lastTapTime = new Date().getTime();
+		
+		function tryToAvoidDoubleTap(e){
+			var tapTime = e["timeStamp"];
+			if (tapTime && (tapTime - lastTapTime) < 300) {
+				// prevent double tap to happen
+				e.stopImmediatePropagation();
+				e.preventDefault();
+				
+			}
+			
+			lastTapTime = tapTime;
+         }
 	  
 	
 	
