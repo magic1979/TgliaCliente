@@ -181,6 +181,7 @@ function seleziona() {
 	
 }
 
+
 function AggProd(prod) {
 	
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});

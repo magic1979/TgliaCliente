@@ -169,7 +169,7 @@ function seleziona() {
                      
                       $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
 						  
-						alert("1")
+						//alert("1")
                                     
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("add_","")
@@ -181,7 +181,7 @@ function seleziona() {
                      
                      $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
                                     
-						alert("2")
+						//alert("2")
 									
                         var numerofesta = this.id
                         numerofesta = numerofesta.replace("meno_","")
@@ -200,7 +200,10 @@ function seleziona() {
 					 
 					 selPunti();
 					 
-					 return;
+					 
+					 e.preventDefault();
+	  
+	      			 return false;
 
 					 }, null);
 				   });
@@ -222,6 +225,7 @@ function selPrezzo(){
 	
 	$("#noconn").hide();
 }
+
 
 function selPunti(){
 	document.getElementById("totpunti").value = localStorage.getItem("Punti");
@@ -274,7 +278,7 @@ function dlt2(){
 
 function AggProd(prod) {
 	
-	alert("3")
+	//alert("3")
 
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
@@ -346,7 +350,7 @@ function AggProd(prod) {
 
 function agg2(prod){
 	
-	alert("4")
+	//alert("4")
 	
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
@@ -380,6 +384,10 @@ function agg2(prod){
 		   
 		   $(".spinner").hide();
 		   
+		   e.preventDefault();
+	  
+	       return false;
+		   
 		   },
 		   error: function(){
 		   $(".spinner").hide();
@@ -398,7 +406,7 @@ function agg2(prod){
 
 function SottProd(prod) {
 	
-	alert("5")
+	//alert("5")
 	
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
@@ -465,7 +473,12 @@ function SottProd(prod) {
 										
 										}, null);
 						  });
+						  
 		   seleziona();
+		   
+		   e.preventDefault();
+	  
+	       return false;
 		   
 		   },
 		   error: function(){
