@@ -187,25 +187,24 @@ function seleziona() {
 					 }
 					 
 					 
-					 var elm1 = document.getElementById("add_"+parseInt(results.rows.item(i).id)+"");
-					 var elm2 = document.getElementById("meno_"+parseInt(results.rows.item(i).id)+"");
-                     
 					 var timeout;
 					 var lastTap = 0;
-					 
-					 elm1.addEventListener('touchend', function(event) {
+	
+					 $(document).on("touchstart", "#add_"+parseInt(results.rows.item(i).id)+"", function(e){
+						 
 						var currentTime = new Date().getTime();
 						var tapLength = currentTime - lastTap;
+						
 						clearTimeout(timeout);
+						
 						if (tapLength < 500 && tapLength > 0) {
 							
-							event.preventDefault();
+							e.preventDefault();
 							
-						} else {
+						} 
+						else {
 							
 							timeout = setTimeout(function() {
-								
-									//alert("1")
 												
 									var numerofesta = this.id
 									numerofesta = numerofesta.replace("add_","")
@@ -218,25 +217,31 @@ function seleziona() {
 							 }, 500);
 							
 						}
-                    
-					 lastTap = currentTime;
-					 });
-                      
+		
+						
+						lastTap = currentTime;
+                        
+                    });
                      
 					 
-					 elm2.addEventListener('touchend', function(event) {
-						var currentTime = new Date().getTime();
+					 
+					 
+	
+                    $(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
+		
+                       var currentTime = new Date().getTime();
 						var tapLength = currentTime - lastTap;
+						
 						clearTimeout(timeout);
+						
 						if (tapLength < 500 && tapLength > 0) {
 							
-							event.preventDefault();
+							e.preventDefault();
 							
-						} else {
+						} 
+						else {
 							
 							timeout = setTimeout(function() {
-								
-									//alert("1")
 												
 									var numerofesta = this.id
 									numerofesta = numerofesta.replace("add_","")
@@ -249,23 +254,15 @@ function seleziona() {
 							 }, 500);
 							
 						}
-                    
-					 lastTap = currentTime;
-					 });
-					 
-	
-                    /*$(document).on("touchstart", "#meno_"+parseInt(results.rows.item(i).id)+"", function(e){
 		
-                        var numerofesta = this.id
-                        numerofesta = numerofesta.replace("meno_","")
+						
+						lastTap = currentTime;
                         
-                        SottProd(numerofesta)
-                        
-                    });*/
+                    });
 					
 		 
 					 
-					 }
+					}
 					 
 					 landmark = landmark + '</tbody></table>';
 					 $('#contenutoCart').html(landmark);
