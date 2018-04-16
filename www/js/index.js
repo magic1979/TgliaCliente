@@ -866,7 +866,7 @@ function gomappa(){
 
 
 function gofacebook(){
-	var ref = window.open('https://m.facebook.com/gabriele.fucito.5', '_system', 'location=no');
+	var ref = window.open('https://m.facebook.com/', '_system', 'location=no');
 }
 
 

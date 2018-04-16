@@ -936,7 +936,7 @@ function compra() {
 							
 							$.each(result, function(i,item){
                                    
-                                   alert(item.Token)
+                                   //alert(item.Token)
                                    
 								   if (item.Token == "1024"){
                                    
@@ -970,12 +970,12 @@ function compra() {
                                    }
                                    
 								   if(pippo = "0"){
-								     navigator.notification.alert(
-                                        'Possibile errore di rete, riprova tra qualche minuto',  // message
+								     /*navigator.notification.alert(
+                                        'Possibile errore di rete',  // message
                                         alertDismissed,         // callback
                                         'Attenzione',            // title
                                         'Done'                  // buttonName
-                                        );
+                                        );*/
 								   }
 								   
 							 });
@@ -1369,9 +1369,13 @@ function goprofilo(){
 }
 
 function gomappa(){
-	var addressLongLat = '41.903266,12.684647';
+	var addressLongLat = 'Via Ostiense, 38 Roma';
 	
-	window.open("http://maps.apple.com/?q="+addressLongLat, '_blank');
+	//window.open("http://maps.apple.com/?q="+addressLongLat, '_system');
+	
+	//window.location.href = "http://maps.apple.com/?q="+addressLongLat
+	
+	window.open("http://maps.google.com/?q="+addressLongLat, '_system');
 }
 
 function riparti(){
@@ -1381,6 +1385,6 @@ function riparti(){
 }
 
 function gofacebook(){
-	var ref = window.open('https://m.facebook.com/gabriele.fucito.5', '_system', 'location=no');
+	var ref = window.open('https://m.facebook.com/', '_system', 'location=no');
 }
 
