@@ -3,6 +3,16 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
+	var myScroll;
+			
+	function loaded () {
+		myScroll = new iScroll('wrapper', { click: true });
+		setTimeout (function(){
+			myScroll.refresh();
+		}, 1500);
+	}
+		
+
 	last_click_time = new Date().getTime();
 	
 	document.addEventListener('click', function (e) {
