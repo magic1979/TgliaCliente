@@ -180,7 +180,6 @@ function seleziona() {
 	var ratio = "";
 	
 	
-	
 	$.ajax({
 		   type:"GET",
 		   url:"http://www.gtechplay.com/tagliafila/www/check_PrendiRecensioni.asp",
@@ -212,9 +211,7 @@ function seleziona() {
 				  }
 				
 				  
-				  
-
-				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/Logo.png' width='18'> "+ item.Nome +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ ratio +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Recensione +"</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
+				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logoB.png' width='18'> "+ item.Nome +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ ratio +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Recensione +"</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
                   
                   }
 

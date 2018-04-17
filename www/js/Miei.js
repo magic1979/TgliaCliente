@@ -142,7 +142,7 @@ function riepilogo(idProdotto,prov,id_Transazione) {
 					$("#idfooter3").html("<table id='idfooter' border='1'><tr><td width='200px' align='center'>Sospesa</td><td width='120px' align='center'><a href='#page4' onclick='javascript:riepilogo2("+ idProdotto +","+ id_Transazione +");' data-transition='slide' class='ui-btn ui-shadow ui-corner-all'>Acquista!</a></td></tr></table>");
 				  }
 				  else{
-				  $("#idfooter3").html("<table id='idfooter' align='center'><tr><td width='100%' align='center' valign='bottom'><font color='#FFFFFF' size='3'>Acquistato</font></td></tr></table>");
+				    $("#idfooter3").html("<table id='idfooter' align='center'><tr><td width='100%' align='center' valign='bottom'><font color='#FFFFFF' size='3'>Acquistato</font></td></tr></table>");
 				  }
 
 				  }
