@@ -11,19 +11,22 @@ function onDeviceReady() {
 	
 	document.addEventListener('click', function (e) {
 							  
-							  click_time = e['timeStamp'];
-							  
-							  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-							  
-							  e.preventDefault();
-							  
-							  return false;
-							  
-							  }
-							  
-							  last_click_time = click_time;
-							  
-							  }, true);
+	  click_time = e['timeStamp'];
+	  
+	  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
+	  
+	  e.preventDefault();
+	  
+	  return false;
+	  
+	  }
+	  
+	  
+	  last_click_time = click_time;
+	  
+	  }, true);
+	  
+	  
 
     $.mobile.defaultPageTransition = 'none';
     $.mobile.defaultDialogTransition = 'none';
@@ -60,13 +63,13 @@ function onDeviceReady() {
 	var distanza = "";
 	var Categoria="";
 	var Provincia="";
-	var model = device.model;
+	var model = "Iphone";
 	var Badge10 = localStorage.getItem("Badge10");
 	var db;
 	var dbCreated = false;
 	localStorage.setItem("NoPremi", "SI")
 	
-	//$("#radio").attr("href", "maps:saddr="+ localStorage.getItem("ciao") +","+ localStorage.getItem("ciao1") +"&daddr=Via di Acilia,17,Roma");
+	
 	
 	var email = localStorage.getItem("email");
 	var Badge10 = localStorage.getItem("Badge10");
@@ -185,8 +188,9 @@ function buildcatalogo() {
 
 
 function seleziona() {
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 }
 
 function AggProd(prod) {
@@ -307,7 +311,8 @@ function agg2(prod){
 		localStorage.setItem("emailStory", localStorage.getItem("email"));
 	}
 	
-	db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	var msg;
 	var prezzo;
 	var test;
@@ -375,6 +380,7 @@ function SottProd(prod) {
 	var Badge10;
 	var prezzo=0;
 		   
+    var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 		   
 		   db.transaction(function (tx) {
 						  tx.executeSql('SELECT * FROM Ordine where id='+ prod +'', [], function (tx, results) {

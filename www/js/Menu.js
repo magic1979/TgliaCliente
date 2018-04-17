@@ -142,16 +142,16 @@ $(document).on("touchstart", "#altro", function(e){
 
 $(document).on("touchstart", "#profilo", function(e){
                
-               var loggato = localStorage.getItem("loginvera")
-               var tblProfile;
-               
-               if((loggato=="")||(!loggato)){
-               window.location.href = "Login.html";
-               }else{
-               
-               window.location.href = "Profilo.html";
-               }
-               })
+   var loggato = localStorage.getItem("loginvera")
+   var tblProfile;
+   
+   if((loggato=="")||(!loggato)){
+   window.location.href = "Login.html";
+   }else{
+   
+   window.location.href = "Profilo.html";
+   }
+ })
 
 
 $(document).on("touchstart", "#contattaci", function(e){

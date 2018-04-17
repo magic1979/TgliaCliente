@@ -100,6 +100,65 @@ function onDeviceReady() {
 
 }
 
+
+$(document).on("touchstart", "#promo", function(e){
+               
+     window.location.href = "index_negozio.html";
+               
+})
+
+$(document).on("touchstart", "#badde2", function(e){
+               
+     window.location.href = "cart.html";
+               
+})
+
+$(document).on("touchstart", "#menu", function(e){
+               
+     window.location.href = "menu.html";
+               
+})
+
+
+$(document).on("touchstart", "#btnprofilo7", function(e){
+               
+    window.location.href = "rating.html";
+ })
+
+
+
+$(document).on("touchstart", "#altro", function(e){
+               
+    $("#btnpanel").click();
+               
+});
+
+
+$(document).on("touchstart", "#profilo", function(e){
+               
+   var loggato = localStorage.getItem("loginvera")
+   var tblProfile;
+   
+   if((loggato=="")||(!loggato)){
+   window.location.href = "Login.html";
+   }else{
+   
+   window.location.href = "Profilo.html";
+   }
+ })
+
+
+$(document).on("touchstart", "#contattaci", function(e){
+               
+               window.location.href = "tel:+3906111111";
+               })
+
+
+$(document).on("touchstart", "#dove", function(e){
+               
+               gomappa();
+               })
+
 function buildcatalogo(Catalogo) {
 	//alert(Catalogo)
 	var tabella = "<table align='center' border='0' width='320px' height='90px'>";

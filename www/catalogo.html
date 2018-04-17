@@ -508,45 +508,29 @@ a {text-decoration:none;}
 			<div id="footer" data-role="footer" data-tap-toggle="false" class="div1">
 				<div data-role="navbar" class="nav" data-grid="d" data-theme="c" class="div1">
 					<ul>
-						<li><a href="index.html" id="programas" data-icon="homehome" rel="external"><font size="1">Promo</font></a></li>
-						<li><a href="menu.html" onclick="#" id="menuR" data-icon="ristohome" rel="external"><font size="1">Servizi</font></a></li>
-						<li><a href="cart.html" id="badde3" data-icon="taifun" rel="external"><font size="1">Carrello</font></a></li>
-						<li><a id="btnprofilo7" href="rating.html" onclick="#" data-transition="slide" data-icon="userhome" rel="external"><font size="1">Recensioni</font></a></li>
-						<li><a href="#mypanelH" onclick="javascript:rati()" data-icon="pinhome"><font size="1">Altro</font></a></li>
+						<li><a id="promo" data-icon="homehome" rel="external" ><font size="1">Promo</font></a></li>
+                        <li><a id="menu" data-icon="ristohome" rel="external"><font size="1">Servizi</font></a></li>
+                        <li><a id="badde2" class="badge2" data-badge="1" data-icon="taifun" rel="external"><font size="1">Carrello</font></a></li>
+                        <li><a id="btnprofilo7" data-icon="userhome" rel="external"><font size="1">Recensioni</font></a></li><!--btnprofilo7-->
+                        <li><a id="altro" data-icon="pinhome"><font size="1">Altro</font></a></li>
 					</ul>
 				</div>
 			</div>
 			
-			<div data-role="panel" id="mypanel" data-display="overlay" data-theme="a" data-position-fixed="true" width="100%" class="div2">
-				<center>
-					<!--<img src="http://www.pokeranswer.it/IMG/AnswerB.png" width="130px" data-rel="external">-->
-					<img src="img/LogoFood.png" height="80px"><br><font class="fontsforweb_fontid_2802" color="#FF8000" size="4">Food App</font></center>
-				<br><br>
-				<img src="Tod10.png" class="circolare" id="userPic" data-rel="external"/>  <span id='Nome' align="center"></span>
-				<br>
-				<!--<div id='EmailCliente' align="center"></div>-->
-				<br>
-				<ul data-role="listview" data-inset="true">
-					<li><a href="Miei.html" rel="external">I Miei Acquisti</a></li>
-				</ul>
-				<br>
-				
-				<br>
-				<a href="#my-header" onclick="javascript:chiudipanel();" class="ui-btn ui-corner-all ui-btn-inline ui-icon-delete ui-btn-icon-left" data-rel="close">Close</a>
-			</div><!-- /panel -->
 			
-			<div data-role="panel" id="mypanelH" data-position-fixed="true" data-position="right" data-display="overlay" width="100%" data-theme="b">
-				<center>
-					<img src="img/LogoFood.png" height="80px"><br><font class="fontsforweb_fontid_2802" color="#0e85af" size="3">Antica Pizzeria de Roma</font>
-						<br><font color="#000000" size="2">Via Canicattì 56, 00132 Roma</font><br><br>
-						<ul data-role="listview" data-inset="true">
-							<li><a href="premi.html" rel="external">Card e Premi</a></li>
-							<li><a href="javascript:goprofilo()" rel="external">I Miei Ordini</a></li>
-							<li><a id="radio" href="javascript:gomappa()" rel="external">Dove Siamo</a></li>
-							<li><a href="tel:+393208533439">Contattaci</a></li>
-							<li><a href="TerminiCondizioni.html" rel="external">Termini e Condizioni</a></li>
-						</ul>
-						</center>
+			
+			<div data-role="panel" id="mypanelH" data-position-fixed="true" data-position="right" data-display="overlay" width="100%" >
+                <center>
+                    <img src="img/LogoFood.png" height="80px"><br><font class="fontsforweb_fontid_2802" color="#0e85af" size="3">Mirko Acconciature</font>
+                        <br><font color="#000000" size="2">Via Fosso dell'osa 376/e, Roma'</font><br><br>
+                        <ul data-role="listview" data-inset="true" data-theme="a">
+                            <li><a id="premi" rel="external">Card e Premi</a></li>
+                            <li><a id="profilo" rel="external">I Miei Ordini</a></li>
+                            <li><a id="dove" rel="external">Dove Siamo</a></li>
+                            <li><a id="contattaci">Contattaci</a></li>
+                            <li><a href="#" rel="external">Termini e Condizioni</a></li>
+                        </ul>
+                        </center>
 				<br>
 				
 				<table border="0">
@@ -554,6 +538,7 @@ a {text-decoration:none;}
 					<tr><td><a href='javascript:gofacebook()'><img src="img/social1.png" height="50px"></a></td></tr>
 					<tr><td>&nbsp;&nbsp;</td></tr>
 					<tr><td><div id="profile">&nbsp;&nbsp;</div></td></tr>
+					
 				</table>
 				
 				

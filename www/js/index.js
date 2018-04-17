@@ -52,7 +52,7 @@ var app = {
 		});
         
         
-        localStorage.setItem("info", "0")
+        //localStorage.setItem("info", "0")
         
         
         if(localStorage.getItem("info")=="1"){
@@ -65,6 +65,7 @@ var app = {
         
         }
         else{
+			
             $("#menucliente").hide();
             
             $("#mieiservizi").hide();
@@ -76,9 +77,9 @@ var app = {
         $(document).on("touchstart", "#chiudiinfo", function(e){
                        
            localStorage.setItem("info", "1")
-                       
+           
            window.location.href = "#page";
-                       
+           
            $("#informativa").hide();
            
            $("#menucliente").show();
@@ -322,57 +323,11 @@ function listznegozi(){
     $("#nome").html("<img src='img/coloredonna.jpg' width='100%'><br><br>");
     
     $("#spinner").show();
-    
-    /*$.ajax({
-     type: "GET",
-     url: "http://servizi.marcopolowit.it/tagliafilarest/api/Negozio/GetNegozi/",
-     cache: false,
-     crossDomain: true,
-     contentType: "application/x-www-form-urlencoded",
-     success: function (result) {
-     
-     var tabella1 =""
-     $("#mieiservizi").html("");
-     
-     $("#spinner").hide();
-     var listacompleta="";
-     
-     var pippo = jQuery.parseJSON( result );
-     
-     $.each(pippo, function(i,item){
-     
-     pluto = item.IDNegozio
-     
-     tabella1 = "<table width='80%' align='center'>";
-     
-     tabella1 = tabella1 + "<tr><td align='right' width='100' valign='center'><a id='"+pluto+"'> <img src='img/logo.png' width='50'> </a></td><td align='left' width='100%' valign='center'>"+item.NomeEsercente+"</td></tr>"
-     
-     tabella1 = tabella1 + "</table>";
-     
-     $("#mieiservizi").append(tabella1);
-     
-     $(document).on("touchstart", "#"+pluto+"", function(e){
-     
-     passo2(this.id)
-     
-     });
-     
-     });
-     
-     setTimeout (function(){
-     myScroll.refresh();
-     }, 500);
-     
-     },
-     error: function(jqXhr, textStatus, errorThrown){
-     
-     alert(errorThrown)
-     $("#spinner").hide();
-     
-     }
-     
-     });*/
-    
+	
+	
+    // AGGIUNGERE UN NEGOZIO //
+ 
+ 
     $.ajax({
            type: "GET",
            url: "http://msop.it/tagliafila/check_listanegozio.php",
