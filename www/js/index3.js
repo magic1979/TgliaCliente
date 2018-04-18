@@ -225,6 +225,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 								  localStorage.setItem("emailStory", localStorage.getItem("email"));
 							  }
 						  
+						  var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 						  var aggiornamento = 0;
 						  var msg;
 						  var prezzo;
@@ -504,7 +505,7 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  var TOT = localStorage.getItem("TOT");
 						  
 						  var landmark = '<table id="myTable" class="tablesorter"><thead><tr><th><font color="white" size="2">ORDINE</font><img src="img/giu2.png" height="10px"></th><th><font color="white" size="2">QTA</font><img src="img/giu2.png" height="10px"></th><th><font color="white" size="2">COSTO</font><img src="img/giu2.png" height="10px"></th><th><font color="white" size="2"></font></th><th><font color="white" size="2"></font></th></tr></thead><tbody id="contenutoCart">';
-						  
+						   var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 						  
 						  db.transaction(function (tx) {
 										 tx.executeSql('SELECT * FROM Ordine', [], function (tx, results) {
