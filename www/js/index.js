@@ -135,6 +135,13 @@ var app = {
         
         var negozio = getParameterByName('id_negozio');
         //alert(negozio)
+		
+		if (negozio === null || negozio=="null" || typeof(negozio) == 'undefined' || negozio==0 || negozio=="") {
+            
+        }
+        else{
+            localStorage.setItem("negozio", negozio);
+        }
 
 		
 		var connectionStatus = false;
@@ -234,65 +241,88 @@ var app = {
 
 $(document).on("tap", "#btn_coloredonna", function(e){
                
-       localStorage.setItem("addidprestazione", "15");
-       
-       
-       $("#menucliente").hide();
-       
-       $("#mieiservizi").show();
-       
-       //alert("15")
-       
-       listznegozi()
-       
-       //listaprestazione("15")
+   localStorage.setItem("addidprestazione", "15");
+   
+   
+   $("#menucliente").hide();
+   
+   $("#mieiservizi").show();
+   
+   //alert("15")
+   
+   listznegozi()
+   
+   //listaprestazione("15")
                
 })
 
 $(document).on("tap", "#btn_tagliodonna", function(e){
                
-   navigator.notification.alert(
-	 'Nessun operatore disponibile al momento.',  // message
-	 alertDismissed,         // callback
-	 'Operatori',            // title
-	 'Chiudi'                  // buttonName
-	 );    
+   localStorage.setItem("addidprestazione", "10");
+   
+   
+   $("#menucliente").hide();
+   
+   $("#mieiservizi").show();
+   
+   //alert("15")
+   
+   listznegozi()
+   
+   //listaprestazione("15")
                
 })
 
-
 $(document).on("tap", "#btn_tagliouomo", function(e){
                
-   navigator.notification.alert(
-	 'Nessun operatore disponibile al momento.',  // message
-	 alertDismissed,         // callback
-	 'Operatori',            // title
-	 'Chiudi'                  // buttonName
-	 );    
-               
+   localStorage.setItem("addidprestazione", "11");
+   
+   
+   $("#menucliente").hide();
+   
+   $("#mieiservizi").show();
+   
+   //alert("15")
+   
+   listznegozi()
+   
+   //listaprestazione("15")
+       
 })
 
 $(document).on("tap", "#btn_permanente", function(e){
                
-   navigator.notification.alert(
-	 'Nessun operatore disponibile al momento.',  // message
-	 alertDismissed,         // callback
-	 'Operatori',            // title
-	 'Chiudi'                  // buttonName
-	 );    
+   localStorage.setItem("addidprestazione", "12");
+   
+   
+   $("#menucliente").hide();
+   
+   $("#mieiservizi").show();
+   
+   //alert("15")
+   
+   listznegozi()
+   
+   //listaprestazione("15")
                
 })
 
 
-$(document).on("tap", "#btn_shampoo", function(e){
+$(document).on("tap", "#btn_shampouomo", function(e){
                
-   navigator.notification.alert(
-	 'Nessun operatore disponibile al momento.',  // message
-	 alertDismissed,         // callback
-	 'Operatori',            // title
-	 'Chiudi'                  // buttonName
-	 );    
-               
+   localStorage.setItem("addidprestazione", "13");
+   
+   
+   $("#menucliente").hide();
+   
+   $("#mieiservizi").show();
+   
+   //alert("15")
+   
+   listznegozi()
+   
+   //listaprestazione("15")
+   
 })
 
 
@@ -374,10 +404,12 @@ function listznegozi(){
  
     $.ajax({
            type: "GET",
-           url: "http://msop.it/tagliafila/check_listanegozio.php",
+           //url: "http://msop.it/tagliafila/check_listanegozio.php",
+           url:"http://www.gtechplay.com/tagliafila/www/lista_servizi.asp",
+           contentType: "application/json",
+           data: {id_servizio:localStorage.getItem("addidprestazione")},
            cache: false,
            crossDomain: true,
-           contentType: "application/json",
            timeout: 7000,
            jsonp: 'callback',
            crossDomain: true,
@@ -391,53 +423,49 @@ function listznegozi(){
            
            $.each(result, function(i,item){
                   
-                  //if(ciccio==1){
-				  
-					  pluto = item.id
-					  
-					  tabella1 = "<table width='80%' align='center'>";
-					  
-					  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='cc_"+pluto+"'> <img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='150' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nomeesercente+"</b></font></td></tr>"
-					  
-					  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
-					  
-					  tabella1 = tabella1 + "</table><br>";
-					  
-					  $("#mieiservizi").append(tabella1);
-					  
-					  
-					  $(document).on("touchstart", "#cc_"+pluto+"", function(e){
-						  
-						 if(this.id=="cc_24"){
-									 
-						   window.location.href = "index_negozio.html?id_negozio=MKD";
-						 
-						 }
-						 else{
-							 
-							 navigator.notification.alert(
-								'Negozio non configuarto.',  // message
-								alertDismissed,         // callback
-								'Negozi',            // title
-								'Chiudi'                  // buttonName
-								);  
-							 
-						 }
-									 
-						//passo2(this.id)
-						 
-					   });
-				
-		           //}
-				
-				ciccio = ciccio+1
+                  pluto = item.id_servizio
+                  
+                  tabella1 = "<table width='80%' align='center'>";
+                  
+                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+item.codice+"'> <img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nome+"</b></font></td></tr>"
+                  
+                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
+                  
+                  tabella1 = tabella1 + "</table><br>";
+                  
+                  $("#mieiservizi").append(tabella1);
+                  
+                  
+                  $(document).on("touchstart", "#"+item.codice+"", function(e){
+                                 
+                     window.location.href = "index_negozio.html?id_negozio="+this.id+"";
+                                 
+                    /*if(this.id=="cc_15"){
+                                 
+                      window.location.href = "index_negozio.html?id_negozio="+item.codice+"";
+                    }
+                    else{
+                                 
+                         navigator.notification.alert(
+                          'Nessun negozio configurato',  // message
+                          alertDismissed,         // callback
+                          'Negozio',            // title
+                          'Done'                  // buttonName@
+                          );
+                                 
+                    }*/
+                                 
+                    //passo2(this.id)
+                     
+                });
+                  
                   
             });
            
            
            setTimeout (function(){
-               myScroll.refresh();
-           }, 500);
+                       myScroll.refresh();
+                       }, 500);
            
            
            
@@ -1031,7 +1059,7 @@ function buildprodotto(Categoria,Provincia,Pagina) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://gtechplay.com/bck/www/Check_Home.asp",
+		   url:"http://gtechplay.com/bck/www/Check_HomeV2.asp",
 		   contentType: "application/json",
 		   //data: {Categoria:Categoria,Provincia:Provincia,Pagina:Pagina},
 		   data: {Categoria:"offerte"},
