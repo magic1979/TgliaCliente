@@ -733,8 +733,8 @@ $("#datacal").focus(function() {
 });
 					
 
-					
-$("#datacal2").focus(function() {
+$(document).on("touchstart", "#datacal2", function(e){			
+
 	mostracal();
 });
 
