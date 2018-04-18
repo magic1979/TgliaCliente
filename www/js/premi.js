@@ -214,6 +214,7 @@ function AggProd(prod) {
 	var punteggio = Number(localStorage.getItem("Punti")).toFixed(2)
 	var puntiOK;
 	
+	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 	
 	$(".spinner").show();
 	$.ajax({
@@ -313,6 +314,7 @@ function agg2(prod){
 	
 	//db = window.openDatabase('mydb', '1.0', 'TestDB', 2 * 1024 * 1024);
 	var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+	
 	var msg;
 	var prezzo;
 	var test;
@@ -380,7 +382,7 @@ function SottProd(prod) {
 	var Badge10;
 	var prezzo=0;
 		   
-    var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
+    	   var db = window.sqlitePlugin.openDatabase({name: 'mydb.db', location: 'default'});
 		   
 		   db.transaction(function (tx) {
 						  tx.executeSql('SELECT * FROM Ordine where id='+ prod +'', [], function (tx, results) {
