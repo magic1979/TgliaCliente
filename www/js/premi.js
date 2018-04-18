@@ -653,7 +653,7 @@ function mostrapunti(){
 }
 
 
-$(document).on("touchstart", "#badde2", function(e){
+$(document).on("touchstart", "#badde3", function(e){
                
                window.location.href = "cart.html";
                
