@@ -249,7 +249,51 @@ $(document).on("tap", "#btn_coloredonna", function(e){
                
 })
 
+$(document).on("tap", "#btn_tagliodonna", function(e){
+               
+   navigator.notification.alert(
+	 'Nessun operatore disponibile al momento.',  // message
+	 alertDismissed,         // callback
+	 'Operatori',            // title
+	 'Chiudi'                  // buttonName
+	 );    
+               
+})
 
+
+$(document).on("tap", "#btn_tagliouomo", function(e){
+               
+   navigator.notification.alert(
+	 'Nessun operatore disponibile al momento.',  // message
+	 alertDismissed,         // callback
+	 'Operatori',            // title
+	 'Chiudi'                  // buttonName
+	 );    
+               
+})
+
+$(document).on("tap", "#btn_permanente", function(e){
+               
+   navigator.notification.alert(
+	 'Nessun operatore disponibile al momento.',  // message
+	 alertDismissed,         // callback
+	 'Operatori',            // title
+	 'Chiudi'                  // buttonName
+	 );    
+               
+})
+
+
+$(document).on("tap", "#btn_shampoo", function(e){
+               
+   navigator.notification.alert(
+	 'Nessun operatore disponibile al momento.',  // message
+	 alertDismissed,         // callback
+	 'Operatori',            // title
+	 'Chiudi'                  // buttonName
+	 );    
+               
+})
 
 
 
@@ -325,7 +369,7 @@ function listznegozi(){
     $("#spinner").show();
 	
 	
-    // AGGIUNGERE UN NEGOZIO //
+    var ciccio = 1
  
  
     $.ajax({
@@ -347,27 +391,46 @@ function listznegozi(){
            
            $.each(result, function(i,item){
                   
-                  pluto = item.id
-                  
-                  tabella1 = "<table width='80%' align='center'>";
-                  
-                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+pluto+"'> <img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='150' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nomeesercente+"</b></font></td></tr>"
-                  
-                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
-                  
-                  tabella1 = tabella1 + "</table><br>";
-                  
-                  $("#mieiservizi").append(tabella1);
-                  
-                  
-                  $(document).on("touchstart", "#"+pluto+"", function(e){
-                                 
-                     window.location.href = "index_negozio.html?id_negozio=MKD";
-                                 
-                    //passo2(this.id)
-                     
-                });
-                  
+                  //if(ciccio==1){
+				  
+					  pluto = item.id
+					  
+					  tabella1 = "<table width='80%' align='center'>";
+					  
+					  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='cc_"+pluto+"'> <img src='http://msop.it/tagliafila/img/"+item.miaimg+"' width='150' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nomeesercente+"</b></font></td></tr>"
+					  
+					  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
+					  
+					  tabella1 = tabella1 + "</table><br>";
+					  
+					  $("#mieiservizi").append(tabella1);
+					  
+					  
+					  $(document).on("touchstart", "#cc_"+pluto+"", function(e){
+						  
+						 if(this.id=="cc_24"){
+									 
+						   window.location.href = "index_negozio.html?id_negozio=MKD";
+						 
+						 }
+						 else{
+							 
+							 navigator.notification.alert(
+								'Negozio non configuarto.',  // message
+								alertDismissed,         // callback
+								'Negozi',            // title
+								'Chiudi'                  // buttonName
+								);  
+							 
+						 }
+									 
+						//passo2(this.id)
+						 
+					   });
+				
+		           //}
+				
+				ciccio = ciccio+1
                   
             });
            
