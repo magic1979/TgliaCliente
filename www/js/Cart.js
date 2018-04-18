@@ -729,8 +729,15 @@ function compraConsegna(){
 }
 
 $("#datacal").focus(function() {
-                    mostracal();
-                    });
+    mostracal();
+});
+					
+
+					
+$("#datacal2").focus(function() {
+	mostracal();
+});
+
 
 function mostracal(){
     
