@@ -127,9 +127,9 @@ function LoginVera(email,pin){
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_login.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_loginV2.asp",
 		   contentType: "application/json",
-		   data: {email:email,pin:pin},
+		   data: {email:email,pin:pin,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -322,9 +322,9 @@ function iscriviti(){
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/Check_Reg.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/Check_RegV2.asp",
 		   contentType: "application/json",
-		   data: {email:emailreg,nome:nomereg,cognome:cognome,indirizzo:indirizzo,cap:cap,civico:civico,telefono:telefono,citta:citta,pin:pinreg},
+		   data: {email:emailreg,nome:nomereg,cognome:cognome,indirizzo:indirizzo,cap:cap,civico:civico,telefono:telefono,citta:citta,pin:pinreg,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -448,9 +448,9 @@ function onPrompt(results) {
 		$(".spinner").show();
 		$.ajax({
 			   type:"GET",
-			   url:"http://www.gtechplay.com/tagliafila/www/Check_RecPassword.asp",
+			   url:"http://www.gtechplay.com/tagliafila/www/Check_RecPasswordV2.asp",
 			   contentType: "application/json",
-			   data: {email:results.input1},
+			   data: {email:results.input1,negozio:localStorage.getItem("negozio")},
 			   timeout: 7000,
 			   jsonp: 'callback',
 			   crossDomain: true,

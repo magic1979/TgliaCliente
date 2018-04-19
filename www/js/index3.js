@@ -235,9 +235,9 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  $(".spinner").show();
 						  $.ajax({
 								 type:"GET",
-								 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+								 url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 								 contentType: "application/json",
-								 data: {id:prod},
+								 data: {id:prod,negozio:localStorage.getItem("negozio")},
 								 timeout: 7000,
 								 jsonp: 'callback',
 								 crossDomain: true,
@@ -312,9 +312,9 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  $(".spinner").show();
 						  $.ajax({
 								 type:"GET",
-								 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+								 url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 								 contentType: "application/json",
-								 data: {id:prod},
+								 data: {id:prod,negozio:localStorage.getItem("negozio")},
 								 timeout: 7000,
 								 jsonp: 'callback',
 								 crossDomain: true,
@@ -457,9 +457,9 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  $(".spinner").show();
 						  $.ajax({
 								 type:"GET",
-								 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+								 url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 								 contentType: "application/json",
-								 data: {id:prod},
+								 data: {id:prod,negozio:localStorage.getItem("negozio")},
 								 timeout: 7000,
 								 jsonp: 'callback',
 								 crossDomain: true,
@@ -1347,10 +1347,10 @@ $(document).on("touchstart", "#tornahome", function(e){
 						  $(".spinner").show();
 						  $.ajax({
 								 type:"GET",
-								 url:"http://www.gtechplay.com/tagliafila/www/Check_Prodotto.asp",
+								 url:"http://www.gtechplay.com/tagliafila/www/Check_ProdottoV2.asp",
 								 //url:"http://www.mistertod.it/www/Check_Prodotto.asp",
 								 contentType: "application/json",
-								 data: {id:IDProd},
+								 data: {id:IDProd,negozio:localStorage.getItem("negozio")},
 								 timeout: 7000,
 								 jsonp: 'callback',
 								 crossDomain: true,
