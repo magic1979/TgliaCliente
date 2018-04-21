@@ -393,9 +393,35 @@ $(document).on("touchstart", "#dove", function(e){
 
 
 function listznegozi(){
+	
+	if(localStorage.getItem("addidprestazione")=="15"){
     
-    $("#nome").html("<img src='img/coloredonna.jpg' width='100%'><br><br>");
+       $("#nome").html("<img src='img/coloredonna.jpg' width='100%'><br><br>");
+	}
+	
+	if(localStorage.getItem("addidprestazione")=="10"){
     
+       $("#nome").html("<img src='img/tagliodonna.jpg' width='100%'><br><br>");
+	}
+	
+	
+	if(localStorage.getItem("addidprestazione")=="11"){
+    
+       $("#nome").html("<img src='img/tagliouomo.jpg' width='100%'><br><br>");
+	}
+	
+	if(localStorage.getItem("addidprestazione")=="12"){
+    
+       $("#nome").html("<img src='img/permanente.jpg' width='100%'><br><br>");
+	}
+	
+	
+	if(localStorage.getItem("addidprestazione")=="13"){
+    
+       $("#nome").html("<img src='img/shampouomo.jpg' width='100%'><br><br>");
+	}
+    
+	
     $("#spinner").show();
 	
 	
