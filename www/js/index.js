@@ -1059,7 +1059,7 @@ function buildprodotto(Categoria,Provincia,Pagina) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://gtechplay.com/bck/www/Check_HomeV2.asp",
+		   url:"http://gtechplay.com/tagliafila/www/Check_HomeV2.asp",
 		   contentType: "application/json",
 		   //data: {Categoria:Categoria,Provincia:Provincia,Pagina:Pagina},
 		   data: {Categoria:"offerte",negozio:localStorage.getItem("negozio")},
