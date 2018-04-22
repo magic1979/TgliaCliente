@@ -359,9 +359,9 @@ function AggProd(prod) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod},
+		   data: {id:prod,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -431,9 +431,9 @@ function agg2(prod){
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod},
+		   data: {id:prod,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -488,9 +488,9 @@ function SottProd(prod) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod},
+		   data: {id:prod,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -933,9 +933,9 @@ function compra() {
 					 $(".spinner").show();
 					 $.ajax({
 							type:"GET",
-							url:"http://www.gtechplay.com/tagliafila/www/Check_TransactionV2.asp",
+							url:"http://www.gtechplay.com/tagliafila/www/Check_TransactionV3.asp",
 							contentType: "application/json",
-							data: {email:email,id_prodotto:transazioneprodotto,qta:1,tot:amount,totPunti:amountPunti,transazionemia:transazioneprodotto,NomeProdotto:"Ordine App",EmailEsercente:"salvatore.bruni@gmail.com",idTransazione:metodopp,Ordine:ordinazione,Indirizzo:Indirizzo,Telefono:Telefono,OraConsegna:OraConsegna,datac:DataC,Note:Note},
+							data: {email:email,id_prodotto:transazioneprodotto,qta:1,tot:amount,totPunti:amountPunti,transazionemia:transazioneprodotto,NomeProdotto:"Ordine App",EmailEsercente:"salvatore.bruni@gmail.com",idTransazione:metodopp,Ordine:ordinazione,Indirizzo:Indirizzo,Telefono:Telefono,OraConsegna:OraConsegna,datac:DataC,Note:Note,negozio:localStorage.getItem("negozio")},
 							timeout: 7000,
 							jsonp: 'callback',
 							crossDomain: true,
@@ -1137,9 +1137,9 @@ function compraCarta() {
 					 $(".spinner").show();
 					 $.ajax({
 							type:"GET",
-							url:"http://www.gtechplay.com/tagliafila/www/Check_TransactionV2.asp",
+							url:"http://www.gtechplay.com/tagliafila/www/Check_TransactionV3.asp",
 							contentType: "application/json",
-							data: {email:email,id_prodotto:transazioneprodotto,qta:1,tot:amount,totPunti:amountPunti,transazionemia:transazioneprodotto,NomeProdotto:"Ordine App",EmailEsercente:"salvatore.bruni@gmail.com",idTransazione:"CC",Ordine:ordinazione,Indirizzo:Indirizzo,Telefono:Telefono,OraConsegna:OraConsegna,datac:DataC,Note:Note},
+							data: {email:email,id_prodotto:transazioneprodotto,qta:1,tot:amount,totPunti:amountPunti,transazionemia:transazioneprodotto,NomeProdotto:"Ordine App",EmailEsercente:"salvatore.bruni@gmail.com",idTransazione:"CC",Ordine:ordinazione,Indirizzo:Indirizzo,Telefono:Telefono,OraConsegna:OraConsegna,datac:DataC,Note:Note,negozio:localStorage.getItem("negozio")},
 							timeout: 7000,
 							jsonp: 'callback',
 							crossDomain: true,
@@ -1269,9 +1269,9 @@ function mostrapunti(){
 		$(".spinner").show();
 		$.ajax({
 			   type:"GET",
-			   url:"http://www.gtechplay.com/tagliafila/www/check_login_punti.asp",
+			   url:"http://www.gtechplay.com/tagliafila/www/check_login_puntiV2.asp",
 			   contentType: "application/json",
-			   data: {email:localStorage.getItem("email")},
+			   data: {email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
 			   timeout: 7000,
 			   jsonp: 'callback',
 			   crossDomain: true,
@@ -1325,9 +1325,9 @@ function mostraOrario(){
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/Check_Orario.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/Check_OrarioV2.asp",
 		   contentType: "application/json",
-		   //data: {email:localStorage.getItem("email")},
+		   data: {negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,

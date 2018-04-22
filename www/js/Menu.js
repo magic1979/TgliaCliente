@@ -172,9 +172,9 @@ function buildmenu() {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Menu.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_MenuV2.asp",
 		   contentType: "application/json",
-		   //data: {ID:idProdotto},
+		   data: {negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,

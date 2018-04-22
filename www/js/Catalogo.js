@@ -166,9 +166,9 @@ function buildcatalogo(Catalogo) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Home.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_HomeV2.asp",
 		   contentType: "application/json",
-		   data: {categoria:Catalogo},
+		   data: {categoria:Catalogo,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -266,9 +266,9 @@ function AggProd(prod) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod},
+		   data: {id:prod,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -342,9 +342,9 @@ function agg2(prod){
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod},
+		   data: {id:prod,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -391,9 +391,9 @@ function SottProd(prod) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_ProdottoV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod},
+		   data: {id:prod,negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,

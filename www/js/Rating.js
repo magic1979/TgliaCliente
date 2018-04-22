@@ -202,9 +202,9 @@ function seleziona() {
 	
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_PrendiRecensioni.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_PrendiRecensioniV3.asp",
 		   contentType: "application/json",
-		   //data: {ID: tech},
+		   data: {negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -562,9 +562,9 @@ function scriviRec(rec,score){
 		$(".spinner").show();
 		$.ajax({
 			   type:"GET",
-			   url:"http://www.gtechplay.com/tagliafila/www/check_ratingV2.asp",
+			   url:"http://www.gtechplay.com/tagliafila/www/check_ratingV3.asp",
 			   contentType: "application/json",
-			   data: {email:localStorage.getItem("email"),Recensione:rec,Stelle:score},
+			   data: {email:localStorage.getItem("email"),Recensione:rec,Stelle:score,negozio:localStorage.getItem("negozio")},
 			   timeout: 7000,
 			   jsonp: 'callback',
 			   crossDomain: true,

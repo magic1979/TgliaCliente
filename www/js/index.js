@@ -1288,7 +1288,7 @@ function onPrompt(results) {
 		$(".spinner").show();
 		$.ajax({
 			   type:"GET",
-			   url:"http://gtechplay.com/bck/www/Check_RecPassword.asp",
+			   url:"http://gtechplay.com/bck/www/Check_RecPasswordV2.asp",
 			   contentType: "application/json",
 			   data: {email:results.input1},
 			   timeout: 7000,

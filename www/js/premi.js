@@ -121,9 +121,9 @@ function buildcatalogo() {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://gtechplay.com/tagliafila/www/check_Home.asp",
+		   url:"http://gtechplay.com/tagliafila/www/check_HomeV2.asp",
 		   contentType: "application/json",
-		   data: {categoria:"Premi"},
+		   data: {categoria:"Premi",negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -219,9 +219,9 @@ function AggProd(prod) {
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_Punti.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_PuntiV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod,Punti:punteggio,Op:1,email:localStorage.getItem("email")},
+		   data: {id:prod,Punti:punteggio,Op:1,email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -325,9 +325,9 @@ function agg2(prod){
 	$(".spinner").show();
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_Punti.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_PuntiV2.asp",
 		   contentType: "application/json",
-		   data: {id:prod,Punti:punteggio,Op:1,email:localStorage.getItem("email")},
+		   data: {id:prod,Punti:punteggio,Op:1,email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -395,9 +395,9 @@ function SottProd(prod) {
 													  $(".spinner").show();
 													  $.ajax({
 															 type:"GET",
-															 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_Punti.asp",
+															 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_PuntiV2.asp",
 															 contentType: "application/json",
-															 data: {id:prod,Punti:punteggio,Op:2,email:localStorage.getItem("email")},
+															 data: {id:prod,Punti:punteggio,Op:2,email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
 															 timeout: 7000,
 															 jsonp: 'callback',
 															 crossDomain: true,
@@ -451,9 +451,9 @@ function SottProd(prod) {
 													  $(".spinner").show();
 													  $.ajax({
 															 type:"GET",
-															 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_Punti.asp",
+															 url:"http://www.gtechplay.com/tagliafila/www/check_Prodotto_PuntiV2.asp",
 															 contentType: "application/json",
-															 data: {id:prod,Punti:punteggio,Op:2,email:localStorage.getItem("email")},
+															 data: {id:prod,Punti:punteggio,Op:2,email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
 															 timeout: 7000,
 															 jsonp: 'callback',
 															 crossDomain: true,

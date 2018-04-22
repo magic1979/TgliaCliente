@@ -124,9 +124,9 @@ function seleziona() {
 	
 	$.ajax({
 		   type:"GET",
-		   url:"http://www.gtechplay.com/tagliafila/www/check_Mietransazioni.asp",
+		   url:"http://www.gtechplay.com/tagliafila/www/check_MietransazioniV2.asp",
 		   contentType: "application/json",
-		   data: {email:localStorage.getItem("email")},
+		   data: {email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
