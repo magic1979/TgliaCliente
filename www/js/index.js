@@ -303,7 +303,7 @@ $(document).on("tap", "#btn_tagliodonna", function(e){
    
    $("#mieiservizi").show();
    
-    myScroll.scrollTo(0, 0);
+
    
    listznegozi()
    
@@ -320,7 +320,6 @@ $(document).on("tap", "#btn_tagliouomo", function(e){
    
    $("#mieiservizi").show();
    
-    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -337,7 +336,6 @@ $(document).on("tap", "#btn_permanente", function(e){
    
    $("#mieiservizi").show();
    
-    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -356,7 +354,6 @@ $(document).on("tap", "#btn_shampouomo", function(e){
    
    $("#mieiservizi").show();
    
-    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -528,7 +525,7 @@ function listznegozi(){
             });
 			
 			
-			myScroll.scrollToElement("#nome", "1s");
+			//myScroll.scrollToElement("#nome", "1s");
            
            
            setTimeout (function(){
