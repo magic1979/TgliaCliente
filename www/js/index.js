@@ -286,7 +286,7 @@ $(document).on("tap", "#btn_coloredonna", function(e){
    
    $("#mieiservizi").show();
    
-   //alert("15")
+    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -303,7 +303,7 @@ $(document).on("tap", "#btn_tagliodonna", function(e){
    
    $("#mieiservizi").show();
    
-   //alert("15")
+    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -320,7 +320,7 @@ $(document).on("tap", "#btn_tagliouomo", function(e){
    
    $("#mieiservizi").show();
    
-   //alert("15")
+    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -337,13 +337,14 @@ $(document).on("tap", "#btn_permanente", function(e){
    
    $("#mieiservizi").show();
    
-   //alert("15")
+    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
    //listaprestazione("15")
                
 })
+
 
 
 $(document).on("tap", "#btn_shampouomo", function(e){
@@ -355,7 +356,7 @@ $(document).on("tap", "#btn_shampouomo", function(e){
    
    $("#mieiservizi").show();
    
-   //alert("15")
+    myScroll.scrollTo(0, 0);
    
    listznegozi()
    
@@ -525,6 +526,9 @@ function listznegozi(){
                   
                   
             });
+			
+			
+			myScroll.scrollToElement("#nome", "1s");
            
            
            setTimeout (function(){
@@ -534,15 +538,24 @@ function listznegozi(){
 
                 myScroll.refresh();
 				
+				e.stopImmediatePropagation();
+           
+                e.preventDefault();
+				
 					   
             }, 500);
+			
+			
+			setTimeout (function(){
+				
+			 }, 500);
            
            
            
            },
            error: function( jqXhr, textStatus, errorThrown ){
            
-           alert(errorThrown)
+              alert(errorThrown)
            
            
            },
