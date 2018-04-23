@@ -395,6 +395,7 @@ $(document).on("touchstart", "#premi", function(e){
     window.location.href = "premi.html";
 })
 
+
 $(document).on("touchstart", "#index_negozio", function(e){
                
     window.location.href = "index.html";
@@ -525,6 +526,10 @@ function listznegozi(){
             });
 			
 			
+			
+			$("#mieiservizi").append("<br><br><a id='index_negozio'><font color='#000'>CATALOGO SERVIZI</font></a>");
+			
+			 myScroll.scrollTo(0, 0);
 			//myScroll.scrollToElement("#nome", "1s");
            
            
