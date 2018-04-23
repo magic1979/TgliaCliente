@@ -1,16 +1,17 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
-    //document.addEventListener("resume", onResume, false);
+     //document.addEventListener("resume", onResume, false);
 	
-	var myScroll;
-			
-	function loaded () {
+
+		var myScroll;
+
 		myScroll = new iScroll('wrapper', { click: true });
+		
 		setTimeout (function(){
 			myScroll.refresh();
-		}, 1500);
-	}
+		}, 1000);
+
 		
 
 	last_click_time = new Date().getTime();
@@ -145,7 +146,7 @@ function seleziona() {
 				
 				var comp = anno + "/" + mese + "/" + giorno
 				  
-				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logotaglia.png' width='18'>"+ comp +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
+				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logotaglia.png' width='18'>"+ comp +"</font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#454545'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
 				}
 
 			});
@@ -157,18 +158,20 @@ function seleziona() {
 		   
 		   $("#noconn").hide();
 		   
-		   myScroll.refresh();
+		   setTimeout (function(){
+			  myScroll.refresh();
+			}, 500);
 		   
 		   },
 		   error: function(){
 		   $(".spinner").hide();
 		   
 		   navigator.notification.alert(
-										'Possibile errore di rete, riprova tra qualche minuto',  // message
-										alertDismissed,         // callback
-										'Attenzione',            // title
-										'Done'                  // buttonName
-										);
+			'Possibile errore di rete, riprova tra qualche minuto',  // message
+			alertDismissed,         // callback
+			'Attenzione',            // title
+			'Done'                  // buttonName
+			);
 		   
 		   },
 		   dataType:"jsonp"});

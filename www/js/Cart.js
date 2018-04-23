@@ -1046,71 +1046,71 @@ function compraCarta() {
 	
 	if ((email == "")||(!email)) {
 		navigator.notification.alert(
-									 'Devi prima effettuare il Login',  // message
-									 alertDismissed,         // callback
-									 'Login',            // title
-									 'OK'                  // buttonName@
-									 );
+			 'Devi prima effettuare il Login',  // message
+			 alertDismissed,         // callback
+			 'Login',            // title
+			 'OK'                  // buttonName@
+			 );
 		return;
 	}
 	
 	if (NomeRegalo == "") {
 		navigator.notification.alert(
-									 'inserire Nome Destinario',  // message
-									 alertDismissed,         // callback
-									 'Nome Destinatario',            // title
-									 'OK'                  // buttonName@
-									 );
+			 'inserire Nome Destinario',  // message
+			 alertDismissed,         // callback
+			 'Nome Destinatario',            // title
+			 'OK'                  // buttonName@
+			 );
 		return;
 	}
 	if (Indirizzo == "") {
 		navigator.notification.alert(
-									 'inserire un indirizzo corretto',  // message
-									 alertDismissed,         // callback
-									 'Indirizzo',            // title
-									 'OK'                  // buttonName@
-									 );
+			 'inserire un indirizzo corretto',  // message
+			 alertDismissed,         // callback
+			 'Indirizzo',            // title
+			 'OK'                  // buttonName@
+			 );
 		return;
 	}
 	
 	
 	if (Telefono == "") {
 		navigator.notification.alert(
-									 'inserire un telefono valido',  // message
-									 alertDismissed,         // callback
-									 'Telefono',            // title
-									 'OK'                  // buttonName@
-									 );
+		 'inserire un telefono valido',  // message
+		 alertDismissed,         // callback
+		 'Telefono',            // title
+		 'OK'                  // buttonName@
+		 );
 		return;
 	}
 	
 	if (amount == 0) {
 		navigator.notification.alert(
-									 'Non hai prodotti nel carrello',  // message
-									 alertDismissed,         // callback
-									 'Ordine',            // title
-									 'OK'                  // buttonName@
-									 );
+		 'Non hai prodotti nel carrello',  // message
+		 alertDismissed,         // callback
+		 'Ordine',            // title
+		 'OK'                  // buttonName@
+		 );
 		return;
 	}
 	
 	if (OraConsegna == "") {
 		navigator.notification.alert(
-									 'Non hai inserito un orario di consegna desiderata',  // message
-									 alertDismissed,         // callback
-									 'Ora Consegna',            // title
-									 'OK'                  // buttonName@
-									 );
+		 'Non hai inserito un orario di consegna desiderata',  // message
+		 alertDismissed,         // callback
+		 'Ora Consegna',            // title
+		 'OK'                  // buttonName@
+		 );
 		return;
 	}
     
     if (DataC == "") {
         navigator.notification.alert(
-                                     'Non hai inserito una data di desiderata',  // message
-                                     alertDismissed,         // callback
-                                     'Ora Consegna',            // title
-                                     'OK'                  // buttonName@
-                                     );
+			 'Non hai inserito una data di desiderata',  // message
+			 alertDismissed,         // callback
+			 'Ora Consegna',            // title
+			 'OK'                  // buttonName@
+			 );
         return;
     }
 	
