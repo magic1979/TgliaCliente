@@ -528,8 +528,14 @@ function listznegozi(){
            
            
            setTimeout (function(){
-                       myScroll.refresh();
-                       }, 500);
+			   
+			    myScroll.scrollTo(0, 0);
+			     
+
+                myScroll.refresh();
+				
+					   
+            }, 500);
            
            
            
