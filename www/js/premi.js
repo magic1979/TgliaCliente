@@ -7,6 +7,10 @@ function onDeviceReady() {
 		return;
 	}
 	
+	
+	$("#nome_negozio").html(localStorage.getItem("nome_negozio"));
+	 $("#ind_negozio").html( localStorage.getItem("indirizzo_negozio") + ", " + localStorage.getItem("citta_negozio"));
+	
 	last_click_time = new Date().getTime();
 	
 	document.addEventListener('click', function (e) {

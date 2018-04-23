@@ -3,6 +3,10 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     //document.addEventListener("resume", onResume, false);
 	
+
+	  $("#nome_negozio").html(localStorage.getItem("nome_negozio"));
+	  $("#ind_negozio").html( localStorage.getItem("indirizzo_negozio") + ", " + localStorage.getItem("citta_negozio"));
+	
 	var myScroll;
 			
 			

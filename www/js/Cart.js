@@ -22,6 +22,10 @@ function onDeviceReady() {
 	  }, true);*/
 	  
 	  
+	  $("#nome_negozio").html(localStorage.getItem("nome_negozio"));
+	  $("#ind_negozio").html( localStorage.getItem("indirizzo_negozio") + ", " + localStorage.getItem("citta_negozio"));
+	  
+	  
 	  document.addEventListener("touchend", tryToAvoidDoubleTap, true);
 	  
 	    var lastTapTime = new Date().getTime();

@@ -140,7 +140,45 @@ var app = {
             
         }
         else{
+			
             localStorage.setItem("negozio", negozio);
+			
+		   $.ajax({
+           type: "GET",
+           url:"http://www.gtechplay.com/tagliafila/www/lista_servizibyid.asp",
+           contentType: "application/json",
+           data: {id_servizio:localStorage.getItem("negozio")},
+           cache: false,
+           crossDomain: true,
+           timeout: 7000,
+           jsonp: 'callback',
+           crossDomain: true,
+           success: function (result) {
+           
+
+           $.each(result, function(i,item){
+                  
+			  
+			  localStorage.setItem("nome_negozio", item.nome);
+			  localStorage.setItem("citta_negozio", item.citta);
+			  localStorage.setItem("indirizzo_negozio", item.indirizzo);
+			  
+			  //<img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='circolare'>
+			  
+			  $("#nome_negozio").html(item.nome);
+			  $("#ind_negozio").html(item.indirizzo + ", " + item.citta);
+ 
+            });
+           
+           
+           },
+           error: function( jqXhr, textStatus, errorThrown ){
+           
+              alert(errorThrown)
+           
+           
+           },
+           dataType:"jsonp"});
         }
 
 		
@@ -1095,6 +1133,9 @@ function buildprodotto(Categoria,Provincia,Pagina) {
 		   success:function(result){
 		   
 		   $.each(result, function(i,item){
+			   
+			    
+			   
 				if (item.ID != 0){
 				   distanza = getDistance(localStorage.getItem("lat"),localStorage.getItem("lng"),item.Lat,item.Long).toFixed(1);
 				  
