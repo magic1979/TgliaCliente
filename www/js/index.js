@@ -286,9 +286,9 @@ $(document).on("tap", "#btn_coloredonna", function(e){
    
    $("#mieiservizi").show();
    
-    myScroll.scrollTo(0, 0);
+
    
-   listznegozi()
+    listznegozi()
    
    //listaprestazione("15")
                
