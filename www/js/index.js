@@ -282,12 +282,11 @@ $(document).on("tap", "#btn_coloredonna", function(e){
    localStorage.setItem("addidprestazione", "15");
    
    
-   $("#menucliente").hide();
+   //$("#menucliente").hide();
    
-   $("#mieiservizi").show();
+   //$("#mieiservizi").show();
    
 
-   
     listznegozi()
    
    //listaprestazione("15")
@@ -299,9 +298,9 @@ $(document).on("tap", "#btn_tagliodonna", function(e){
    localStorage.setItem("addidprestazione", "10");
    
    
-   $("#menucliente").hide();
+   //$("#menucliente").hide();
    
-   $("#mieiservizi").show();
+   //$("#mieiservizi").show();
    
 
    
@@ -316,9 +315,9 @@ $(document).on("tap", "#btn_tagliouomo", function(e){
    localStorage.setItem("addidprestazione", "11");
    
    
-   $("#menucliente").hide();
+   //$("#menucliente").hide();
    
-   $("#mieiservizi").show();
+   //$("#mieiservizi").show();
    
    
    listznegozi()
@@ -332,9 +331,9 @@ $(document).on("tap", "#btn_permanente", function(e){
    localStorage.setItem("addidprestazione", "12");
    
    
-   $("#menucliente").hide();
+   //$("#menucliente").hide();
    
-   $("#mieiservizi").show();
+   //$("#mieiservizi").show();
    
    
    listznegozi()
@@ -350,9 +349,9 @@ $(document).on("tap", "#btn_shampouomo", function(e){
    localStorage.setItem("addidprestazione", "13");
    
    
-   $("#menucliente").hide();
+   // $("#menucliente").hide();
    
-   $("#mieiservizi").show();
+   //$("#mieiservizi").show();
    
    
    listznegozi()
@@ -431,6 +430,8 @@ $(document).on("touchstart", "#dove", function(e){
 
 function listznegozi(){
 	
+	$("#mieiservizi").html("");
+	
 	if(localStorage.getItem("addidprestazione")=="15"){
     
        $("#nome").html("<img src='img/coloredonna.jpg' width='100%'><br><br>");
@@ -479,7 +480,6 @@ function listznegozi(){
            success: function (result) {
            
            var tabella1 =""
-           $("#mieiservizi").html("");
            
            $("#spinner").hide();
            var listacompleta="";
@@ -527,7 +527,7 @@ function listznegozi(){
 			
 			
 			
-			$("#mieiservizi").append("<br><br><a id='index_negozio'><font color='#000'>CATALOGO SERVIZI</font></a>");
+			$("#mieiservizi").append("<br><br><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a>");
 			
 			 myScroll.scrollTo(0, 0);
 			//myScroll.scrollToElement("#nome", "1s");
