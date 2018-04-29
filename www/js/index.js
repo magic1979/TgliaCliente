@@ -399,6 +399,10 @@ $(document).on("touchstart", "#btnprofilo7", function(e){
 
 
 $(document).on("touchstart", "#altro", function(e){
+	
+	
+	$("#nome_negozio").html(localStorage.getItem("nome_negozio"));
+	$("#ind_negozio").html( localStorage.getItem("indirizzo_negozio") + ", " + localStorage.getItem("citta_negozio"));
                
    $("#btnpanel").click();
    
@@ -995,7 +999,7 @@ function checkPos() {
 
 function gomappa(){
 	
-	var addressLongLat = 'Via Ostiense, 38 Roma';
+	var addressLongLat = ''+localStorage.getItem("indirizzo_negozio")+', '+localStorage.getItem("citta_negozio")+'';
 	
 	//window.open("http://maps.apple.com/?q="+addressLongLat, '_system');
 	
