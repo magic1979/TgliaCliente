@@ -110,6 +110,17 @@
 			overflow: hidden;
 		}
 		
+		#wrapper2 {
+			position: absolute;
+			z-index: 1;
+			top: 45px;
+			bottom: 0px;
+			left: 0;
+			width: 100%;
+			background: #fff;
+			overflow: hidden;
+		}
+		
 		#scroller {
 			position: absolute;
 			z-index: 1;
@@ -570,7 +581,7 @@ a {text-decoration:none;}
 					
 					<center>
 					
-					<h1 id="nome"><font color="#000"></font></h1>
+					<!--<h1 id="nome"><font color="#000"></font></h1>-->
                     
 					<br>
 					
@@ -651,6 +662,28 @@ a {text-decoration:none;}
 			
 
 		</div><!-- /page -->
+        
+        <div id="page2" data-role="page" class="div2" >
+			
+			<div id="header" data-role="header" data-theme="b" data-tap-toggle="false" class="div1">
+				<table align="center" width="100%" valign="center" border="0"><tr><td align="center" valign="center"><img src="img/logobianco.png" height="32px"></td></tr></table>
+			</div>
+			<div class="spinner" id="spinner"></div>
+			 <a href="#mypanelH" data-role=button id=btnpanel data-theme="b" style="display:none"></a>
+             
+             <div id="wrapper2">
+				<div id="scroller">
+                
+                    <h1 id="nome"><font color="#000"></font></h1>
+                    
+					<br>
+					
+					<div id="mieiservizi2" >
+                    
+              </div>
+			</div>
+             
+        </div><!-- /page -->
 		
 		
         <script type="text/javascript" src="cordova.js"></script>

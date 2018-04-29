@@ -25,6 +25,8 @@ var app = {
     receivedEvent: function(id) {
 		
 		var myScroll;
+		var myScroll2;
+		
 
 		myScroll = new iScroll('wrapper', { click: true });
 		
@@ -281,11 +283,15 @@ $(document).on("tap", "#btn_coloredonna", function(e){
                
    localStorage.setItem("addidprestazione", "15");
    
+
+	myScroll2 = new iScroll('wrapper2', { click: true });
+	
+	setTimeout (function(){
+		myScroll2.refresh();
+	}, 1000);
    
-   //$("#menucliente").hide();
-   
-   //$("#mieiservizi").show();
-   
+    window.location.href = "#page2";
+	
 
     listznegozi()
    
@@ -298,13 +304,15 @@ $(document).on("tap", "#btn_tagliodonna", function(e){
    localStorage.setItem("addidprestazione", "10");
    
    
-   //$("#menucliente").hide();
+   myScroll2 = new iScroll('wrapper2', { click: true });
+	
+	setTimeout (function(){
+		myScroll2.refresh();
+	}, 1000);
    
-   //$("#mieiservizi").show();
+    window.location.href = "#page2";
    
-
-   
-   listznegozi()
+    listznegozi()
    
    //listaprestazione("15")
                
@@ -315,10 +323,13 @@ $(document).on("tap", "#btn_tagliouomo", function(e){
    localStorage.setItem("addidprestazione", "11");
    
    
-   //$("#menucliente").hide();
+   myScroll2 = new iScroll('wrapper2', { click: true });
+	
+	setTimeout (function(){
+		myScroll2.refresh();
+	}, 1000);
    
-   //$("#mieiservizi").show();
-   
+   window.location.href = "#page2";
    
    listznegozi()
    
@@ -331,12 +342,14 @@ $(document).on("tap", "#btn_permanente", function(e){
    localStorage.setItem("addidprestazione", "12");
    
    
-   //$("#menucliente").hide();
+   myScroll2 = new iScroll('wrapper2', { click: true });
+	
+	setTimeout (function(){
+		myScroll2.refresh();
+	}, 1000);
    
-   //$("#mieiservizi").show();
-   
-   
-   listznegozi()
+    window.location.href = "#page2";
+    listznegozi()
    
    //listaprestazione("15")
                
@@ -349,10 +362,13 @@ $(document).on("tap", "#btn_shampouomo", function(e){
    localStorage.setItem("addidprestazione", "13");
    
    
-   // $("#menucliente").hide();
+   myScroll2 = new iScroll('wrapper2', { click: true });
+	
+	setTimeout (function(){
+		myScroll2.refresh();
+	}, 1000);
    
-   //$("#mieiservizi").show();
-   
+   window.location.href = "#page2";
    
    listznegozi()
    
@@ -430,7 +446,7 @@ $(document).on("touchstart", "#dove", function(e){
 
 function listznegozi(){
 	
-	$("#mieiservizi").html("");
+	$("#mieiservizi2").html("");
 	
 	if(localStorage.getItem("addidprestazione")=="15"){
     
@@ -496,7 +512,7 @@ function listznegozi(){
                   
                   tabella1 = tabella1 + "</table><br>";
                   
-                  $("#mieiservizi").append(tabella1);
+                  $("#mieiservizi2").append(tabella1);
                   
                   
                   $(document).on("touchstart", "#"+item.codice+"", function(e){
@@ -527,7 +543,7 @@ function listznegozi(){
 			
 			
 			
-			$("#mieiservizi").append("<br><br><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a>");
+			$("#mieiservizi2").append("<br><br><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a>");
 			
 			 myScroll.scrollTo(0, 0);
 			//myScroll.scrollToElement("#nome", "1s");
@@ -535,10 +551,10 @@ function listznegozi(){
            
            setTimeout (function(){
 			   
-			    myScroll.scrollTo(0, 0);
+			    myScroll2.scrollTo(0, 0);
 			     
 
-                myScroll.refresh();
+                myScroll2.refresh();
 				
 				e.stopImmediatePropagation();
            
@@ -547,12 +563,7 @@ function listznegozi(){
 					   
             }, 500);
 			
-			
-			setTimeout (function(){
-				
-			 }, 500);
-           
-           
+	
            
            },
            error: function( jqXhr, textStatus, errorThrown ){
