@@ -1068,7 +1068,7 @@ function gomappa(){
 	
 }
 
-function gomappa2(){
+$(document).on("touchstart", "#gomappa2", function(e){
 	
 	var addressLongLat = "Roma, Italia";
 	
@@ -1079,7 +1079,7 @@ function gomappa2(){
 	window.open("http://maps.google.com/?q="+addressLongLat, '_system');
 	
 	
-}
+})
 
 
 
