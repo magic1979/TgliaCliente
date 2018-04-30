@@ -493,6 +493,13 @@ $(document).on("touchstart", "#dove", function(e){
     gomappa();
 })
 
+$(document).on("tap", "#ritorna", function(e){
+               
+
+    window.location.href = "#page";
+               
+})
+
 
 function listznegozi(){
 	
