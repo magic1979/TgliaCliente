@@ -586,7 +586,8 @@ function goprofilo(){
 }
 
 function gomappa(){
-	var addressLongLat = 'Via Ostiense, 38 Roma';
+	//var addressLongLat = 'Via Ostiense, 38 Roma';
+	var addressLongLat = ''+localStorage.getItem("indirizzo_negozio")+', '+localStorage.getItem("citta_negozio")+'';
 	
 	//window.open("http://maps.apple.com/?q="+addressLongLat, '_system');
 	
