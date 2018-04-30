@@ -153,7 +153,7 @@ $(document).on("touchstart", "#profilo", function(e){
 
 $(document).on("touchstart", "#contattaci", function(e){
                
-               window.location.href = "tel:+3906111111";
+               window.location.href = "tel:+39"+localStorage.getItem("tel_negozio")+"";
                })
 
 

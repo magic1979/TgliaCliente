@@ -146,7 +146,7 @@ function seleziona() {
 				
 				var comp =  item.Data; //anno + "/" + mese + "/" + giorno
 				  
-				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logotaglia.png' width='18'>"+ comp +"</font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#454545'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
+				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logotaglia.png' width='18'><b>"+ comp +"</b></font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#454545'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
 				}
 
 			});
@@ -491,8 +491,8 @@ $(document).on("touchstart", "#profilo", function(e){
 
 $(document).on("touchstart", "#contattaci", function(e){
                
-               window.location.href = "tel:+3906111111";
-               })
+     window.location.href = "tel:+39"+localStorage.getItem("tel_negozio")+"";
+})
 
 
 $(document).on("touchstart", "#dove", function(e){

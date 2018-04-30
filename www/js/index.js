@@ -164,6 +164,7 @@ var app = {
 			  localStorage.setItem("nome_negozio", item.nome);
 			  localStorage.setItem("citta_negozio", item.citta);
 			  localStorage.setItem("indirizzo_negozio", item.indirizzo);
+			  localStorage.setItem("tel_negozio", item.tel);
 			  
 			  //<img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='circolare'>
 			  
@@ -437,8 +438,10 @@ $(document).on("touchstart", "#profilo", function(e){
 
 
 $(document).on("touchstart", "#contattaci", function(e){
+	
                
-    window.location.href = "tel:+3906111111";
+    window.location.href = "tel:+39"+localStorage.getItem("tel_negozio")+"";
+	
  })
 
 
@@ -547,7 +550,7 @@ function listznegozi(){
 			
 			
 			
-			$("#mieiservizi2").append("<br><br><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a>");
+			$("#mieiservizi2").append("<br><br><center><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a></center>");
 			
 			 myScroll.scrollTo(0, 0);
 			//myScroll.scrollToElement("#nome", "1s");
