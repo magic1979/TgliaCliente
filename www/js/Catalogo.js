@@ -161,6 +161,13 @@ $(document).on("touchstart", "#dove", function(e){
                
                gomappa();
                })
+			   
+			   
+			   $(document).on("touchstart", "#index_negozio", function(e){
+               
+    window.location.href = "index.html";
+ })
+
 
 function buildcatalogo(Catalogo) {
 	//alert(Catalogo)

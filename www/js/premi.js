@@ -668,14 +668,25 @@ $(document).on("touchstart", "#promo", function(e){
                
                window.location.href = "index_negozio.html";
                })
+			   
+			   
+			   $(document).on("touchstart", "#index_negozio", function(e){
+               
+               window.location.href = "index_negozio.html";
+               })
 
 
 
 $(document).on("touchstart", "#altro", function(e){
                
-               $("#btnpanel").click();
+     $("#btnpanel").click();
                
-               });
+  });
+			   
+$(document).on("touchstart", "#btnprofilo7", function(e){
+               
+    window.location.href = "rating.html";
+ })
 
 
 $(document).on("touchstart", "#profilo", function(e){

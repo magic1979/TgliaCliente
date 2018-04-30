@@ -300,6 +300,38 @@ $(document).on("tap", "#btn_coloredonna", function(e){
                
 })
 
+
+$(document).on("tap", "#goordini", function(e){
+   
+
+	   
+    window.location.href = "Profilo2.html";
+	
+               
+})
+
+$(document).on("tap", "#gopreferiti", function(e){
+               
+   localStorage.setItem("addidprestazione", "0");
+   
+
+	myScroll2 = new iScroll('wrapper2', { click: true });
+	
+	setTimeout (function(){
+		myScroll2.refresh();
+	}, 1000);
+   
+    window.location.href = "#page2";
+	
+
+    listznegozi()
+   
+   //listaprestazione("15")
+               
+})
+
+
+
 $(document).on("tap", "#btn_tagliodonna", function(e){
                
    localStorage.setItem("addidprestazione", "10");
@@ -420,6 +452,17 @@ $(document).on("touchstart", "#index_negozio", function(e){
                
     window.location.href = "index.html";
  })
+ 
+ 
+ $(document).on("touchstart", "#add_prefer", function(e){
+               
+    navigator.notification.alert(
+	'Aggiunto a preferiti',  // message
+	alertDismissed,         // callback
+	'Preferiti',            // title
+	'OK'                  // buttonName
+	);
+ })
 
 
 
@@ -480,6 +523,11 @@ function listznegozi(){
 	if(localStorage.getItem("addidprestazione")=="13"){
     
        $("#nome").html("<img src='img/shampouomo.jpg' width='100%'><br><br>");
+	}
+	
+	if(localStorage.getItem("addidprestazione")=="0"){
+    
+       $("#nome").html("<img src='img/preferiti.jpg' width='100%'><br><br>");
 	}
     
 	
@@ -1012,6 +1060,20 @@ function gomappa(){
 	
 	
 }
+
+function gomappa2(){
+	
+	var addressLongLat = "Roma, Italia";
+	
+	//window.open("http://maps.apple.com/?q="+addressLongLat, '_system');
+	
+	//window.location.href = "http://maps.apple.com/?q="+addressLongLat
+	
+	window.open("http://maps.google.com/?q="+addressLongLat, '_system');
+	
+	
+}
+
 
 
 function gofacebook(){

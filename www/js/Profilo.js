@@ -127,7 +127,7 @@ function seleziona() {
 		   type:"GET",
 		   url:"http://www.gtechplay.com/tagliafila/www/check_MietransazioniV2.asp",
 		   contentType: "application/json",
-		   data: {email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
+		   data: {email:localStorage.getItem("email")},
 		   timeout: 7000,
 		   jsonp: 'callback',
 		   crossDomain: true,
@@ -499,6 +499,13 @@ $(document).on("touchstart", "#dove", function(e){
                
                gomappa();
                })
+			   
+			   
+$(document).on("touchstart", "#index_negozio", function(e){
+               
+    window.location.href = "index.html";
+ })
+
 
 
 
