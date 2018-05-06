@@ -135,8 +135,10 @@ var app = {
 			$("#badde2").html('<img src="img/CartW.png" width="20px">');
 		}
         
+		
+		var servizio = getParameterByName('servizio');
+		
         var negozio = getParameterByName('id_negozio');
-        //alert(negozio)
 		
 		if (negozio === null || negozio=="null" || typeof(negozio) == 'undefined' || negozio==0 || negozio=="") {
             
@@ -157,7 +159,6 @@ var app = {
            crossDomain: true,
            success: function (result) {
            
-
            $.each(result, function(i,item){
                   
 			  
@@ -172,6 +173,16 @@ var app = {
 			  $("#ind_negozio").html(item.indirizzo + ", " + item.citta);
  
             });
+			
+			
+			 var loggato = localStorage.getItem("loginvera")
+            
+             if((loggato=="")||(!loggato)){
+                //window.location.href = "Login.html";
+             }else{
+                
+               verifica_alert();
+             }
            
            
            },
@@ -189,6 +200,16 @@ var app = {
 		connectionStatus = navigator.onLine ? 'online' : 'offline';
 		
 		if(connectionStatus=='online'){
+			
+			if(servizio=="1"){
+                $("#menucliente").hide();
+                
+                $("#informativa").hide();
+                
+                $("#mieiservizi").show();
+                
+                listznegozi()
+            }
 	
 			var msg;
 			var test;
@@ -277,6 +298,47 @@ var app = {
 		}
     }
 	
+}
+
+
+function verifica_alert(){
+    
+    $.ajax({
+           type: "GET",
+           url:"http://www.gtechplay.com/tagliafila/www/verifica_alert.asp",
+           contentType: "application/json",
+           data: {email:localStorage.getItem("email"),negozio:localStorage.getItem("negozio")},
+           cache: false,
+           crossDomain: true,
+           timeout: 7000,
+           jsonp: 'callback',
+           crossDomain: true,
+           success: function (result) {
+
+               $.each(result, function(i,item){
+                      
+                      if(item.Token=="1"){
+                      
+                        navigator.notification.alert(
+                           'Devi effettuare una recensione dopo il servizio offerto',  // message
+                           alertDismissed,         // callback
+                           'Recensione',            // title
+                           'OK'                  // buttonName@
+                         );
+                      
+                      }
+                      
+                });
+           
+           },
+           error: function( jqXhr, textStatus, errorThrown ){
+           
+              alert(errorThrown)
+           
+           
+           },
+           dataType:"jsonp"});
+    
 }
 
 
@@ -454,6 +516,13 @@ $(document).on("touchstart", "#index_negozio", function(e){
  })
  
  
+ $(document).on("touchstart", "#indietro", function(e){
+               
+    window.location.href = "index.html?servizio=1";
+               
+})
+ 
+ 
  $(document).on("touchstart", "#add_prefer", function(e){
                
     navigator.notification.alert(
@@ -568,7 +637,7 @@ function listznegozi(){
                   
                   tabella1 = "<table width='80%' align='center'>";
                   
-                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+item.codice+"'> <img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='circolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nome+"</b></font></td></tr>"
+                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+item.codice+"'> <img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='nocircolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nome+"</b></font></td></tr>"
                   
                   tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
                   
@@ -605,7 +674,7 @@ function listznegozi(){
 			
 			
 			
-			$("#mieiservizi2").append("<br><br><center><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a></center>");
+			//$("#mieiservizi2").append("<br><br><center><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a></center>");
 			
 			 myScroll.scrollTo(0, 0);
 			//myScroll.scrollToElement("#nome", "1s");

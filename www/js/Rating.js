@@ -109,7 +109,7 @@ function onDeviceReady() {
 					 
 				  var recensione = self.document.formia.recensione.value;
 					 
-				  if (recensione == "") {
+				  /*if (recensione == "") {
 					 navigator.notification.alert(
 												  'inserisci prima una recensione e poi tocca le stelle',  // message
 												  alertDismissed,         // callback
@@ -117,7 +117,7 @@ function onDeviceReady() {
 												  'OK'                  // buttonName
 												  );
 					 return;
-					}
+					}*/
 					 
 				  scriviRec(recensione, score);
 			}

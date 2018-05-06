@@ -889,7 +889,7 @@ function compra() {
 		return;
 	}
 	
-	if (amount == 0) {
+	/*if (amount == 0) {
 		navigator.notification.alert(
 									 'Non hai prodotti nel carrello',  // message
 									 alertDismissed,         // callback
@@ -897,7 +897,8 @@ function compra() {
 									 'OK'                  // buttonName@
 									 );
 		return;
-	}
+	}*/
+	
 	if (OraConsegna == "") {
 		navigator.notification.alert(
 									 'Non hai inserito un orario di desiderata',  // message
@@ -940,6 +941,17 @@ function compra() {
                      var pippo = "0";
                      
                      //alert("http://www.gtechplay.com/tagliafila/www/Check_TransactionV2.asp?email="+email+"&id_prodotto="+transazioneprodotto+"&qta=1&tot="+amount+"&totPunti="+amountPunti+"&transazionemia="+transazioneprodotto+"&NomeProdotto=OrdineApp&EmailEsercente=salvatore.bruni@gmail.com&idTransazione="+metodopp+"&Ordine="+ordinazione+"&Indirizzo="+Indirizzo+"&Telefono="+Telefono+"&OraConsegna="+OraConsegna+"&datac="+DataC+"&Note="+Note+"")
+					 
+					 if (ordinazione == 0) {
+                           navigator.notification.alert(
+                          'Non hai prodotti nel carrello',  // message
+                          alertDismissed,         // callback
+                          'Ordine',            // title
+                          'OK'                  // buttonName@
+                      );
+                     return;
+                     }
+					 
 					 
 					 $(".spinner").show();
 					 $.ajax({
@@ -1091,7 +1103,7 @@ function compraCarta() {
 		return;
 	}
 	
-	if (amount == 0) {
+	/*if (amount == 0) {
 		navigator.notification.alert(
 		 'Non hai prodotti nel carrello',  // message
 		 alertDismissed,         // callback
@@ -1099,7 +1111,7 @@ function compraCarta() {
 		 'OK'                  // buttonName@
 		 );
 		return;
-	}
+	}*/
 	
 	if (OraConsegna == "") {
 		navigator.notification.alert(
@@ -1144,6 +1156,16 @@ function compraCarta() {
                      
                     // alert("http://www.gtechplay.com/tagliafila/www/Check_TransactionV2.asp?email="+email+"&id_prodotto="+transazioneprodotto+"&qta=1&tot="+amount+"&totPunti="+amountPunti+"&transazionemia="+transazioneprodotto+"&NomeProdotto=OrdineApp&EmailEsercente=salvatore.bruni@gmail.com&idTransazione="+metodopp+"&Ordine="+ordinazione+"&Indirizzo="+Indirizzo+"&Telefono="+Telefono+"&OraConsegna="+OraConsegna+"&datac="+DataC+"&Note="+Note+"")
                      
+					 if (ordinazione == 0) {
+                           navigator.notification.alert(
+                          'Non hai prodotti nel carrello',  // message
+                          alertDismissed,         // callback
+                          'Ordine',            // title
+                          'OK'                  // buttonName@
+                      );
+                     return;
+                     }
+					 
 					 
 					 $(".spinner").show();
 					 $.ajax({
