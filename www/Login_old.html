@@ -7,12 +7,17 @@
 			
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" href="font.css">
 			
 		<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.2.min.css" />
 		<link rel="stylesheet" href="themes/login.css" />
 		<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 		<link rel="stylesheet" href="css/spinner.css" />
+		<link rel="stylesheet" href="css/app-reset.css" />
+		<link rel="stylesheet" href="css/app-ios.css" />
+		<link rel="stylesheet" type="text/css" href="css/zocial.css" />
+		<link rel="stylesheet" href="css/jquery-ui.css">
 		
 		<script src="jquery-1.10.2.min.js"></script>
 		<script src="js/jquery-ui.min.js"></script>
@@ -52,7 +57,7 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 70px;
+			height: 45px;
 			line-height: 45px;
 			padding: 0;
 			color: #fff;
@@ -76,12 +81,11 @@
 		#wrapper {
 			position: absolute;
 			z-index: 1;
-			top: 50px;
-			bottom: 0px;
+			top: 45px;
+			bottom: 48px;
 			left: 0;
 			width: 100%;
-            height:100%:
-			background: #2d3d54;
+			background: #fff;
 			overflow: hidden;
 		}
 		
@@ -161,20 +165,17 @@
 			}
 		
 			.div1 {
-				background-color: #2d3d54;
+				background-color: #0e85af;
 				height: 52px;
 				border: none;
 				
 				vertical-align: middle;
 			}
 			.div2 {
-				background-color: #2d3d54;
+				background-color: #FFFFFF;
 			}
-        .div22 {
-            background-color: #FFF;
-        }
 		.div3 {
-			background-color: #2d3d54;
+			background-color: #F0F0F0;
 			border: none;
 			margin:0 auto;
 			height: 10px;
@@ -210,8 +211,6 @@
 			-webkit-border-radius: 8px; /* safari, chrome */
 		}
 		.custom-btn {
-            
-            background-color: #0988ce;
 			width: 280px;
 		}
 		
@@ -463,34 +462,6 @@ a {text-decoration:none;}
 			text-shadow:0 0 0;
 			font-size: 18px;
 		}
-        
-        .scrivo2 {
-            /*display: block;*/
-            width: 100%;
-            margin: 0px;
-            border: solid 0.5px #dcdcdc;
-            font-family: sans-serif;
-            font-size: 16px;
-            color:white;
-            appearance: none;
-            box-shadow: none;
-            border-radius: none;
-            
-            -webkit-appearance: none;
-            -webkit-border-radius:0px;
-            @include border-radius(0);
-            
-            background: transparent;
-            
-            border: 1px solid #fff;
-            border-color: #FFF;
-            
-            color:FFF;
-            
-            border-top: 0;
-            border-right: 0;
-            border-left: 0;
-        }
 		
 		</style>
 		
@@ -498,105 +469,68 @@ a {text-decoration:none;}
     <body>
 		
 		
-		<div id="page" data-role="page" class="div2" height="100%">
+		<div id="page" data-role="page" class="div2" >
             
 			<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1" data-add-back-btn="true" >
-				<!--<span class="ui-title"> <img src="img/Logo.png" height="32px"></span>-->
+				<span class="ui-title"> <img src="img/logobianco.png" height="32px"></span>
 				<!--  data-back-btn-text=""-->
 			</div>
+			
+			<div data-role="content"><center>Accedi al tuo account</center></div>
+			
 			<center>
-                
-                
-			<br>
-               <img src="img/login_ico.png">
-			<br><br>
-            
-            <br><br>
-            
-             <form name="formia2" action="entra2.asp" method="post">
-                 
-			<table id="formreg" align="center" width="280px">
+				
+			<table id="formreg" align="center" width="320px">
 				<tr id="campireg">
-                    <td width="20%" align="center">
-                        <img src="img/email.png" width="30px">
-                    </td>
-					<td width="80%" align="center">
-                        <input type="text" data-role="none" name="email" id="email" value="" placeholder="Email" class="scrivo2">
+					<td width="320px" align="center">
+						 <form name="formia2" action="entra2.asp" method="post">
+							 <input type="text" data-theme="b" name="email" id="email" value="" placeholder="Email">
+							 <input type="password" data-theme="b" name="password" id="password" value="" placeholder="Password">
+							 <a id="logon" data-role="button" class="custom-btn" data-theme="b">Accedi</a>
+						</form>
 					</td>
 				</tr>
-                <tr id="campireg">
-                    <td width="100%" align="center" colspan="2">
-                        <br><br>
-                    </td>
-                </tr>
-                <tr id="campireg">
-                    <td width="20%" align="center">
-                        <img src="img/lock.png" width="30px">
-                    </td>
-                    <td width="80%" align="center">
-                         <input type="password" data-role="none" name="password" id="password" value="" placeholder="Password" class="scrivo2">
-                    </td>
-                </tr>
-                <tr id="campireg">
-                    <td width="100%" align="center" colspan="2">
-                        <br><br>
-                    </td>
-                </tr>
-                <tr id="campireg">
-                    <td width="100%" align="center" colspan="2">
-                         <a id="logon" data-role="button" data-theme="d" class="custom-btn" ><font color="#FFF">Accedi</font></a>
-                    </td>
-                </tr>
-                
 				<tr>
-					<td width="100%" align="left" colspan="2">
-                        <a href="javascript:EmailDimenticata()"><font size="1" color="#FFF">Password dimenticata</font></a><br>
+					<td width="320px" align="left">
+						<a href="javascript:EmailDimenticata()"><font size="1" color="red">Password dimenticata</font></a><br>
 					</td>
 				</tr>
-
+				
+				<tr>
+					<td width="320px" align="center">
+						<br>
+					</td>
+				</tr>
 
 			</table>
 			
-            </form>
-             
-             
-             <br><br><br>
-            <table align="center" width="320px" height="100%">
+			<table align="center" width="320px">
 			<tr>
-				<td width="100%" align="center">
-                    <a id="goiscriviti2" data-role="button" class="custom-btn3" data-theme="d"><font color="#FFF">Iscriviti</font></a>
+				<td width="220px" align="left">
+					Serve un account?
+				</td>
+				<td width="100px" align="center">
+					<a id="goiscriviti" data-role="button" class="custom-btn3" data-theme="b">Iscriviti</a>
 				</td>
 			</tr>
 			</table>
 			
-            <table align="center" width="320px" height="500px">
-                <tr>
-                    <td width="100%" align="center">
-                       
-                    </td>
-                </tr>
-            </table>
-            
 			</center>
-            
-            
 			<div data-role="footer" align="center" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1">
 				<table id="idfooter4" width="100%" align="center">
 					<tr>
-                    <td width="100px" align="left">
-                    </td>
-                    <td width="220px" align="center"><font color='#fff' size="1"></td>
-                    </tr>
-                </table>
+						<td width="100px" align="left">
+					<a href="index.html" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
+				</td>
+				<td width="220px" align="center"><font color='#fff' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)</td>
+				</tr></table>
 			</div><!-- /footer4 -->
-            
-            
 		</div><!-- /page4 -->
 		
 		
-		<div id="page6" data-role="page" class="div22" >
+		<div id="page6" data-role="page" class="div2" >
 			<div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1" data-add-back-btn="true">
-				<table id="idheader6" height='50' align='center'><tr><td><img src="img/Logo.png" height="32px"></td></tr></table>
+				<table id="idheader6" height='50' align='center'><tr><td><img src="img/loghetto.png" height="32px"></td></tr></table>
 			</div>
 			<div data-role="content"><center>Registrati su Taglialafila</center></div>
 			
@@ -623,28 +557,26 @@ a {text-decoration:none;}
 				</tr>
 			</table>
 			
-            <table align="center" width="320px">
-            <tr>
-                <td width="220px" align="left">
-                    Hai un account?
-                </td>
-                <td width="100px" align="center">
-                    <a id="goiscriviti" data-role="button" class="custom-btn3" data-theme="b">Accedi</a>
-                </td>
-            </tr>
-            </table>
-            
-                        <div data-role="footer" align="center" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1">
-                            <table id="idfooter4" width="100%" align="center">
-                                <tr>
-                                    <td width="100px" align="left">
-                                        <a href="index.html" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
-                                    </td>
-                                    <td width="220px" align="center"><font color='#fff' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)</td>
-                                </tr></table>
-                        </div><!-- /footer6 -->
-                        
-        </div><!-- /page6 -->
+<table align="center" width="320px">
+<tr>
+	<td width="220px" align="left">
+		Hai un account?
+	</td>
+	<td width="100px" align="center">
+		<a id="accedi" data-role="button" class="custom-btn3" data-theme="b">Accedi</a>
+	</td>
+</tr>
+</table>
+			<div data-role="footer" align="center" data-theme="b" data-position="fixed" data-tap-toggle="false" class="div1">
+				<table id="idfooter4" width="100%" align="center">
+					<tr>
+						<td width="100px" align="left">
+							<a href="index.html" rel="external" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">Home</a>
+						</td>
+						<td width="220px" align="center"><font color='#fff' size="1">Acconsento all'uso dei miei dati personali come indicato dall'informativa sulla privacy (D.Lgs 196/2003)</td>
+					</tr></table>
+			</div><!-- /footer6 -->
+		</div><!-- /page6 -->
 		
 
 		

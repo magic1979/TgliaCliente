@@ -2,33 +2,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
 	//document.addEventListener("resume", onResume, false);
-    
-    StatusBar.hide()
-    
-    document.ontouchmove = function(e){ e.preventDefault(); }
-    
-    
 	
-	last_click_time = new Date().getTime();
-	
-	document.addEventListener('click', function (e) {
-							  
-      click_time = e['timeStamp'];
-      
-      if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-      
-      e.preventDefault();
-      
-      return false;
-      
-      }
-      
-      last_click_time = click_time;
-      
-      }, true);
-
-		document.addEventListener("showkeyboard", function(){ $("[data-role=footer]").hide();}, false);
-		document.addEventListener("hidekeyboard", function(){ $("[data-role=footer]").show();}, false);
 		
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off
 		$('input, select')
@@ -72,13 +46,12 @@ $(document).on("touchstart", "#logon", function(e){
 })
 
 
-$(document).on("touchstart", "#goiscriviti2", function(e){
+$(document).on("touchstart", "#goiscriviti", function(e){
                
-   //alert()
-               
-   window.location.href = "#page6";
+    window.location.href = "#page6";
                
 })
+
 
 $(document).on("touchstart", "#iscriviti", function(e){
                
@@ -86,7 +59,7 @@ $(document).on("touchstart", "#iscriviti", function(e){
                
 })
 
-$(document).on("touchstart", "#goiscriviti", function(e){
+$(document).on("touchstart", "#accedi", function(e){
                
    window.location.href = "#page";
                
