@@ -572,6 +572,12 @@ $(document).on("tap", "#ritorna", function(e){
 
 function listznegozi(){
 	
+	
+	$("#mieiservizi").show();
+	
+	alert("1")
+	
+	
 	$("#mieiservizi2").html("");
 	
 	if(localStorage.getItem("addidprestazione")=="15"){
@@ -625,6 +631,8 @@ function listznegozi(){
            jsonp: 'callback',
            crossDomain: true,
            success: function (result) {
+			   
+		   alert("2")
            
            var tabella1 =""
            
@@ -643,7 +651,7 @@ function listznegozi(){
                   
                   tabella1 = tabella1 + "</table><br>";
                   
-                  $("#mieiservizi2").append(tabella1);
+                  $("#mieiservizi").append(tabella1);
                   
                   
                   $(document).on("touchstart", "#"+item.codice+"", function(e){
