@@ -643,7 +643,7 @@ function listznegozi(){
                   $("#mieiservizi").append(tabella1);
                   
                   
-                  $(document).on("touchstart", "#"+item.codice+"", function(e){
+                  $(document).on("tap", "#"+item.codice+"", function(e){
                                  
                      window.location.href = "index_negozio.html?id_negozio="+this.id+"";
                                  
