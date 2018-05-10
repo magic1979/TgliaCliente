@@ -353,7 +353,7 @@ $(document).on("tap", "#btn_coloredonna", function(e){
 		myScroll2.refresh();
 	}, 1000);
    
-    window.location.href = "#page2";
+    ////window.location.href = "#page2";
 	
 
     listznegozi()
@@ -383,7 +383,7 @@ $(document).on("tap", "#gopreferiti", function(e){
 		myScroll2.refresh();
 	}, 1000);
    
-    window.location.href = "#page2";
+    //window.location.href = "#page2";
 	
 
     listznegozi()
@@ -405,7 +405,7 @@ $(document).on("tap", "#btn_tagliodonna", function(e){
 		myScroll2.refresh();
 	}, 1000);
    
-    window.location.href = "#page2";
+    //window.location.href = "#page2";
    
     listznegozi()
    
@@ -424,7 +424,7 @@ $(document).on("tap", "#btn_tagliouomo", function(e){
 		myScroll2.refresh();
 	}, 1000);
    
-   window.location.href = "#page2";
+   //window.location.href = "#page2";
    
    listznegozi()
    
@@ -443,7 +443,7 @@ $(document).on("tap", "#btn_permanente", function(e){
 		myScroll2.refresh();
 	}, 1000);
    
-    window.location.href = "#page2";
+    //window.location.href = "#page2";
     listznegozi()
    
    //listaprestazione("15")
@@ -463,7 +463,7 @@ $(document).on("tap", "#btn_shampouomo", function(e){
 		myScroll2.refresh();
 	}, 1000);
    
-   window.location.href = "#page2";
+   //window.location.href = "#page2";
    
    listznegozi()
    
@@ -575,10 +575,9 @@ function listznegozi(){
 	
 	$("#mieiservizi").show();
 	
-	alert("1")
+	//alert("1")
 	
 	
-	$("#mieiservizi2").html("");
 	
 	if(localStorage.getItem("addidprestazione")=="15"){
     
@@ -632,7 +631,7 @@ function listznegozi(){
            crossDomain: true,
            success: function (result) {
 			   
-		   alert("2")
+		   //alert("2")
            
            var tabella1 =""
            
