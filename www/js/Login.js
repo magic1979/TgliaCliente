@@ -71,6 +71,12 @@ $(document).on("touchstart", "#logon", function(e){
    
 })
 
+$(document).on("touchstart", "#indietro", function(e){
+               
+    window.location.href = "index.html";
+   
+})
+
 
 $(document).on("touchstart", "#goiscriviti2", function(e){
                
