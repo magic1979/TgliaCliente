@@ -32,7 +32,7 @@ var app = {
 		
 		setTimeout (function(){
 			myScroll.refresh();
-		}, 1000);
+		}, 1500);
 
 
 		// Workaround for buggy header/footer fixed position when virtual keyboard is on/off@
@@ -183,6 +183,10 @@ var app = {
                 
                verifica_alert();
              }
+			 
+			 setTimeout (function(){
+			    myScroll.refresh();
+		     }, 1000);
            
            
            },
@@ -375,10 +379,10 @@ $(document).on("tap", "#gopreferiti", function(e){
    localStorage.setItem("addidprestazione", "0");
    
 
-	myScroll2 = new iScroll('wrapper2', { click: true });
+	///myScroll2 = new iScroll('wrapper2', { click: true });
 	
 	setTimeout (function(){
-		myScroll2.refresh();
+		myScroll.refresh();
 	}, 1000);
    
     //window.location.href = "#page2";
@@ -679,17 +683,17 @@ function listznegozi(){
            
            setTimeout (function(){
 			   
-			    myScroll2.scrollTo(0, 0);
+			    myScroll.scrollTo(0, 0);
 			     
 
-                myScroll2.refresh();
+                myScroll.refresh();
 				
 				e.stopImmediatePropagation();
            
                 e.preventDefault();
 				
 					   
-            }, 500);
+            }, 1000);
 			
 	
            
@@ -1365,9 +1369,7 @@ function buildprodotto(Categoria,Provincia,Pagina) {
                           
             })
 		   
-		   setTimeout (function(){
-				myScroll.refresh();
-			}, 1000);
+			
 		   //myScroll = new IScroll('#wrapper', { click: true });
 		   
 		   
