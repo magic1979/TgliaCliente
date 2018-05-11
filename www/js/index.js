@@ -678,7 +678,7 @@ function listznegozi(){
             });
 			
 			
-			$("#mieiservizi2").append("<table id="#" width="100%" height="50" align="center" valign="center"><tr><td><br></td></tr></table>");
+			$("#mieiservizi2").append("<table id='#' width='100%' height='50' align='center' valign='center'><tr><td><br></td></tr></table>");
 			
 			
 			 myScroll.scrollTo(0, 0);
