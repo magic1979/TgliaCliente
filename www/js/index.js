@@ -378,6 +378,10 @@ $(document).on("tap", "#gopreferiti", function(e){
                
    localStorage.setItem("addidprestazione", "0");
    
+   
+   $("#menucliente").hide();
+   
+   $("#mieiservizi").show();
 
 	///myScroll2 = new iScroll('wrapper2', { click: true });
 	
@@ -569,8 +573,6 @@ function listznegozi(){
 	
 	$("#mieiservizi").show();
 	
-	//alert("1")
-	
 	
 	
 	if(localStorage.getItem("addidprestazione")=="15"){
@@ -642,7 +644,7 @@ function listznegozi(){
                   
                   tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
                   
-                  tabella1 = tabella1 + "</table><br>";
+                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><br><br><br></td></tr></table><br>";
                   
                   $("#mieiservizi").append(tabella1);
                   
