@@ -644,11 +644,12 @@ function listznegozi(){
                   
                   tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
                   
-                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><br><br><br></td></tr></table><br>";
+                  //tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><table id='#' width='100%' height='' align='center' valign='center'><tr><td><br></td></tr></table></td></tr></table><br>";
                   
                   $("#mieiservizi").append(tabella1);
                   
                   
+				  
                   $(document).on("tap", "#"+item.codice+"", function(e){
                                  
                      window.location.href = "index_negozio.html?id_negozio="+this.id+"";
