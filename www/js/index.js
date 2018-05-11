@@ -570,9 +570,10 @@ $(document).on("tap", "#ritorna", function(e){
 
 function listznegozi(){
 	
+	 $("#mieiservizi").html("");
+	
 	
 	$("#mieiservizi").show();
-	
 	
 	
 	if(localStorage.getItem("addidprestazione")=="15"){
@@ -644,7 +645,7 @@ function listznegozi(){
                   
                   tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
                   
-                  //tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><table id='#' width='100%' height='' align='center' valign='center'><tr><td><br></td></tr></table></td></tr></table><br>";
+                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><br><br><br></td></tr></table><br>";
                   
                   $("#mieiservizi").append(tabella1);
                   
@@ -677,8 +678,8 @@ function listznegozi(){
             });
 			
 			
+			$("#mieiservizi2").append("<table id="#" width="100%" height="50" align="center" valign="center"><tr><td><br></td></tr></table>");
 			
-			//$("#mieiservizi2").append("<br><br><center><a id='index_negozio'><font color='#000'><img src='img/SERVIZI.png'></font></a></center>");
 			
 			 myScroll.scrollTo(0, 0);
 			//myScroll.scrollToElement("#nome", "1s");
