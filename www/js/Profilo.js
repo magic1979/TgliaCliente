@@ -146,7 +146,7 @@ function seleziona() {
 				
 				var comp =  item.Data; //anno + "/" + mese + "/" + giorno
 				  
-				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#FFF'><img src='img/logotaglia.png' width='18'><b>"+ comp +"</b></font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#FFF'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
+				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#FFF'><img src='img/logobianco.png' width='18'><b>"+ comp +"</b></font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#FFF'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
 				}
 
 			});
