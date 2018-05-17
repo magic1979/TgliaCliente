@@ -30,8 +30,8 @@
 		<preference name="KeyboardDisplayRequiresUserAction" value="true" />
 		<preference name="HideKeyboardFormAccessoryBar" value="true" />
 		<preference name="SuppressesIncrementalRendering" value="true" />
-		<preference name="android-minSdkVersion" value="15" />
-		<preference name="android-targetSdkVersion" value="15" />
+		<preference name="android-minSdkVersion" value="17" />
+		<preference name="android-targetSdkVersion" value="17" />
 		<preference name="android-installLocation" value="auto" />
 		<preference name="ShowSplashScreenSpinner" value="false" />
 		<preference name="SplashScreen" value="screen" />
@@ -106,7 +106,7 @@
 		<plugin spec="https://github.com/katzer/cordova-plugin-email-composer.git#0.8.2" source="git" />
 		
 		<plugin name="ionic-plugin-keyboard"  source="npm" />
-		<plugin name="cordova-plugin-request-location-accuracy" source="npm" />
+		<!--<plugin name="cordova-plugin-request-location-accuracy" source="npm" />-->
 		<!--<plugin name="cordova-plugin-mauron85-background-geolocation" version="2.2.0"/>-->
 		
 		<plugin name="com.darktalker.cordova.screenshot" source="npm" />
