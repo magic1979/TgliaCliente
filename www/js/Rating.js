@@ -241,7 +241,7 @@ function seleziona() {
 				  }
 				
 				  
-				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logoB.png' width='18'> "+ item.Nome +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ ratio +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Recensione +"</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
+				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#FFF'><img src='img/logoB.png' width='18'> "+ item.Nome +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ ratio +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Recensione +"</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
                   
                   }
 
@@ -262,11 +262,11 @@ function seleziona() {
 		   $(".spinner").hide();
 		   
 		   navigator.notification.alert(
-										'Possibile errore di rete, riprova tra qualche minuto',  // message
-										alertDismissed,         // callback
-										'Attenzione',            // title
-										'Done'                  // buttonName
-										);
+			'Possibile errore di rete, riprova tra qualche minuto',  // message
+			alertDismissed,         // callback
+			'Attenzione',            // title
+			'Done'                  // buttonName
+			);
 		   
 		   },
 		   dataType:"jsonp"});

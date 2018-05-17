@@ -18,19 +18,19 @@ function onDeviceReady() {
 	
 	document.addEventListener('click', function (e) {
 							  
-							  click_time = e['timeStamp'];
-							  
-							  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
-							  
-							  e.preventDefault();
-							  
-							  return false;
-							  
-							  }
-							  
-							  last_click_time = click_time;
-							  
-							  }, true);
+	  click_time = e['timeStamp'];
+	  
+	  if (click_time && (click_time - last_click_time) < 1000) { e.stopImmediatePropagation();
+	  
+	  e.preventDefault();
+	  
+	  return false;
+	  
+	  }
+	  
+	  last_click_time = click_time;
+	  
+	  }, true);
 	
     
     $.mobile.defaultPageTransition = 'none';
@@ -146,7 +146,7 @@ function seleziona() {
 				
 				var comp =  item.Data; //anno + "/" + mese + "/" + giorno
 				  
-				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#454545'><img src='img/logotaglia.png' width='18'><b>"+ comp +"</b></font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#454545'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#454545'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
+				landmark2 = landmark2 + "<table height='30px' border='0' width='320px'><tr><td align='left' colspan='2'><font size='4' color='#FFF'><img src='img/logotaglia.png' width='18'><b>"+ comp +"</b></font></td></tr><tr><td align='left' colspan='2'><font size='4' color='#FFF'>"+ item.NomeNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.IndNeg +", "+ item.TelNeg +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Ordine  +"</font></td></tr><tr><td align='left' colspan='2'><font size='2' color='#FFF'>"+ item.Tot +"&euro;</font></td></tr></table><br><table class='div3' width='100%'><tr><td></td></tr></table>";
 				}
 
 			});
