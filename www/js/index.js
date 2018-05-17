@@ -641,9 +641,9 @@ function listznegozi(){
                   
                   tabella1 = "<table width='80%' align='center'>";
                   
-                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+item.codice+"'> <img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='nocircolare'> </a></td><td align='left' width='100%' valign='center'><font size='4'><b>"+item.nome+"</b></font></td></tr>"
+                  tabella1 = tabella1 + "<tr><td align='right' width='150' valign='center'><a id='"+item.codice+"'> <img src='http://msop.it/tagliafila/img/"+item.img+"' width='150' class='nocircolare'> </a></td><td align='left' width='100%' valign='center'><font size='4' color='#FFF'><b>"+item.nome+"</b></font></td></tr>"
                   
-                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'>"+item.citta+", "+item.indirizzo+"</td></tr>"
+                  tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><font color='#FFF'>"+item.citta+", "+item.indirizzo+"</font></td></tr>"
                   
                   tabella1 = tabella1 + "<tr><td align='left' width='100%' valign='center' colspan='2'><br><br><br></td></tr></table><br>";
                   
